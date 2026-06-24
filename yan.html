@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>ಯಣ್ ಸಂಧಿ | Team Trayee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Laila:wght@400;500;600;700&family=Inknut+Antiqua:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg-color: #fcf9f2;
+  --primary: #691c22;
+  --primary-light: #8a2730;
+  --gold: #cba972;
+  --gold-dark: #a8895a;
+  --text-main: #2d2d2d;
+  --text-muted: #5a5a5a;
+  --card-bg: #ffffff;
+  --correct: #2a6040;
+  --wrong: #8b2020;
+  --font-kn: 'Laila', sans-serif;
+  --font-sa: 'Inknut Antiqua', serif;
+  
+  /* Sandhi Specific Colors */
+  --c-yan: #e3f2fd; --c-yan-txt: #1565c0;      
+  --c-dirgha: #ffebee; --c-dirgha-txt: #c62828; 
+  --c-guna: #e8f5e9; --c-guna-txt: #2e7d32;    
+  --c-vriddhi: #f3e5f5; --c-vriddhi-txt: #6a1b9a; 
+  --c-ayadi: #fff3e0; --c-ayadi-txt: #ef6c00;  
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-kn); background-color: var(--bg-color); color: var(--text-main);
+  line-height: 1.6; padding: 20px 20px 60px;
+}
+.container { max-width: 1000px; margin: 0 auto; overflow: hidden; }
+
+/* Animations */
+@keyframes slideUpFade { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+.anim-slide { opacity: 0; animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; } .delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+
+/* Top Navigation */
+.top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.back-btn { font-size: 1rem; font-weight: 600; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 5px; background: rgba(203,169,114,0.15); padding: 8px 16px; border-radius: 50px; transition: 0.2s; }
+.back-btn:hover { background: rgba(203,169,114,0.3); transform: translateX(-3px); }
+.lang-switch { background: var(--card-bg); border: 1px solid var(--gold); border-radius: 50px; display: flex; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.lang-btn { background: transparent; border: none; padding: 8px 16px; font-family: var(--font-kn); font-size: 0.95rem; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: 0.2s; }
+.lang-btn.active { background: var(--primary); color: #fff; }
+
+/* Header & Sutra */
+.lesson-header { text-align: center; margin-bottom: 30px; }
+.lesson-title { font-family: var(--font-sa); font-size: 3rem; color: var(--primary); font-weight: 700; text-shadow: 1px 2px 5px rgba(105, 28, 34, 0.1); display: inline-block; position: relative; }
+.lesson-title::after { content: ''; position: absolute; bottom: 0; left: 10%; right: 10%; height: 3px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+.sutra-box { background: linear-gradient(135deg, #691c22, #4a1318); color: #fff; padding: 30px; border-radius: 12px; text-align: center; box-shadow: 0 8px 20px rgba(105, 28, 34, 0.2); margin-bottom: 30px; position: relative; overflow: hidden; }
+.sutra-label { font-size: 1rem; font-weight: 600; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+.sutra-text { font-family: var(--font-sa); font-size: 3.2rem; font-weight: 700; line-height: 1.2; }
+
+/* Sections */
+.content-section { background: #fff; border: 1px solid rgba(203,169,114,0.4); border-radius: 12px; padding: 30px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); transition: 0.3s; }
+.content-section:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
+.sec-heading { font-size: 1.5rem; color: var(--primary); font-weight: 700; margin-bottom: 20px; border-bottom: 1px solid rgba(203,169,114,0.3); padding-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+.sec-heading::before { content: '❖'; color: var(--gold); font-size: 1.2rem; }
+
+/* --- NEW Expanded Transformation Map --- */
+.golden-rule-box {
+  background: #fcf4e3; border-left: 4px solid #ef6c00; padding: 15px 20px;
+  border-radius: 6px; margin-bottom: 25px; line-height: 1.6;
+}
+.golden-rule-box strong { color: #d84315; font-size: 1.1rem; }
+
+.map-grid { display: flex; flex-direction: column; gap: 15px; }
+.map-card {
+  background: linear-gradient(145deg, #ffffff, #fdfaf5); border: 1px solid rgba(203, 169, 114, 0.5);
+  border-radius: 12px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+  border-left: 6px solid var(--primary); transition: transform 0.2s;
+}
+.map-card:hover { transform: translateX(5px); box-shadow: 0 6px 15px rgba(105, 28, 34, 0.08); }
+.map-main-eq {
+  display: flex; align-items: center; gap: 15px; font-size: 1.5rem; margin-bottom: 15px;
+  padding-bottom: 15px; border-bottom: 1px dashed rgba(203, 169, 114, 0.4); flex-wrap: wrap;
+}
+.chip { background: #fff; border: 2px solid var(--gold); color: var(--primary); padding: 6px 18px; border-radius: 50px; font-family: var(--font-sa); font-weight: 600; }
+.ac-text-highlight { font-size: 1.1rem; color: var(--text-muted); font-weight: 600; background: rgba(203, 169, 114, 0.1); padding: 4px 10px; border-radius: 4px; }
+.arrow { color: var(--gold-dark); font-size: 1.2rem; }
+.chip-res { background: var(--primary); color: #fff; border: 2px solid var(--primary); padding: 6px 18px; border-radius: 50px; font-family: var(--font-sa); box-shadow: 0 4px 10px rgba(105, 28, 34, 0.2); font-weight: 600; }
+
+.map-sub-eq { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.sub-label { font-size: 0.95rem; color: var(--gold-dark); font-weight: 700; margin-right: 5px; }
+.ex-badge { font-family: var(--font-sa); font-size: 1.2rem; font-weight: 600; color: var(--primary-light); background: #fff; border: 1px solid var(--gold); padding: 4px 12px; border-radius: 50px; }
+
+/* Exam & Practice Grid */
+.practice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 40px; margin-top: 20px; }
+.pr-item { display: flex; align-items: flex-end; gap: 10px; font-family: var(--font-sa); font-size: 1.4rem; color: var(--text-main); padding: 10px 0; }
+.pr-item .num { font-size: 1.2rem; color: var(--gold-dark); font-weight: 600; width: 30px; }
+.pr-item .word { font-weight: 600; color: var(--primary); }
+.pr-item .blank { flex-grow: 1; border-bottom: 1px solid var(--text-muted); height: 25px; margin-bottom: 5px; }
+
+/* Drag & Drop Game Area */
+.game-container { background: #fdfaf5; border: 2px dashed var(--gold); border-radius: 12px; padding: 25px; text-align: center; }
+.game-status { font-size: 1.1rem; font-weight: 600; color: var(--gold-dark); margin-bottom: 15px; }
+.game-equation { font-family: var(--font-sa); font-size: 2rem; font-weight: 700; color: var(--primary); margin-bottom: 25px; }
+.game-drop-area { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; }
+.drop-slot-wrap { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.drop-slot { width: 70px; height: 70px; border: 2px dashed var(--gold-dark); border-radius: 8px; background: rgba(255,255,255,0.8); display: flex; justify-content: center; align-items: center; transition: 0.2s; cursor: pointer; }
+.drop-slot.filled { border-style: solid; border-color: var(--primary); }
+.drop-slot.error { border-color: var(--wrong); background: #fdf0f0; }
+.drop-slot.success { border-color: var(--correct); background: #f0fdf4; }
+.slot-label { font-size: 0.9rem; font-weight: 600; color: var(--text-muted); }
+.slot-plus { font-size: 1.8rem; font-weight: 700; color: var(--gold-dark); padding-top: 15px; }
+
+.game-options { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-bottom: 25px; min-height: 60px; }
+.drag-item { background: #fff; border: 2px solid var(--primary); color: var(--primary); width: 55px; height: 55px; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-family: var(--font-sa); font-size: 1.5rem; font-weight: 700; cursor: grab; box-shadow: 0 4px 10px rgba(105, 28, 34, 0.15); transition: 0.2s; user-select: none; }
+.drag-item:active { cursor: grabbing; transform: scale(0.95); }
+.drag-item.selected { background: var(--primary); color: #fff; transform: scale(1.1); box-shadow: 0 6px 15px rgba(105, 28, 34, 0.3); }
+
+.game-btn { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: #fff; border: none; padding: 12px 25px; font-size: 1.1rem; font-weight: 700; font-family: var(--font-kn); border-radius: 50px; cursor: pointer; box-shadow: 0 6px 15px rgba(105, 28, 34, 0.3); transition: 0.2s; }
+.game-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(105, 28, 34, 0.4); }
+.game-btn:disabled { background: #ccc; box-shadow: none; cursor: not-allowed; transform: none; }
+.game-feedback { margin-top: 15px; font-size: 1.2rem; font-weight: 700; height: 30px; }
+
+/* Shloka Section (Samhitaikapade) */
+.shloka-box { background: linear-gradient(135deg, #fef9f0, #f6ead4); border-left: 5px solid var(--primary); padding: 20px; border-radius: 0 8px 8px 0; margin: 20px 0; text-align: center; }
+.shloka-text { font-family: var(--font-sa); font-size: 1.4rem; color: var(--primary); font-weight: 600; line-height: 1.8; }
+.shloka-text strong { color: var(--primary-light); background: #fff; padding: 0 5px; border-radius: 4px; }
+.rules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 20px; }
+.rule-card { background: rgba(203,169,114,0.06); border: 1px solid rgba(203,169,114,0.3); padding: 15px; border-radius: 8px; border-top: 4px solid var(--primary); }
+.rule-card.optional { border-top-color: var(--gold-dark); background: #fdfaf5; }
+.rule-title-box { font-weight: 700; color: var(--primary); font-size: 1.1rem; margin-bottom: 10px; border-bottom: 1px dashed var(--gold); padding-bottom: 5px; }
+.rule-sa { font-family: var(--font-sa); color: var(--primary-light); font-size: 1.15rem; display: block; }
+.rule-ex { font-family: var(--font-sa); font-weight: 700; color: #2a6040; margin-top: 8px; display: block; background: #fff; padding: 5px; border-radius: 4px; text-align: center; }
+
+/* Master Chart Button */
+.chart-trigger-container { text-align: center; margin-top: 50px; }
+.chart-btn { background: linear-gradient(135deg, var(--gold-dark), var(--gold)); color: #fff; border: none; padding: 15px 30px; font-size: 1.3rem; font-weight: 700; font-family: var(--font-kn); border-radius: 50px; cursor: pointer; box-shadow: 0 8px 20px rgba(203, 169, 114, 0.4); transition: 0.3s; display: inline-flex; align-items: center; gap: 10px; }
+.chart-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 12px 25px rgba(203, 169, 114, 0.6); }
+
+/* Modal Styles */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); z-index: 1000; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: 0.3s; }
+.modal-overlay.active { opacity: 1; visibility: visible; }
+.modal-content { background: #fff; border-radius: 16px; padding: 30px; max-width: 95%; max-height: 95vh; overflow-y: auto; border: 3px solid var(--gold); transform: scale(0.9); transition: 0.3s; }
+.modal-overlay.active .modal-content { transform: scale(1); }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid rgba(203,169,114,0.3); padding-bottom: 15px; }
+.modal-title { font-size: 1.8rem; font-weight: 700; color: var(--primary); font-family: var(--font-sa); }
+.close-btn { background: #fdfaf5; border: 1px solid var(--gold); color: var(--primary); font-size: 1.5rem; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; transition: 0.2s; }
+.close-btn:hover { background: var(--primary); color: #fff; }
+
+/* Table Map */
+.master-table { width: 100%; border-collapse: collapse; font-family: var(--font-sa); text-align: center; font-size: 1.4rem; }
+.master-table th { background: rgba(203, 169, 114, 0.15); color: var(--primary); font-weight: 700; padding: 12px; border: 1px solid var(--gold); }
+.master-table td { padding: 12px; border: 1px solid rgba(203,169,114,0.4); font-weight: 600; }
+.master-table thead th { border-bottom: 3px double var(--gold-dark); }
+.master-table tbody th { border-right: 3px double var(--gold-dark); background: rgba(203, 169, 114, 0.08); }
+.c-yan { background-color: var(--c-yan); color: var(--c-yan-txt); }
+.c-dirgha { background-color: var(--c-dirgha); color: var(--c-dirgha-txt); }
+.c-guna { background-color: var(--c-guna); color: var(--c-guna-txt); }
+.c-vriddhi { background-color: var(--c-vriddhi); color: var(--c-vriddhi-txt); }
+.c-ayadi { background-color: var(--c-ayadi); color: var(--c-ayadi-txt); }
+.focus-yan td:not(.c-yan) { filter: blur(4px) grayscale(50%); opacity: 0.4; user-select: none; }
+.focus-yan td.c-yan { box-shadow: inset 0 0 10px rgba(21, 101, 192, 0.2); transform: scale(1.02); border: 2px solid var(--c-yan-txt); position: relative; z-index: 2; }
+.legend-box { display: flex; gap: 15px; justify-content: center; margin-top: 20px; font-weight: 600; }
+.leg-item { display: flex; align-items: center; gap: 5px; padding: 5px 10px; border-radius: 6px; border: 1px solid #ddd; }
+
+@media (max-width: 768px) { .practice-grid, .game-drop-area { flex-direction: column; align-items: center; gap: 10px; } .slot-plus { display: none; } }
+</style>
+</head>
+<body>
+
+<div class="container">
+  
+  <!-- Navigation -->
+  <div class="top-bar">
+    <a href="index.html" class="back-btn">⮜ <span data-i18n="btn-back">ಹಿಂದಕ್ಕೆ (Index)</span></a>
+    <div class="lang-switch">
+      <button class="lang-btn active" onclick="setLanguage('kn', this)">ಕನ್ನಡ</button>
+      <button class="lang-btn" onclick="setLanguage('en', this)">English</button>
+      <button class="lang-btn" onclick="setLanguage('sa', this)">संस्कृतम्</button>
+    </div>
+  </div>
+
+  <div class="lesson-header anim-slide">
+    <div class="lesson-title" data-i18n="lesson-title">೧. ಯಣ್ ಸಂಧಿಃ</div>
+  </div>
+
+  <!-- Sutra Box -->
+  <div class="sutra-box anim-slide delay-1">
+    <div class="sutra-label" data-i18n="sutra-label">ಪಾಣಿನೀಯ ಸೂತ್ರಮ್</div>
+    <div class="sutra-text">इको यणचि <span style="font-size: 1.2rem; opacity: 0.8;">(६.१.७७)</span></div>
+  </div>
+
+  <!-- Rule Map -->
+  <div class="content-section anim-slide delay-2">
+    <div class="sec-heading" data-i18n="map-title">ವರ್ಣ-ಪರಿವರ್ತನೆ (Transformation)</div>
+    
+    <!-- Explicit Golden Rule -->
+    <div class="golden-rule-box" data-i18n="map-note">
+      <strong>ಸೂಚನೆ (Important):</strong> ಯಣ್ ಸಂಧಿಯಲ್ಲಿ ಕೇವಲ ಪೂರ್ವಪದದ ಅಂತ್ಯದಲ್ಲಿರುವ <strong>'ಇಕ್'</strong> (इ/उ/ऋ/ऌ) ಮಾತ್ರ ಬದಲಾಗುತ್ತದೆ. ಪರಪದದ ಆದಿಯಲ್ಲಿರುವ <strong>'ಅಚ್'</strong> (ಸ್ವರ) ಹಾಗೆಯೇ ಉಳಿದು, ಹೊಸದಾಗಿ ಬಂದ ಅರ್ಧಾಕ್ಷರಕ್ಕೆ ಮಾತ್ರೆಯಾಗಿ ಸೇರಿಕೊಳ್ಳುತ್ತದೆ.
+    </div>
+
+    <div class="map-grid">
+      
+      <!-- Card 1: इ / ई -->
+      <div class="map-card">
+        <div class="map-main-eq">
+          <span class="chip">इ / ई</span> 
+          <span class="ac-text-highlight" data-i18n="plus-ac">+ अच् (ಸ್ವರ)</span> 
+          <span class="arrow">➔</span> 
+          <span class="chip-res">य्</span>
+        </div>
+        <div class="map-sub-eq">
+          <span class="sub-label" data-i18n="sub-label-text">ಸ್ವರ ಸೇರಿದಾಗ:</span>
+          <span class="ex-badge">य् + अ = <strong>य</strong></span>
+          <span class="ex-badge">य् + उ = <strong>यु</strong></span>
+          <span class="ex-badge">य् + आ = <strong>या</strong></span>
+        </div>
+      </div>
+
+      <!-- Card 2: उ / ऊ -->
+      <div class="map-card">
+        <div class="map-main-eq">
+          <span class="chip">उ / ऊ</span> 
+          <span class="ac-text-highlight" data-i18n="plus-ac">+ अच् (ಸ್ವರ)</span> 
+          <span class="arrow">➔</span> 
+          <span class="chip-res">व्</span>
+        </div>
+        <div class="map-sub-eq">
+          <span class="sub-label" data-i18n="sub-label-text">ಸ್ವರ ಸೇರಿದಾಗ:</span>
+          <span class="ex-badge">व् + अ = <strong>व</strong></span>
+          <span class="ex-badge">व् + इ = <strong>वि</strong></span>
+          <span class="ex-badge">व् + ए = <strong>वे</strong></span>
+        </div>
+      </div>
+
+      <!-- Card 3: ऋ / ॠ -->
+      <div class="map-card">
+        <div class="map-main-eq">
+          <span class="chip">ऋ / ॠ</span> 
+          <span class="ac-text-highlight" data-i18n="plus-ac">+ अच् (ಸ್ವರ)</span> 
+          <span class="arrow">➔</span> 
+          <span class="chip-res">र्</span>
+        </div>
+        <div class="map-sub-eq">
+          <span class="sub-label" data-i18n="sub-label-text">ಸ್ವರ ಸೇರಿದಾಗ:</span>
+          <span class="ex-badge">र् + अ = <strong>र</strong></span>
+          <span class="ex-badge">र् + उ = <strong>रु</strong></span>
+          <span class="ex-badge">र् + आ = <strong>रा</strong></span>
+        </div>
+      </div>
+
+      <!-- Card 4: ऌ -->
+      <div class="map-card">
+        <div class="map-main-eq">
+          <span class="chip">ऌ</span> 
+          <span class="ac-text-highlight" data-i18n="plus-ac">+ अच् (ಸ್ವರ)</span> 
+          <span class="arrow">➔</span> 
+          <span class="chip-res">ल्</span>
+        </div>
+        <div class="map-sub-eq">
+          <span class="sub-label" data-i18n="sub-label-text">ಸ್ವರ ಸೇರಿದಾಗ:</span>
+          <span class="ex-badge">ल् + अ = <strong>ल</strong></span>
+          <span class="ex-badge">ल् + आ = <strong>ला</strong></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Exam 10 Questions -->
+  <div class="content-section anim-slide delay-3">
+    <div class="sec-heading" style="justify-content: center; border-bottom: none; margin-bottom: 0;" data-i18n="exam-title">
+      ✦ ಅಭ್ಯಾಸ (Exam) ✦
+    </div>
+    <p style="text-align: center; color: var(--gold-dark); font-weight: 600; margin-bottom: 20px;" data-i18n="exam-inst">
+      ಗುರುಮುಖೇನ ಈ ಕೆಳಗಿನ ಪದಗಳನ್ನು ಸಂಧಿಸಿ ಬರೆಯಿರಿ:
+    </p>
+    <div class="practice-grid">
+      <div class="pr-item"><span class="num">१.</span> <span class="word">अपि+आयाति</span> <div class="blank"></div></div>
+      <div class="pr-item"><span class="num">६.</span> <span class="word">खलु+अहम्</span> <div class="blank"></div></div>
+      <div class="pr-item"><span class="num">२.</span> <span class="word">आदि+अन्ते</span> <div class="blank"></div></div>
+      <div class="pr-item"><span class="num">७.</span> <span class="word">अनु+एषणम्</span> <div class="blank"></div></div>
+      <div class="pr-item"><span class="num">३.</span> <span class="word">अपि+एतेषु</span> <div class="blank"></div></div>
+      <div class="pr-item"><span class="num">८.</span> <span class="word">पचतु+ओदनम्</span> <div class="blank"></div></div>
+      <div class="pr-item"><span class="num">४.</span> <span class="word">प्रति+उवाच</span> <div class="blank"></div></div>
+      <div class="pr-item"><span class="num">९.</span> <span class="word">मातृ+अनुमतिः</span> <div class="blank"></div></div>
+      <div class="pr-item"><span class="num">५.</span> <span class="word">साधु+इदम्</span> <div class="blank"></div></div>
+      <div class="pr-item"><span class="num">१०.</span><span class="word">पितृ+अंशः</span> <div class="blank"></div></div>
+    </div>
+  </div>
+
+  <!-- Drag & Drop Game -->
+  <div class="content-section anim-slide delay-4">
+    <div class="sec-heading" style="justify-content: center;" data-i18n="game-title">✦ ಸಂವಾದಾತ್ಮಕ ಕ್ರೀಡೆ (Drag & Drop Game) ✦</div>
+    <p style="text-align: center; color: var(--text-muted); font-weight: 600; margin-bottom: 20px;" data-i18n="game-inst">
+      ಕೆಳಗಿನ ಅಕ್ಷರಗಳನ್ನು ಸರಿಯಾದ ಜಾಗಕ್ಕೆ ಡ್ರ್ಯಾಗ್ ಮಾಡಿ (ಅಥವಾ ಕ್ಲಿಕ್ ಮಾಡಿ ಸೇರಿಸಿ):
+    </p>
+
+    <div class="game-container">
+      <div class="game-status" id="game-status">ಪ್ರಶ್ನೆ ೧ / ೧೦</div>
+      <div class="game-equation" id="game-equation">यदि + अपि = यद्यपि</div>
+      
+      <div class="game-drop-area">
+        <div class="drop-slot-wrap">
+          <div class="drop-slot" id="slot-p" data-type="p" onclick="handleSlotClick(this)" ondragover="allowDrop(event)" ondrop="handleDrop(event, this)"></div>
+          <div class="slot-label" data-i18n="slot-purva">ಪೂರ್ವ-ವರ್ಣ</div>
+        </div>
+        <div class="slot-plus">+</div>
+        <div class="drop-slot-wrap">
+          <div class="drop-slot" id="slot-pa" data-type="pa" onclick="handleSlotClick(this)" ondragover="allowDrop(event)" ondrop="handleDrop(event, this)"></div>
+          <div class="slot-label" data-i18n="slot-para">ಪರ-ವರ್ಣ</div>
+        </div>
+        <div class="slot-plus">➔</div>
+        <div class="drop-slot-wrap">
+          <div class="drop-slot" id="slot-a" data-type="a" onclick="handleSlotClick(this)" ondragover="allowDrop(event)" ondrop="handleDrop(event, this)"></div>
+          <div class="slot-label" data-i18n="slot-adesha">ಆದೇಶ</div>
+        </div>
+      </div>
+
+      <div class="game-options" id="game-options">
+        <!-- Draggables injected here -->
+      </div>
+
+      <button class="game-btn" id="check-btn" onclick="checkGameAnswer()" data-i18n="btn-check">ಪರಿಶೀಲಿಸಿ</button>
+      <button class="game-btn" id="next-btn" style="display:none;" onclick="loadNextGame()" data-i18n="btn-next">ಮುಂದಿನ ಪ್ರಶ್ನೆ ➔</button>
+      <div class="game-feedback" id="game-feedback"></div>
+    </div>
+  </div>
+
+  <!-- Samhitaikapade Shloka Section -->
+  <div class="content-section anim-slide delay-5">
+    <div class="sec-heading" data-i18n="sec-rules-title">ಸಂಧಿ ನಿಯಮಗಳು: ಎಲ್ಲಿ ಕಡ್ಡಾಯ? ಎಲ್ಲಿ ಐಚ್ಛಿಕ?</div>
+    <p style="font-size: 1.15rem; color: var(--text-muted);" data-i18n="rules-desc">ಸಂಧಿಯನ್ನು ಎಲ್ಲಿ ಮಾಡಲೇಬೇಕು ಮತ್ತು ಎಲ್ಲಿ ಬಿಡಬಹುದು ಎಂಬುದರ ಬಗ್ಗೆ ವ್ಯಾಕರಣ ಶಾಸ್ತ್ರದಲ್ಲಿ ಒಂದು ಪ್ರಸಿದ್ಧವಾದ ಶ್ಲೋಕವಿದೆ:</p>
+    
+    <div class="shloka-box" style="border-left-color: var(--gold-dark);">
+      <div class="shloka-text">
+        संहितैकपदे <strong>नित्या</strong> नित्या धातूपसर्गयोः ।<br>
+        नित्या समासे <strong>वाक्ये तु</strong> सा विवक्षामपेक्षते ॥
+      </div>
+    </div>
+
+    <div class="rules-grid">
+      <div class="rule-card">
+        <div class="rule-title-box">
+          <span class="rule-sa">१. एकपदे नित्या</span>
+          <span data-i18n="rule1-title">ಒಂದೇ ಪದದೊಳಗೆ (ಕಡ್ಡಾಯ)</span>
+        </div>
+        <div style="font-size: 0.95rem; color: var(--text-muted);" data-i18n="rule1-desc">ಒಂದೇ ಪದವನ್ನು ರಚಿಸುವಾಗ ಸಂಧಿ ಮಾಡುವುದು ಕಡ್ಡಾಯ.</div>
+        <div class="rule-ex">ने + अनम् = नयनम्</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-title-box">
+          <span class="rule-sa">२. धातूपसर्गयोः नित्या</span>
+          <span data-i18n="rule2-title">ಧಾತು-ಉಪಸರ್ಗಗಳ ನಡುವೆ (ಕಡ್ಡಾಯ)</span>
+        </div>
+        <div style="font-size: 0.95rem; color: var(--text-muted);" data-i18n="rule2-desc">ಉಪಸರ್ಗ ಮತ್ತು ಕ್ರಿಯಾಪದದ (ಧಾತು) ನಡುವೆ ಸಂಧಿ ಕಡ್ಡಾಯ.</div>
+        <div class="rule-ex">नि + अवसत् = न्यवसत्</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-title-box">
+          <span class="rule-sa">३. समासे नित्या</span>
+          <span data-i18n="rule3-title">ಸಮಾಸ ಪದಗಳಲ್ಲಿ (ಕಡ್ಡಾಯ)</span>
+        </div>
+        <div style="font-size: 0.95rem; color: var(--text-muted);" data-i18n="rule3-desc">ಸಮಸ್ತ ಪದಗಳನ್ನು (ಸಮಾಸ) ರಚಿಸುವಾಗ ಸಂಧಿ ಕಡ್ಡಾಯ.</div>
+        <div class="rule-ex">विद्या + आलयः = विद्यालयः</div>
+      </div>
+
+      <div class="rule-card optional">
+        <div class="rule-title-box">
+          <span class="rule-sa">४. वाक्ये विवक्षाम् अपेक्षते</span>
+          <span data-i18n="rule4-title">ವಾಕ್ಯದಲ್ಲಿ (ಐಚ್ಛಿಕ)</span>
+        </div>
+        <div style="font-size: 0.95rem; color: var(--text-muted);" data-i18n="rule4-desc">ವಾಕ್ಯದಲ್ಲಿ ಎರಡು ಪ್ರತ್ಯೇಕ ಪದಗಳ ನಡುವೆ ಸಂಧಿ ಮಾಡುವುದು ಮಾತನಾಡುವವನ ಇಚ್ಛೆಗೆ ಬಿಟ್ಟದ್ದು.</div>
+        <div class="rule-ex" id="rule4-ex">रामः गच्छति <b>ಅಥವಾ</b> रामो गच्छति</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chart Trigger -->
+  <div class="chart-trigger-container">
+    <button class="chart-btn" onclick="openChart()">📊 ಸಂಧಿ ಮಾಸ್ಟರ್ ಚಾರ್ಟ್</button>
+  </div>
+
+</div>
+
+<!-- Master Chart Modal -->
+<div class="modal-overlay" id="chartModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-title" data-i18n="modal-title">ಅಚ್-ಸಂಧಿ ಮಾಸ್ಟರ್ ಚಾರ್ಟ್</div>
+      <button class="close-btn" onclick="closeChart()">✕</button>
+    </div>
+    <p style="text-align: center; color: var(--gold-dark); font-weight: 600; margin-bottom: 20px;" data-i18n="modal-desc">
+      (ಯಣ್ ಸಂಧಿ ಮಾತ್ರ ಹೈಲೈಟ್ ಮಾಡಲಾಗಿದೆ. ಉಳಿದವು ಮುಂದಿನ ಪಾಠಗಳಲ್ಲಿ ಅನ್‌ಲಾಕ್ ಆಗುತ್ತವೆ.)
+    </p>
+    <div style="overflow-x: auto;">
+      <table class="master-table focus-yan">
+        <thead>
+          <tr> <th>+</th> <th>अ</th> <th>इ</th> <th>उ</th> <th>ऋ</th> <th>ऌ</th> <th>ए</th> <th>ओ</th> <th>ऐ</th> <th>औ</th> </tr>
+        </thead>
+        <tbody>
+          <tr> <th>अ</th> <td class="c-dirgha">आ</td> <td class="c-guna">ए</td> <td class="c-guna">ओ</td> <td class="c-guna">अर्</td> <td class="c-guna">अल्</td> <td class="c-vriddhi">ऐ</td> <td class="c-vriddhi">औ</td> <td class="c-vriddhi">ऐ</td> <td class="c-vriddhi">औ</td> </tr>
+          <tr> <th>इ</th> <td class="c-yan">य्</td> <td class="c-dirgha">ई</td> <td class="c-yan">य्</td> <td class="c-yan">य्</td> <td class="c-yan">य्</td> <td class="c-yan">य्</td> <td class="c-yan">य्</td> <td class="c-yan">य्</td> <td class="c-yan">य्</td> </tr>
+          <tr> <th>उ</th> <td class="c-yan">व्</td> <td class="c-yan">व्</td> <td class="c-dirgha">ऊ</td> <td class="c-yan">व्</td> <td class="c-yan">व्</td> <td class="c-yan">व्</td> <td class="c-yan">व्</td> <td class="c-yan">व्</td> <td class="c-yan">व्</td> </tr>
+          <tr> <th>ऋ</th> <td class="c-yan">र्</td> <td class="c-yan">र्</td> <td class="c-yan">र्</td> <td class="c-dirgha">ॠ</td> <td class="c-dirgha">ॠ</td> <td class="c-yan">र्</td> <td class="c-yan">र्</td> <td class="c-yan">र्</td> <td class="c-yan">र्</td> </tr>
+          <tr> <th>ऌ</th> <td class="c-yan">ल्</td> <td class="c-yan">ल्</td> <td class="c-yan">ल्</td> <td class="c-dirgha">ॠ</td> <td class="c-dirgha">ॠ</td> <td class="c-yan">ल्</td> <td class="c-yan">ल्</td> <td class="c-yan">ल्</td> <td class="c-yan">ल्</td> </tr>
+          <tr> <th>ए</th> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> </tr>
+          <tr> <th>ओ</th> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> </tr>
+          <tr> <th>ऐ</th> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> </tr>
+          <tr> <th>औ</th> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="legend-box">
+      <div class="leg-item" style="background: var(--c-yan); color: var(--c-yan-txt); border-color: var(--c-yan-txt);">ಯಣ್</div>
+      <div class="leg-item" style="background: var(--c-dirgha); color: var(--c-dirgha-txt); opacity: 0.5;">ದೀರ್ಘ</div>
+      <div class="leg-item" style="background: var(--c-guna); color: var(--c-guna-txt); opacity: 0.5;">ಗುಣ</div>
+      <div class="leg-item" style="background: var(--c-vriddhi); color: var(--c-vriddhi-txt); opacity: 0.5;">ವೃದ್ಧಿ</div>
+      <div class="leg-item" style="background: var(--c-ayadi); color: var(--c-ayadi-txt); opacity: 0.5;">ಅಯಾದಿ</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// --- GAME LOGIC ---
+const gameData = [
+  { q: "यदि + अपि = यद्यपि", p: "इ", pa: "अ", a: "य्", opts: ["इ", "अ", "य्", "उ", "व्", "आ"] },
+  { q: "सु + आगतम् = स्वागतम्", p: "उ", pa: "आ", a: "व्", opts: ["उ", "आ", "व्", "इ", "य्", "अ"] },
+  { q: "पितृ + आदेशः = पित्रादेशः", p: "ऋ", pa: "आ", a: "र्", opts: ["ऋ", "आ", "र्", "ऌ", "अ", "ल्"] },
+  { q: "नदी + अत्र = नद्यत्र", p: "ई", pa: "अ", a: "य्", opts: ["ई", "अ", "य्", "इ", "आ", "र्"] },
+  { q: "मधु + अरिः = मध्वरिः", p: "उ", pa: "अ", a: "व्", opts: ["उ", "अ", "व्", "ऊ", "आ", "य्"] },
+  { q: "कर्तृ + अंशः = कर्त्रंशः", p: "ऋ", pa: "अ", a: "र्", opts: ["ऋ", "अ", "र्", "उ", "व्", "आ"] },
+  { q: "इति + आदि = इत्यादि", p: "इ", pa: "आ", a: "य्", opts: ["इ", "आ", "य्", "ई", "अ", "व्"] },
+  { q: "गुरु + आदेशः = गुर्वादेशः", p: "उ", pa: "आ", a: "व्", opts: ["उ", "आ", "व्", "ऊ", "अ", "र्"] },
+  { q: "मातृ + इच्छा = मात्रिच्छा", p: "ऋ", pa: "इ", a: "र्", opts: ["ऋ", "इ", "र्", "ऌ", "ई", "ल्"] },
+  { q: "ऌ + आकृतिः = लाकृतिः", p: "ऌ", pa: "आ", a: "ल्", opts: ["ऌ", "आ", "ल्", "ऋ", "अ", "र्"] }
+];
+
+let currentQ = 0;
+let selectedDragItem = null;
+
+function shuffle(array) { return array.sort(() => Math.random() - 0.5); }
+
+function loadGameQuestion() {
+  const d = gameData[currentQ];
+  document.getElementById('game-status').innerText = `ಪ್ರಶ್ನೆ ${currentQ + 1} / 10`;
+  document.getElementById('game-equation').innerText = d.q;
+  
+  const slots = ['slot-p', 'slot-pa', 'slot-a'];
+  slots.forEach(id => {
+    const el = document.getElementById(id);
+    el.innerHTML = '';
+    el.className = 'drop-slot';
+  });
+  document.getElementById('slot-p').dataset.expected = d.p;
+  document.getElementById('slot-pa').dataset.expected = d.pa;
+  document.getElementById('slot-a').dataset.expected = d.a;
+
+  const optContainer = document.getElementById('game-options');
+  optContainer.innerHTML = '';
+  shuffle([...d.opts]).forEach((opt, idx) => {
+    const div = document.createElement('div');
+    div.className = 'drag-item';
+    div.draggable = true;
+    div.id = 'drag-' + currentQ + '-' + idx;
+    div.dataset.val = opt;
+    div.innerText = opt;
+    div.ondragstart = handleDragStart;
+    div.onclick = () => handleOptionClick(div);
+    optContainer.appendChild(div);
+  });
+
+  document.getElementById('check-btn').style.display = 'inline-block';
+  document.getElementById('next-btn').style.display = 'none';
+  document.getElementById('game-feedback').innerText = '';
+  selectedDragItem = null;
+}
+
+// Drag & Drop / Click to Move Logic
+function handleDragStart(e) {
+  e.dataTransfer.setData("text/plain", e.target.id);
+  handleOptionClick(e.target);
+}
+function allowDrop(e) { e.preventDefault(); }
+function handleDrop(e, slot) {
+  e.preventDefault();
+  const id = e.dataTransfer.getData("text/plain");
+  const el = document.getElementById(id);
+  if(el && slot.children.length === 0) {
+    slot.appendChild(el);
+    slot.classList.add('filled');
+    if(selectedDragItem === el) { el.classList.remove('selected'); selectedDragItem = null; }
+  }
+}
+function handleOptionClick(el) {
+  if(selectedDragItem) selectedDragItem.classList.remove('selected');
+  selectedDragItem = el;
+  el.classList.add('selected');
+}
+function handleSlotClick(slot) {
+  if(selectedDragItem && slot.children.length === 0) {
+    slot.appendChild(selectedDragItem);
+    slot.classList.add('filled');
+    selectedDragItem.classList.remove('selected');
+    selectedDragItem = null;
+  } else if (slot.children.length > 0) {
+    document.getElementById('game-options').appendChild(slot.children[0]);
+    slot.classList.remove('filled');
+  }
+}
+
+function checkGameAnswer() {
+  const p = document.getElementById('slot-p');
+  const pa = document.getElementById('slot-pa');
+  const a = document.getElementById('slot-a');
+  let isCorrect = true;
+
+  [p, pa, a].forEach(slot => {
+    if(slot.children.length === 0 || slot.children[0].dataset.val !== slot.dataset.expected) {
+      slot.classList.add('error');
+      isCorrect = false;
+    } else {
+      slot.classList.remove('error');
+      slot.classList.add('success');
+    }
+  });
+
+  const fb = document.getElementById('game-feedback');
+  if(isCorrect) {
+    fb.innerText = "✓ ಸರಿಯಾದ ಉತ್ತರ! (Correct!)";
+    fb.style.color = "var(--correct)";
+    document.getElementById('check-btn').style.display = 'none';
+    if(currentQ < 9) document.getElementById('next-btn').style.display = 'inline-block';
+    else fb.innerText = "🎉 ಆಟ ಮುಕ್ತಾಯ! (Game Complete!)";
+  } else {
+    fb.innerText = "✗ ತಪ್ಪು! ಮತ್ತೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಿ. (Wrong, try again!)";
+    fb.style.color = "var(--wrong)";
+  }
+}
+
+function loadNextGame() {
+  if(currentQ < 9) { currentQ++; loadGameQuestion(); }
+}
+
+window.onload = loadGameQuestion;
+
+// Modal Logic
+function openChart() { document.getElementById('chartModal').classList.add('active'); }
+function closeChart() { document.getElementById('chartModal').classList.remove('active'); }
+window.onclick = function(event) { if (event.target == document.getElementById('chartModal')) closeChart(); }
+
+// Dictionary & i18n
+const i18n = {
+  "btn-back": { kn: "ಹಿಂದಕ್ಕೆ (Index)", en: "Back to Index", sa: "प्रतिगच्छतु (सूची)" },
+  "lesson-title": { kn: "೧. ಯಣ್ ಸಂಧಿಃ", en: "1. Yan Sandhi", sa: "१. यण्सन्धिः" },
+  "sutra-label": { kn: "ಪಾಣಿನೀಯ ಸೂತ್ರಮ್", en: "Paninian Sutra", sa: "पाणिनीय-सूत्रम्" },
+  "map-title": { kn: "ವರ್ಣ-ಪರಿವರ್ತನೆ (Transformation Map)", en: "Transformation Map", sa: "वर्ण-परिवर्तनम्" },
+  "map-note": { 
+    kn: "<strong>ಸೂಚನೆ (Important):</strong> ಯಣ್ ಸಂಧಿಯಲ್ಲಿ ಕೇವಲ ಪೂರ್ವಪದದ ಅಂತ್ಯದಲ್ಲಿರುವ <strong>'ಇಕ್'</strong> (इ/उ/ऋ/ऌ) ಮಾತ್ರ ಬದಲಾಗುತ್ತದೆ. ಪರಪದದ ಆದಿಯಲ್ಲಿರುವ <strong>'ಅಚ್'</strong> (ಸ್ವರ) ಹಾಗೆಯೇ ಉಳಿದು, ಹೊಸದಾಗಿ ಬಂದ ಅರ್ಧಾಕ್ಷರಕ್ಕೆ ಮಾತ್ರೆಯಾಗಿ ಸೇರಿಕೊಳ್ಳುತ್ತದೆ.",
+    en: "<strong>Note (Important):</strong> In Yan Sandhi, only the preceding <strong>'Ik'</strong> (इ/उ/ऋ/ऌ) changes. The following <strong>'Ac'</strong> (vowel) remains intact and attaches itself as a matra to the newly formed semi-vowel.",
+    sa: "<strong>सूचना:</strong> यण्सन्धौ केवलं पूर्वपदान्ते स्थितस्य <strong>'इक्'</strong> (इ/उ/ऋ/ऌ) वर्णस्य एव परिवर्तनं भवति। उत्तरपदादौ स्थितः <strong>'अच्'</strong> (स्वरः) तथैव स्थित्वा नूतनार्धस्वरेण सह युज्यते।"
+  },
+  "plus-ac": { kn: "+ अच् (ಸ್ವರ)", en: "+ Ac (Vowel)", sa: "+ अच् (स्वरः)" },
+  "sub-label-text": { kn: "ಸ್ವರ ಸೇರಿದಾಗ:", en: "When vowel joins:", sa: "स्वरेण सह:" },
+  "exam-title": { kn: "✦ ಅಭ್ಯಾಸ (Exam) ✦", en: "✦ Practice Exam ✦", sa: "✦ अभ्यासः ✦" },
+  "exam-inst": { kn: "ಗುರುಮುಖೇನ ಈ ಕೆಳಗಿನ ಪದಗಳನ್ನು ಸಂಧಿಸಿ ಬರೆಯಿರಿ:", en: "Combine the following words with the help of the teacher:", sa: "गुरुमुखेन एतेषां पदानां सन्धिं कुरुत:" },
+  "game-title": { kn: "✦ ಸಂವಾದಾತ್ಮಕ ಕ್ರೀಡೆ (Drag & Drop) ✦", en: "✦ Interactive Game ✦", sa: "✦ संवादात्मक-क्रीडा ✦" },
+  "game-inst": { kn: "ಕೆಳಗಿನ ಅಕ್ಷರಗಳನ್ನು ಸರಿಯಾದ ಜಾಗಕ್ಕೆ ಡ್ರ್ಯಾಗ್ ಮಾಡಿ (ಅಥವಾ ಕ್ಲಿಕ್ ಮಾಡಿ ಸೇರಿಸಿ):", en: "Drag the letters to the correct slots (or click to place):", sa: "अक्षराणि सम्यक् स्थाने कर्षन्तु (वा नुदन्तु):" },
+  "slot-purva": { kn: "ಪೂರ್ವ-ವರ್ಣ", en: "Purva Varna", sa: "पूर्व-वर्णः" },
+  "slot-para": { kn: "ಪರ-ವರ್ಣ", en: "Para Varna", sa: "पर-वर्णः" },
+  "slot-adesha": { kn: "ಆದೇಶ", en: "Adesha", sa: "आदेशः" },
+  "btn-check": { kn: "ಪರಿಶೀಲಿಸಿ", en: "Check", sa: "परिशीलयन्तु" },
+  "btn-next": { kn: "ಮುಂದಿನ ಪ್ರಶ್ನೆ ➔", en: "Next Question ➔", sa: "अग्रिम-प्रश्नः ➔" },
+  
+  "sec-rules-title": { kn: "ಸಂಧಿ ನಿಯಮಗಳು: ಎಲ್ಲಿ ಕಡ್ಡಾಯ? ಎಲ್ಲಿ ಐಚ್ಛಿಕ?", en: "Rules of Sandhi: Mandatory vs Optional", sa: "सन्धेः नियमाः : कुत्र नित्यः, कुत्र विकल्पः?" },
+  "rules-desc": { kn: "ಸಂಧಿಯನ್ನು ಎಲ್ಲಿ ಮಾಡಲೇಬೇಕು ಮತ್ತು ಎಲ್ಲಿ ಬಿಡಬಹುದು ಎಂಬುದರ ಬಗ್ಗೆ ವ್ಯಾಕರಣ ಶಾಸ್ತ್ರದಲ್ಲಿ ಒಂದು ಪ್ರಸಿದ್ಧವಾದ ಶ್ಲೋಕವಿದೆ:", en: "There is a famous grammatical verse detailing where Sandhi must be applied and where it is optional:", sa: "सन्धिः कुत्र अनिवार्यः, कुत्र ऐच्छिकः इति विषये व्याकरणशास्त्रे एका प्रसिद्धा कारिका वर्तते-" },
+  "rule1-title": { kn: "ಒಂದೇ ಪದದೊಳಗೆ (ಕಡ್ಡಾಯ)", en: "Within a single word (Mandatory)", sa: "एकपदे (नित्यः)" },
+  "rule1-desc": { kn: "ಒಂದೇ ಪದವನ್ನು ರಚಿಸುವಾಗ ಸಂಧಿ ಮಾಡುವುದು ಕಡ್ಡಾಯ.", en: "Sandhi is mandatory within a single word.", sa: "एकस्य पदस्य निर्माणे सन्धिः अनिवार्यः।" },
+  "rule2-title": { kn: "ಧಾತು-ಉಪಸರ್ಗಗಳ ನಡುವೆ (ಕಡ್ಡಾಯ)", en: "Between Root & Prefix (Mandatory)", sa: "धातु-उपसर्गयोः (नित्यः)" },
+  "rule2-desc": { kn: "ಉಪಸರ್ಗ ಮತ್ತು ಕ್ರಿಯಾಪದದ (ಧಾತು) ನಡುವೆ ಸಂಧಿ ಕಡ್ಡಾಯ.", en: "Sandhi is mandatory between a verbal root and its prefix.", sa: "उपसर्ग-क्रियापदयोः मध्ये सन्धिः अनिवार्यः।" },
+  "rule3-title": { kn: "ಸಮಾಸ ಪದಗಳಲ್ಲಿ (ಕಡ್ಡಾಯ)", en: "In Compounds (Mandatory)", sa: "समासे (नित्यः)" },
+  "rule3-desc": { kn: "ಸಮಸ್ತ ಪದಗಳನ್ನು (ಸಮಾಸ) ರಚಿಸುವಾಗ ಸಂಧಿ ಕಡ್ಡಾಯ.", en: "Sandhi is mandatory when forming compound words.", sa: "समस्तपदानां निर्माणे सन्धिः अनिवार्यः।" },
+  "rule4-title": { kn: "ವಾಕ್ಯದಲ್ಲಿ (ಐಚ್ಛಿಕ)", en: "In a Sentence (Optional)", sa: "वाक्ये (विवक्षा)" },
+  "rule4-desc": { kn: "ವಾಕ್ಯದಲ್ಲಿ ಎರಡು ಪ್ರತ್ಯೇಕ ಪದಗಳ ನಡುವೆ ಸಂಧಿ ಮಾಡುವುದು ಮಾತನಾಡುವವನ ಇಚ್ಛೆಗೆ ಬಿಟ್ಟದ್ದು.", en: "In a sentence, Sandhi between separate words is optional (depends on the speaker).", sa: "वाक्ये स्वतन्त्रपदयोः मध्ये सन्धिः वक्तुः इच्छानुसारं भवति।" },
+  
+  "modal-title": { kn: "ಅಚ್-ಸಂಧಿ ಮಾಸ್ಟರ್ ಚಾರ್ಟ್", en: "Ac-Sandhi Master Chart", sa: "अच्-सन्धिः महाकोष्टकम्" },
+  "modal-desc": { kn: "(ಯಣ್ ಸಂಧಿ ಮಾತ್ರ ಹೈಲೈಟ್ ಮಾಡಲಾಗಿದೆ. ಉಳಿದವು ಮುಂದಿನ ಪಾಠಗಳಲ್ಲಿ ಅನ್‌ಲಾಕ್ ಆಗುತ್ತವೆ.)", en: "(Only Yan Sandhi is highlighted. Others will unlock in upcoming lessons.)", sa: "(केवलं यण्-आदेशाः प्रकाशिताः सन्ति। अन्ये सन्धयः अग्रिमपाठेषु उद्घाटिताः भविष्यन्ति।)" }
+};
+
+function setLanguage(lang, btnEl) {
+  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+  btnEl.classList.add('active');
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (i18n[key] && i18n[key][lang]) el.innerHTML = i18n[key][lang];
+  });
+  
+  const ex4 = document.getElementById('rule4-ex');
+  if (lang === 'kn') ex4.innerHTML = 'रामः गच्छति <b>ಅಥವಾ</b> रामो गच्छति';
+  else if (lang === 'en') ex4.innerHTML = 'रामः गच्छति <b>OR</b> रामो गच्छति';
+  else ex4.innerHTML = 'रामः गच्छति <b>वा</b> रामो गच्छति';
+}
+</script>
+
+</body>
+</html>
