@@ -43,7 +43,8 @@ body {
 .anim-slide { opacity: 0; animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 .delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.2s; }
 .delay-3 { animation-delay: 0.3s; } .delay-4 { animation-delay: 0.4s; }
-.delay-5 { animation-delay: 0.5s; }
+.delay-5 { animation-delay: 0.5s; } .delay-6 { animation-delay: 0.6s; }
+.delay-7 { animation-delay: 0.7s; } .delay-8 { animation-delay: 0.8s; }
 
 /* Top Navigation */
 .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
@@ -94,7 +95,88 @@ body {
 .sub-label { font-size: 0.95rem; color: var(--gold-dark); font-weight: 700; margin-right: 5px; }
 .ex-badge { font-family: var(--font-sa); font-size: 1.2rem; font-weight: 600; color: var(--primary-light); background: #fff; border: 1px solid var(--gold); padding: 4px 12px; border-radius: 50px; }
 
-/* Exam & Practice Grid */
+/* ===== ABHYASA SECTION STYLES ===== */
+.abhyasa-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: #fff; padding: 5px 16px; border-radius: 50px;
+  font-size: 1rem; font-weight: 700; margin-bottom: 18px;
+  box-shadow: 0 4px 12px rgba(105,28,34,0.2);
+}
+.abhyasa-badge .ab-num { background: rgba(255,255,255,0.25); border-radius: 50px; padding: 1px 10px; font-family: var(--font-sa); }
+
+/* Abhyasa 6.3 — Sandhi Kurata */
+.sandhi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px 24px;
+  margin-top: 10px;
+}
+.sandhi-item {
+  display: flex; align-items: flex-end; gap: 8px;
+  font-family: var(--font-sa); font-size: 1.15rem; color: var(--text-main);
+  padding: 8px 0; border-bottom: 1px dashed rgba(203,169,114,0.3);
+}
+.sandhi-item .snum { font-size: 1rem; color: var(--gold-dark); font-weight: 700; min-width: 24px; }
+.sandhi-item .sword { color: var(--primary); font-weight: 600; white-space: nowrap; }
+.sandhi-item .sblank { flex-grow: 1; border-bottom: 1.5px solid var(--text-muted); height: 22px; margin-bottom: 3px; }
+
+/* Abhyasa 6.4 — Yojayata (Match) */
+.match-section { margin-top: 10px; }
+.match-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+.match-col-title { font-weight: 700; color: var(--gold-dark); font-size: 1rem; margin-bottom: 10px; text-align: center; border-bottom: 1px solid rgba(203,169,114,0.3); padding-bottom: 6px; }
+.match-left-item { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-sa); font-size: 1.1rem; padding: 8px 0; border-bottom: 1px dashed rgba(203,169,114,0.2); }
+.match-left-item .mnum { color: var(--gold-dark); font-weight: 700; min-width: 22px; }
+.match-left-item .mword { color: var(--primary); font-weight: 600; }
+.match-left-item .mresult { color: var(--text-muted); font-size: 0.95rem; font-style: italic; }
+.match-right-item { display: flex; align-items: center; font-family: var(--font-sa); font-size: 1.1rem; padding: 8px 0; border-bottom: 1px dashed rgba(203,169,114,0.2); gap: 8px; }
+.match-right-item .mnum { color: var(--gold-dark); font-weight: 700; min-width: 22px; }
+.match-right-item .mword { color: var(--primary); font-weight: 600; }
+.match-right-item .mblank { flex-grow: 1; border-bottom: 1.5px solid var(--text-muted); height: 22px; }
+
+/* Abhyasa 6.5 — Riktasthanam Purayata */
+.fill-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px 30px; margin-top: 10px;
+}
+.fill-item {
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--font-sa); font-size: 1.1rem; padding: 8px 0;
+  border-bottom: 1px dashed rgba(203,169,114,0.25); flex-wrap: wrap;
+}
+.fill-item .fnum { color: var(--gold-dark); font-weight: 700; min-width: 22px; }
+.fill-item .fword { color: var(--primary); font-weight: 600; }
+.fill-item .fblank { display: inline-block; width: 90px; border-bottom: 1.5px solid var(--text-muted); height: 20px; vertical-align: bottom; }
+.fill-item .feq { color: var(--text-muted); }
+.fill-item .fres { color: var(--correct); font-weight: 700; }
+
+/* Abhyasa 6.6 — Passage */
+.passage-box {
+  background: linear-gradient(135deg, #fef9f0, #f9f0dc);
+  border: 1px solid rgba(203,169,114,0.5);
+  border-left: 5px solid var(--primary);
+  border-radius: 0 10px 10px 0;
+  padding: 20px 24px; margin: 15px 0;
+  font-family: var(--font-sa); font-size: 1.1rem; line-height: 2;
+  color: var(--text-main);
+}
+.passage-inst {
+  font-size: 0.97rem; color: var(--text-muted); font-family: var(--font-kn);
+  margin-bottom: 12px; background: rgba(203,169,114,0.08);
+  padding: 10px 14px; border-radius: 6px; border-left: 3px solid var(--gold);
+  line-height: 1.6;
+}
+.passage-ans-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px 24px; margin-top: 18px;
+}
+.passage-ans-item {
+  display: flex; align-items: flex-end; gap: 8px;
+  font-family: var(--font-sa); font-size: 1.1rem; padding: 8px 0;
+  border-bottom: 1px dashed rgba(203,169,114,0.3);
+}
+.passage-ans-item .panum { color: var(--gold-dark); font-weight: 700; min-width: 24px; }
+.passage-ans-item .pablank { flex-grow: 1; border-bottom: 1.5px solid var(--text-muted); height: 22px; }
+
+/* Exam & Practice Grid (original) */
 .practice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 40px; margin-top: 20px; }
 .pr-item { display: flex; align-items: flex-end; gap: 10px; font-family: var(--font-sa); font-size: 1.4rem; color: var(--text-main); padding: 10px 0; }
 .pr-item .num { font-size: 1.2rem; color: var(--gold-dark); font-weight: 600; width: 30px; }
@@ -163,10 +245,16 @@ body {
 .c-ayadi { background-color: var(--c-ayadi); color: var(--c-ayadi-txt); }
 .focus-yan td:not(.c-yan) { filter: blur(4px) grayscale(50%); opacity: 0.4; user-select: none; }
 .focus-yan td.c-yan { box-shadow: inset 0 0 10px rgba(21, 101, 192, 0.2); transform: scale(1.02); border: 2px solid var(--c-yan-txt); position: relative; z-index: 2; }
-.legend-box { display: flex; gap: 15px; justify-content: center; margin-top: 20px; font-weight: 600; }
+.legend-box { display: flex; gap: 15px; justify-content: center; margin-top: 20px; font-weight: 600; flex-wrap: wrap; }
 .leg-item { display: flex; align-items: center; gap: 5px; padding: 5px 10px; border-radius: 6px; border: 1px solid #ddd; }
 
-@media (max-width: 768px) { .practice-grid, .game-drop-area { flex-direction: column; align-items: center; gap: 10px; } .slot-plus { display: none; } }
+@media (max-width: 768px) {
+  .practice-grid, .game-drop-area, .sandhi-grid, .fill-grid, .passage-ans-grid { grid-template-columns: 1fr; }
+  .match-cols { grid-template-columns: 1fr; }
+  .slot-plus { display: none; }
+  .sutra-text { font-size: 2.2rem; }
+  .lesson-title { font-size: 2rem; }
+}
 </style>
 </head>
 <body>
@@ -197,14 +285,11 @@ body {
   <div class="content-section anim-slide delay-2">
     <div class="sec-heading" data-i18n="map-title">ವರ್ಣ-ಪರಿವರ್ತನೆ (Transformation)</div>
     
-    <!-- Explicit Golden Rule -->
     <div class="golden-rule-box" data-i18n="map-note">
       <strong>ಸೂಚನೆ (Important):</strong> ಯಣ್ ಸಂಧಿಯಲ್ಲಿ ಕೇವಲ ಪೂರ್ವಪದದ ಅಂತ್ಯದಲ್ಲಿರುವ <strong>'ಇಕ್'</strong> (इ/उ/ऋ/ऌ) ಮಾತ್ರ ಬದಲಾಗುತ್ತದೆ. ಪರಪದದ ಆದಿಯಲ್ಲಿರುವ <strong>'ಅಚ್'</strong> (ಸ್ವರ) ಹಾಗೆಯೇ ಉಳಿದು, ಹೊಸದಾಗಿ ಬಂದ ಅರ್ಧಾಕ್ಷರಕ್ಕೆ ಮಾತ್ರೆಯಾಗಿ ಸೇರಿಕೊಳ್ಳುತ್ತದೆ.
     </div>
 
     <div class="map-grid">
-      
-      <!-- Card 1: इ / ई -->
       <div class="map-card">
         <div class="map-main-eq">
           <span class="chip">इ / ई</span> 
@@ -220,7 +305,6 @@ body {
         </div>
       </div>
 
-      <!-- Card 2: उ / ऊ -->
       <div class="map-card">
         <div class="map-main-eq">
           <span class="chip">उ / ऊ</span> 
@@ -236,7 +320,6 @@ body {
         </div>
       </div>
 
-      <!-- Card 3: ऋ / ॠ -->
       <div class="map-card">
         <div class="map-main-eq">
           <span class="chip">ऋ / ॠ</span> 
@@ -252,7 +335,6 @@ body {
         </div>
       </div>
 
-      <!-- Card 4: ऌ -->
       <div class="map-card">
         <div class="map-main-eq">
           <span class="chip">ऌ</span> 
@@ -266,12 +348,167 @@ body {
           <span class="ex-badge">ल् + आ = <strong>ला</strong></span>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- Exam 10 Questions -->
+  <!-- ===== ABHYASA 6.3 — SANDHI KURATA ===== -->
   <div class="content-section anim-slide delay-3">
+    <div class="abhyasa-badge"><span class="ab-num">अभ्यासः ६.३</span> ಸಂಧಿಂ ಕುರುತ</div>
+    <p style="font-size: 1rem; color: var(--text-muted); margin-bottom: 16px;" data-i18n="ab63-inst">ಕೆಳಗಿನ ಪದಗಳ ಸಂಧಿಯನ್ನು ಮಾಡಿ ಬರೆಯಿರಿ:</p>
+    <div class="sandhi-grid">
+      <div class="sandhi-item"><span class="snum">१.</span><span class="sword">पिबतु+इति</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">८.</span><span class="sword">धातु+अंशः</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">१५.</span><span class="sword">सवितु+उदयः</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">२.</span><span class="sword">भातृ+आज्ञा</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">९.</span><span class="sword">धेनु+आगमनम्</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">१६.</span><span class="sword">दातु+आग्रहः</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">३.</span><span class="sword">पितु+अंशः</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">१०.</span><span class="sword">गुरु+आशीः</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">१७.</span><span class="sword">इति+अपि+आह</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">४.</span><span class="sword">मातु+अनुमतिः</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">११.</span><span class="sword">आशु+आरोहणम्</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">१८.</span><span class="sword">व्यसनेषु+असक्तम्</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">५.</span><span class="sword">इन्दु+आदित्यौ</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">१२.</span><span class="sword">अश्रु+आक्रान्तः</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">१९.</span><span class="sword">इति+एव</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">६.</span><span class="sword">मातु+इच्छा</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">१३.</span><span class="sword">धातु+उपदेशः</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">२०.</span><span class="sword">इति+अवद्यम्</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">७.</span><span class="sword">पितु+अनुग्रहः</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">१४.</span><span class="sword">उपरि+उपरि</span><div class="sblank"></div></div>
+      <div class="sandhi-item" style="border-bottom: none;"></div>
+    </div>
+  </div>
+
+  <!-- ===== ABHYASA 6.4 — YOJAYATA (MATCH) ===== -->
+  <div class="content-section anim-slide delay-4">
+    <div class="abhyasa-badge"><span class="ab-num">अभ्यासः ६.४</span> ಯೋಜಯತ</div>
+    <p style="font-size: 1rem; color: var(--text-muted); margin-bottom: 16px;" data-i18n="ab64-inst">ಎಡ ಮತ್ತು ಬಲ ಅಂಕಣಗಳನ್ನು ಹೊಂದಿಸಿ ಬರೆಯಿರಿ:</p>
+    <div class="match-cols">
+      <!-- LEFT COLUMN: given pairs -->
+      <div>
+        <div class="match-col-title" data-i18n="ab64-col1">ಪ್ರಶ್ನೆ ➔ ಉತ್ತರ (ನೀಡಿದ ಜೋಡಿ)</div>
+        <div class="match-left-item"><span class="mnum">१.</span><span class="mword">जहाति+एव</span><span class="mresult">- उत्पत्त्येव</span></div>
+        <div class="match-left-item"><span class="mnum">२.</span><span class="mword">अस्ति+उद्यम:</span><span class="mresult">- वाक्येष्वनादरः</span></div>
+        <div class="match-left-item"><span class="mnum">३.</span><span class="mword">शतानि+अपि</span><span class="mresult">- गच्छत्युपरि</span></div>
+        <div class="match-left-item"><span class="mnum">४.</span><span class="mword">उत्पतति+एव</span><span class="mresult">- जहात्येव</span></div>
+        <div class="match-left-item"><span class="mnum">५.</span><span class="mword">वाक्येषु+अनादरः</span><span class="mresult">- शतान्यपि</span></div>
+        <div class="match-left-item"><span class="mnum">६.</span><span class="mword">गच्छति+उपरि</span><span class="mresult">- अस्त्युद्यमः</span></div>
+      </div>
+      <!-- RIGHT COLUMN: blanks to fill -->
+      <div>
+        <div class="match-col-title" data-i18n="ab64-col2">ಸ್ವಯಂ ಸಂಧಿ ಮಾಡಿ ಬರೆಯಿರಿ</div>
+        <div class="match-right-item"><span class="mnum">१.</span><span class="mword">जहाति+एव</span><div class="mblank"></div></div>
+        <div class="match-right-item"><span class="mnum">२.</span><span class="mword">अस्ति+उद्यमः</span><div class="mblank"></div></div>
+        <div class="match-right-item"><span class="mnum">३.</span><span class="mword">शतानि+अपि</span><div class="mblank"></div></div>
+        <div class="match-right-item"><span class="mnum">४.</span><span class="mword">उत्पतति+एव</span><div class="mblank"></div></div>
+        <div class="match-right-item"><span class="mnum">५.</span><span class="mword">वाक्येषु+अनादरः</span><div class="mblank"></div></div>
+        <div class="match-right-item"><span class="mnum">६.</span><span class="mword">गच्छति+उपरि</span><div class="mblank"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ABHYASA 6.5 — RIKTASTHANAM PURAYATA ===== -->
+  <div class="content-section anim-slide delay-5">
+    <div class="abhyasa-badge"><span class="ab-num">अभ्यासः ६.५</span> ರಿಕ್ತಸ್ಥಾನಂ ಪೂರಯತ</div>
+    <p style="font-size: 1rem; color: var(--text-muted); margin-bottom: 16px;" data-i18n="ab65-inst">ಖಾಲಿ ಜಾಗದಲ್ಲಿ ಸರಿಯಾದ ಪದ ತುಂಬಿ ಸಂಧಿ ಪೂರ್ಣ ಮಾಡಿ:</p>
+    <div class="fill-grid">
+      <div class="fill-item">
+        <span class="fnum">१.</span>
+        <span class="fword">दु:खानि+</span><div class="fblank"></div>
+        <span class="feq"> = </span>
+        <span class="fres">दु:खान्यनुभूय</span>
+      </div>
+      <div class="fill-item">
+        <span class="fnum">६.</span>
+        <span class="fword">अस्तु+</span><div class="fblank"></div>
+        <span class="feq"> = </span>
+        <span class="fres">अस्त्वकर्मणि</span>
+      </div>
+
+      <div class="fill-item">
+        <span class="fnum">२.</span>
+        <div class="fblank"></div><span class="fword">+अहम्</span>
+        <span class="feq"> = </span>
+        <span class="fres">त्वहम्</span>
+      </div>
+      <div class="fill-item">
+        <span class="fnum">७.</span>
+        <div class="fblank"></div><span class="fword">+इव</span>
+        <span class="feq"> = </span>
+        <span class="fres">प्रजाश्चिव</span>
+      </div>
+
+      <div class="fill-item">
+        <span class="fnum">३.</span>
+        <span class="fword">अपि+</span><div class="fblank"></div>
+        <span class="feq"> = </span>
+        <span class="fres">अप्यमृतम्</span>
+      </div>
+      <div class="fill-item">
+        <span class="fnum">८.</span>
+        <div class="fblank"></div><span class="fword">+अपि</span>
+        <span class="feq"> = </span>
+        <span class="fres">यद्यपि</span>
+      </div>
+
+      <div class="fill-item">
+        <span class="fnum">४.</span>
+        <span class="fword">हि+</span><div class="fblank"></div>
+        <span class="feq"> = </span>
+        <span class="fres">ह्योकभक्तः</span>
+      </div>
+      <div class="fill-item">
+        <span class="fnum">९.</span>
+        <span class="fword">अपि+</span><div class="fblank"></div>
+        <span class="feq"> = </span>
+        <span class="fres">अप्यनुनय</span>
+      </div>
+
+      <div class="fill-item">
+        <span class="fnum">५.</span>
+        <div class="fblank"></div><span class="fword">+आहुः</span>
+        <span class="feq"> = </span>
+        <span class="fres">इत्याहुः</span>
+      </div>
+      <div class="fill-item">
+        <span class="fnum">१०.</span>
+        <span class="fword">कार्येषु+</span><div class="fblank"></div>
+        <span class="feq"> = </span>
+        <span class="fres">कार्येष्वनुद्यमः</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ABHYASA 6.6 — PASSAGE EXERCISE ===== -->
+  <div class="content-section anim-slide delay-6">
+    <div class="abhyasa-badge"><span class="ab-num">अभ्यासः ६.६</span> ಗದ್ಯ-ಸಂಧಿ-ವಿಚ್ಛೇದ</div>
+    <div class="passage-inst" data-i18n="ab66-inst">
+      ಅಸ್ಯಾಂ ಕಥಾಯಾಂ ಯತ್ರ ಯಣ್ಸಂಧಿಃ ಭವಿತುಮ್ ಅರ್ಹತಿ ತಾದೃಶೇಷು ಸ್ಥಾನೇಷು ಯಣ್ ಸಂಧಿಂ ಕಿಂ ಸ್ಥಾನೇ ಅಧಃ ಲಿಖತ —
+      ಈ ಕಥೆಯಲ್ಲಿ ಎಲ್ಲಿ ಯಣ್‌ ಸಂಧಿ ಆಗಬೇಕಿತ್ತು ಎಂಬ ಸ್ಥಳಗಳನ್ನು ಗುರುತಿಸಿ, ಯಣ್ ಸಂಧಿ ಮಾಡಿ ಕೆಳಗೆ ಬರೆಯಿರಿ.
+    </div>
+    <div class="passage-box">
+      कश्चन कृषिकः आसीत्। तस्य चत्वारः पुत्राः आसन्। ते चत्वारः अपि अलसाः आसन्। ते प्रतिदिनं दधि इत्यादि खादित्वा स्थूलाः अभवन्। एकस्मिन् दिने सः कृषिकः रुग्णः अभवत्। सः इतः परं न अहम् जीवामि इति ज्ञातवान्। उपायेन पुत्राणाम् आलस्यं दूरीकरोमि अहम् इति अचिन्तयत्। एकस्मिन् दिने पुत्रान् आहूय एवम् उक्तवान् मम कृषिक्षेत्रे अनेकानि अमूल्यानि रत्नानि सन्ति, मम मरणानन्तरं स्वीकुर्वन्तु इति केषुचित् दिनेषु सः मृतः। अभवत्। पुत्राः पितुः उक्तिम् अनुसरन्तः धनस्य आशया कृषिक्षेत्रस्य खननं कृतवन्तः। किन्तु एकम् अपि रत्नं न प्राप्तवन्तः। तावता वर्षकालः आरब्धः। वर्षकालस्य समाप्तेः अनन्तरम् अन्विष्याम इति निश्चितवन्तः। क्षेत्रे खननं तु कृतम् आसीत् इति कारणात् धान्यानां बीजानि उप्तवन्तः। समृद्धरूपेण धान्यानि उत्पन्नानि। तानि धान्यानि विक्रिय बहु धनं प्राप्तवन्तः। धनं दृष्ट्वा ज्ञातवन्तः यत् अस्माकं पिता उक्तानि रत्नानि एतानि एव इति। ततः परम् आलस्यं विहाय सन्तोषेण जीवितवन्तः।
+    </div>
+    <p style="font-size: 1rem; font-weight: 700; color: var(--primary); margin-top: 18px; margin-bottom: 6px;" data-i18n="ab66-write">ಯಣ್ ಸಂಧಿ ಸ್ಥಾನಗಳನ್ನು ಇಲ್ಲಿ ಬರೆಯಿರಿ:</p>
+    <div class="passage-ans-grid">
+      <div class="passage-ans-item"><span class="panum">१.</span><div class="pablank"></div></div>
+      <div class="passage-ans-item"><span class="panum">२.</span><div class="pablank"></div></div>
+      <div class="passage-ans-item"><span class="panum">३.</span><div class="pablank"></div></div>
+      <div class="passage-ans-item"><span class="panum">४.</span><div class="pablank"></div></div>
+      <div class="passage-ans-item"><span class="panum">५.</span><div class="pablank"></div></div>
+      <div class="passage-ans-item"><span class="panum">६.</span><div class="pablank"></div></div>
+    </div>
+  </div>
+
+  <!-- ===== ORIGINAL EXAM (10 Q) ===== -->
+  <div class="content-section anim-slide delay-6">
     <div class="sec-heading" style="justify-content: center; border-bottom: none; margin-bottom: 0;" data-i18n="exam-title">
       ✦ ಅಭ್ಯಾಸ (Exam) ✦
     </div>
@@ -293,7 +530,7 @@ body {
   </div>
 
   <!-- Drag & Drop Game -->
-  <div class="content-section anim-slide delay-4">
+  <div class="content-section anim-slide delay-7">
     <div class="sec-heading" style="justify-content: center;" data-i18n="game-title">✦ ಸಂವಾದಾತ್ಮಕ ಕ್ರೀಡೆ (Drag & Drop Game) ✦</div>
     <p style="text-align: center; color: var(--text-muted); font-weight: 600; margin-bottom: 20px;" data-i18n="game-inst">
       ಕೆಳಗಿನ ಅಕ್ಷರಗಳನ್ನು ಸರಿಯಾದ ಜಾಗಕ್ಕೆ ಡ್ರ್ಯಾಗ್ ಮಾಡಿ (ಅಥವಾ ಕ್ಲಿಕ್ ಮಾಡಿ ಸೇರಿಸಿ):
@@ -320,9 +557,7 @@ body {
         </div>
       </div>
 
-      <div class="game-options" id="game-options">
-        <!-- Draggables injected here -->
-      </div>
+      <div class="game-options" id="game-options"></div>
 
       <button class="game-btn" id="check-btn" onclick="checkGameAnswer()" data-i18n="btn-check">ಪರಿಶೀಲಿಸಿ</button>
       <button class="game-btn" id="next-btn" style="display:none;" onclick="loadNextGame()" data-i18n="btn-next">ಮುಂದಿನ ಪ್ರಶ್ನೆ ➔</button>
@@ -331,7 +566,7 @@ body {
   </div>
 
   <!-- Samhitaikapade Shloka Section -->
-  <div class="content-section anim-slide delay-5">
+  <div class="content-section anim-slide delay-8">
     <div class="sec-heading" data-i18n="sec-rules-title">ಸಂಧಿ ನಿಯಮಗಳು: ಎಲ್ಲಿ ಕಡ್ಡಾಯ? ಎಲ್ಲಿ ಐಚ್ಛಿಕ?</div>
     <p style="font-size: 1.15rem; color: var(--text-muted);" data-i18n="rules-desc">ಸಂಧಿಯನ್ನು ಎಲ್ಲಿ ಮಾಡಲೇಬೇಕು ಮತ್ತು ಎಲ್ಲಿ ಬಿಡಬಹುದು ಎಂಬುದರ ಬಗ್ಗೆ ವ್ಯಾಕರಣ ಶಾಸ್ತ್ರದಲ್ಲಿ ಒಂದು ಪ್ರಸಿದ್ಧವಾದ ಶ್ಲೋಕವಿದೆ:</p>
     
@@ -351,7 +586,6 @@ body {
         <div style="font-size: 0.95rem; color: var(--text-muted);" data-i18n="rule1-desc">ಒಂದೇ ಪದವನ್ನು ರಚಿಸುವಾಗ ಸಂಧಿ ಮಾಡುವುದು ಕಡ್ಡಾಯ.</div>
         <div class="rule-ex">ने + अनम् = नयनम्</div>
       </div>
-
       <div class="rule-card">
         <div class="rule-title-box">
           <span class="rule-sa">२. धातूपसर्गयोः नित्या</span>
@@ -360,7 +594,6 @@ body {
         <div style="font-size: 0.95rem; color: var(--text-muted);" data-i18n="rule2-desc">ಉಪಸರ್ಗ ಮತ್ತು ಕ್ರಿಯಾಪದದ (ಧಾತು) ನಡುವೆ ಸಂಧಿ ಕಡ್ಡಾಯ.</div>
         <div class="rule-ex">नि + अवसत् = न्यवसत्</div>
       </div>
-
       <div class="rule-card">
         <div class="rule-title-box">
           <span class="rule-sa">३. समासे नित्या</span>
@@ -369,7 +602,6 @@ body {
         <div style="font-size: 0.95rem; color: var(--text-muted);" data-i18n="rule3-desc">ಸಮಸ್ತ ಪದಗಳನ್ನು (ಸಮಾಸ) ರಚಿಸುವಾಗ ಸಂಧಿ ಕಡ್ಡಾಯ.</div>
         <div class="rule-ex">विद्या + आलयः = विद्यालयः</div>
       </div>
-
       <div class="rule-card optional">
         <div class="rule-title-box">
           <span class="rule-sa">४. वाक्ये विवक्षाम् अपेक्षते</span>
@@ -481,7 +713,6 @@ function loadGameQuestion() {
   selectedDragItem = null;
 }
 
-// Drag & Drop / Click to Move Logic
 function handleDragStart(e) {
   e.dataTransfer.setData("text/plain", e.target.id);
   handleOptionClick(e.target);
@@ -549,12 +780,11 @@ function loadNextGame() {
 
 window.onload = loadGameQuestion;
 
-// Modal Logic
 function openChart() { document.getElementById('chartModal').classList.add('active'); }
 function closeChart() { document.getElementById('chartModal').classList.remove('active'); }
 window.onclick = function(event) { if (event.target == document.getElementById('chartModal')) closeChart(); }
 
-// Dictionary & i18n
+// i18n Dictionary
 const i18n = {
   "btn-back": { kn: "ಹಿಂದಕ್ಕೆ (Index)", en: "Back to Index", sa: "प्रतिगच्छतु (सूची)" },
   "lesson-title": { kn: "೧. ಯಣ್ ಸಂಧಿಃ", en: "1. Yan Sandhi", sa: "१. यण्सन्धिः" },
@@ -567,6 +797,13 @@ const i18n = {
   },
   "plus-ac": { kn: "+ अच् (ಸ್ವರ)", en: "+ Ac (Vowel)", sa: "+ अच् (स्वरः)" },
   "sub-label-text": { kn: "ಸ್ವರ ಸೇರಿದಾಗ:", en: "When vowel joins:", sa: "स्वरेण सह:" },
+  "ab63-inst": { kn: "ಕೆಳಗಿನ ಪದಗಳ ಸಂಧಿಯನ್ನು ಮಾಡಿ ಬರೆಯಿರಿ:", en: "Perform sandhi on the following words:", sa: "अधस्थपदानां सन्धिं कुरुत:" },
+  "ab64-inst": { kn: "ಎಡ ಮತ್ತು ಬಲ ಅಂಕಣಗಳನ್ನು ಹೊಂದಿಸಿ ಬರೆಯಿರಿ:", en: "Match the left and right columns:", sa: "वामदक्षिणस्तम्भयोः मेलनं कुरुत:" },
+  "ab64-col1": { kn: "ಪ್ರಶ್ನೆ ➔ ಉತ್ತರ (ನೀಡಿದ ಜೋಡಿ)", en: "Question ➔ Answer (given pairs)", sa: "प्रश्नः ➔ उत्तरम् (दत्तयुग्मानि)" },
+  "ab64-col2": { kn: "ಸ್ವಯಂ ಸಂಧಿ ಮಾಡಿ ಬರೆಯಿರಿ", en: "Write the sandhi yourself", sa: "स्वयं सन्धिं कृत्वा लिखत" },
+  "ab65-inst": { kn: "ಖಾಲಿ ಜಾಗದಲ್ಲಿ ಸರಿಯಾದ ಪದ ತುಂಬಿ ಸಂಧಿ ಪೂರ್ಣ ಮಾಡಿ:", en: "Fill in the blank to complete the sandhi:", sa: "रिक्तस्थाने उचितपदं पूरयत:" },
+  "ab66-inst": { kn: "ಈ ಕಥೆಯಲ್ಲಿ ಎಲ್ಲಿ ಯಣ್ ಸಂಧಿ ಆಗಬೇಕಿತ್ತು ಎಂಬ ಸ್ಥಳಗಳನ್ನು ಗುರುತಿಸಿ ಕೆಳಗೆ ಬರೆಯಿರಿ.", en: "Identify where Yan Sandhi should apply in this passage and write them below.", sa: "अस्यां कथायां यत्र यण्सन्धिः भवितुमर्हति, तानि स्थानानि चिन्वन्तु अधः च लिखन्तु।" },
+  "ab66-write": { kn: "ಯಣ್ ಸಂಧಿ ಸ್ಥಾನಗಳನ್ನು ಇಲ್ಲಿ ಬರೆಯಿರಿ:", en: "Write the Yan Sandhi instances here:", sa: "यण्सन्धेः स्थानानि अत्र लिखत:" },
   "exam-title": { kn: "✦ ಅಭ್ಯಾಸ (Exam) ✦", en: "✦ Practice Exam ✦", sa: "✦ अभ्यासः ✦" },
   "exam-inst": { kn: "ಗುರುಮುಖೇನ ಈ ಕೆಳಗಿನ ಪದಗಳನ್ನು ಸಂಧಿಸಿ ಬರೆಯಿರಿ:", en: "Combine the following words with the help of the teacher:", sa: "गुरुमुखेन एतेषां पदानां सन्धिं कुरुत:" },
   "game-title": { kn: "✦ ಸಂವಾದಾತ್ಮಕ ಕ್ರೀಡೆ (Drag & Drop) ✦", en: "✦ Interactive Game ✦", sa: "✦ संवादात्मक-क्रीडा ✦" },
@@ -576,7 +813,6 @@ const i18n = {
   "slot-adesha": { kn: "ಆದೇಶ", en: "Adesha", sa: "आदेशः" },
   "btn-check": { kn: "ಪರಿಶೀಲಿಸಿ", en: "Check", sa: "परिशीलयन्तु" },
   "btn-next": { kn: "ಮುಂದಿನ ಪ್ರಶ್ನೆ ➔", en: "Next Question ➔", sa: "अग्रिम-प्रश्नः ➔" },
-  
   "sec-rules-title": { kn: "ಸಂಧಿ ನಿಯಮಗಳು: ಎಲ್ಲಿ ಕಡ್ಡಾಯ? ಎಲ್ಲಿ ಐಚ್ಛಿಕ?", en: "Rules of Sandhi: Mandatory vs Optional", sa: "सन्धेः नियमाः : कुत्र नित्यः, कुत्र विकल्पः?" },
   "rules-desc": { kn: "ಸಂಧಿಯನ್ನು ಎಲ್ಲಿ ಮಾಡಲೇಬೇಕು ಮತ್ತು ಎಲ್ಲಿ ಬಿಡಬಹುದು ಎಂಬುದರ ಬಗ್ಗೆ ವ್ಯಾಕರಣ ಶಾಸ್ತ್ರದಲ್ಲಿ ಒಂದು ಪ್ರಸಿದ್ಧವಾದ ಶ್ಲೋಕವಿದೆ:", en: "There is a famous grammatical verse detailing where Sandhi must be applied and where it is optional:", sa: "सन्धिः कुत्र अनिवार्यः, कुत्र ऐच्छिकः इति विषये व्याकरणशास्त्रे एका प्रसिद्धा कारिका वर्तते-" },
   "rule1-title": { kn: "ಒಂದೇ ಪದದೊಳಗೆ (ಕಡ್ಡಾಯ)", en: "Within a single word (Mandatory)", sa: "एकपदे (नित्यः)" },
@@ -587,7 +823,6 @@ const i18n = {
   "rule3-desc": { kn: "ಸಮಸ್ತ ಪದಗಳನ್ನು (ಸಮಾಸ) ರಚಿಸುವಾಗ ಸಂಧಿ ಕಡ್ಡಾಯ.", en: "Sandhi is mandatory when forming compound words.", sa: "समस्तपदानां निर्माणे सन्धिः अनिवार्यः।" },
   "rule4-title": { kn: "ವಾಕ್ಯದಲ್ಲಿ (ಐಚ್ಛಿಕ)", en: "In a Sentence (Optional)", sa: "वाक्ये (विवक्षा)" },
   "rule4-desc": { kn: "ವಾಕ್ಯದಲ್ಲಿ ಎರಡು ಪ್ರತ್ಯೇಕ ಪದಗಳ ನಡುವೆ ಸಂಧಿ ಮಾಡುವುದು ಮಾತನಾಡುವವನ ಇಚ್ಛೆಗೆ ಬಿಟ್ಟದ್ದು.", en: "In a sentence, Sandhi between separate words is optional (depends on the speaker).", sa: "वाक्ये स्वतन्त्रपदयोः मध्ये सन्धिः वक्तुः इच्छानुसारं भवति।" },
-  
   "modal-title": { kn: "ಅಚ್-ಸಂಧಿ ಮಾಸ್ಟರ್ ಚಾರ್ಟ್", en: "Ac-Sandhi Master Chart", sa: "अच्-सन्धिः महाकोष्टकम्" },
   "modal-desc": { kn: "(ಯಣ್ ಸಂಧಿ ಮಾತ್ರ ಹೈಲೈಟ್ ಮಾಡಲಾಗಿದೆ. ಉಳಿದವು ಮುಂದಿನ ಪಾಠಗಳಲ್ಲಿ ಅನ್‌ಲಾಕ್ ಆಗುತ್ತವೆ.)", en: "(Only Yan Sandhi is highlighted. Others will unlock in upcoming lessons.)", sa: "(केवलं यण्-आदेशाः प्रकाशिताः सन्ति। अन्ये सन्धयः अग्रिमपाठेषु उद्घाटिताः भविष्यन्ति।)" }
 };
@@ -599,7 +834,6 @@ function setLanguage(lang, btnEl) {
     const key = el.getAttribute('data-i18n');
     if (i18n[key] && i18n[key][lang]) el.innerHTML = i18n[key][lang];
   });
-  
   const ex4 = document.getElementById('rule4-ex');
   if (lang === 'kn') ex4.innerHTML = 'रामः गच्छति <b>ಅಥವಾ</b> रामो गच्छति';
   else if (lang === 'en') ex4.innerHTML = 'रामः गच्छति <b>OR</b> रामो गच्छति';
