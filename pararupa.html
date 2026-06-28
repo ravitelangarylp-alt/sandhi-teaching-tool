@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>ಪರರೂಪ ಸಂಧಿ | Team Trayee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Laila:wght@400;500;600;700&family=Inknut+Antiqua:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg-color: #fcf9f2;
+  --primary: #691c22;
+  --primary-light: #8a2730;
+  --gold: #cba972;
+  --gold-dark: #a8895a;
+  --text-main: #2d2d2d;
+  --text-muted: #5a5a5a;
+  --card-bg: #ffffff;
+  --correct: #2a6040;
+  --wrong: #8b2020;
+  --font-kn: 'Laila', sans-serif;
+  --font-sa: 'Inknut Antiqua', serif;
+  
+  /* Sandhi Specific Colors */
+  --c-yan: #e3f2fd; --c-yan-txt: #1565c0;      
+  --c-dirgha: #ffebee; --c-dirgha-txt: #c62828; 
+  --c-guna: #e8f5e9; --c-guna-txt: #2e7d32;    
+  --c-vriddhi: #f3e5f5; --c-vriddhi-txt: #6a1b9a; 
+  --c-ayadi: #fff3e0; --c-ayadi-txt: #ef6c00;
+  --c-purvarupa: #fff4e6; --c-purvarupa-txt: #b95e00;
+  --c-pararupa: #dbeafe; --c-pararupa-txt: #1e40af; 
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-kn); background-color: var(--bg-color); color: var(--text-main);
+  line-height: 1.6; padding: 20px 20px 60px;
+}
+.container { max-width: 1000px; margin: 0 auto; overflow: hidden; }
+
+/* Animations */
+@keyframes slideUpFade { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+.anim-slide { opacity: 0; animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; } .delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; } .delay-6 { animation-delay: 0.6s; }
+.delay-7 { animation-delay: 0.7s; } .delay-8 { animation-delay: 0.8s; }
+
+/* Top Navigation */
+.top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.back-btn { font-size: 1rem; font-weight: 600; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 5px; background: rgba(203,169,114,0.15); padding: 8px 16px; border-radius: 50px; transition: 0.2s; }
+.back-btn:hover { background: rgba(203,169,114,0.3); transform: translateX(-3px); }
+.lang-switch { background: var(--card-bg); border: 1px solid var(--gold); border-radius: 50px; display: flex; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.lang-btn { background: transparent; border: none; padding: 8px 16px; font-family: var(--font-kn); font-size: 0.95rem; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: 0.2s; }
+.lang-btn.active { background: var(--primary); color: #fff; }
+
+/* Header & Sutra */
+.lesson-header { text-align: center; margin-bottom: 30px; }
+.lesson-title { font-family: var(--font-sa); font-size: 3rem; color: var(--primary); font-weight: 700; text-shadow: 1px 2px 5px rgba(105, 28, 34, 0.1); display: inline-block; position: relative; }
+.lesson-title::after { content: ''; position: absolute; bottom: 0; left: 10%; right: 10%; height: 3px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+.sutra-box { background: linear-gradient(135deg, #691c22, #4a1318); color: #fff; padding: 30px; border-radius: 12px; text-align: center; box-shadow: 0 8px 20px rgba(105, 28, 34, 0.2); margin-bottom: 30px; position: relative; overflow: hidden; }
+.sutra-label { font-size: 1rem; font-weight: 600; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+.sutra-text { font-family: var(--font-sa); font-size: 2.6rem; font-weight: 700; line-height: 1.4; }
+
+/* Sections */
+.content-section { background: #fff; border: 1px solid rgba(203,169,114,0.4); border-radius: 12px; padding: 30px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); transition: 0.3s; }
+.content-section:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
+.sec-heading { font-size: 1.5rem; color: var(--primary); font-weight: 700; margin-bottom: 20px; border-bottom: 1px solid rgba(203,169,114,0.3); padding-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+.sec-heading::before { content: '❖'; color: var(--gold); font-size: 1.2rem; }
+
+/* --- Transformation Map --- */
+.golden-rule-box {
+  background: #fcf4e3; border-left: 4px solid #ef6c00; padding: 15px 20px;
+  border-radius: 6px; margin-bottom: 25px; line-height: 1.6;
+}
+.golden-rule-box strong { color: #d84315; font-size: 1.1rem; }
+
+.pararupa-diagram-container {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;
+  margin: 30px 0; background: #fdfaf5; padding: 25px; border-radius: 12px;
+  border: 1px solid rgba(203,169,114,0.2);
+}
+.pararupa-diagram-item {
+  display: flex; align-items: center; gap: 15px;
+  font-family: var(--font-sa); font-size: 1.5rem; background: #fff;
+  padding: 8px 15px; border-radius: 8px; border: 1px solid rgba(203,169,114,0.3);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+.pararupa-diagram-item .arrow { color: var(--gold-dark); font-weight: 700; }
+.pararupa-diagram-item .result { background: var(--c-pararupa); color: var(--c-pararupa-txt); padding: 2px 10px; border-radius: 4px; font-weight: 700; }
+.note-yellow { background: #fff8e1; padding: 15px; border-left: 4px solid #ffb300; margin: 15px 0 25px 0; font-size: 1.1rem; line-height: 1.6;}
+
+.map-grid { display: flex; flex-direction: column; gap: 15px; }
+.map-card {
+  background: linear-gradient(145deg, #ffffff, #fdfaf5); border: 1px solid rgba(203, 169, 114, 0.5);
+  border-radius: 12px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+  border-left: 6px solid var(--primary); transition: transform 0.2s;
+}
+.map-card:hover { transform: translateX(5px); box-shadow: 0 6px 15px rgba(105, 28, 34, 0.08); }
+.map-main-eq {
+  display: flex; align-items: center; gap: 15px; font-size: 1.5rem; margin-bottom: 15px;
+  padding-bottom: 15px; border-bottom: 1px dashed rgba(203, 169, 114, 0.4); flex-wrap: wrap;
+}
+.chip { background: #fff; border: 2px solid var(--gold); color: var(--primary); padding: 6px 18px; border-radius: 50px; font-family: var(--font-sa); font-weight: 600; }
+.chip-res { background: var(--primary); color: #fff; border: 2px solid var(--primary); padding: 6px 18px; border-radius: 50px; font-family: var(--font-sa); box-shadow: 0 4px 10px rgba(105, 28, 34, 0.2); font-weight: 600; }
+
+/* ===== ABHYASA SECTION STYLES ===== */
+.abhyasa-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: #fff; padding: 5px 16px; border-radius: 50px;
+  font-size: 1rem; font-weight: 700; margin-bottom: 18px;
+  box-shadow: 0 4px 12px rgba(105,28,34,0.2);
+}
+.abhyasa-badge .ab-num { background: rgba(255,255,255,0.25); border-radius: 50px; padding: 1px 10px; font-family: var(--font-sa); }
+
+/* Sandhi Kurata (6.24) */
+.sandhi-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 30px; margin-top: 10px;
+}
+.sandhi-item {
+  display: flex; align-items: flex-end; gap: 8px;
+  font-family: var(--font-sa); font-size: 1.15rem; color: var(--text-main);
+  padding: 8px 0; border-bottom: 1px dashed rgba(203,169,114,0.3);
+}
+.sandhi-item .snum { font-size: 1rem; color: var(--gold-dark); font-weight: 700; min-width: 24px; }
+.sandhi-item .sword { color: var(--primary); font-weight: 600; white-space: nowrap; }
+.sandhi-item .sblank { flex-grow: 1; border-bottom: 1.5px solid var(--text-muted); height: 22px; margin-bottom: 3px; }
+
+/* Vibhajata (6.25) */
+.match-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+.match-col-title { font-weight: 700; color: var(--gold-dark); font-size: 1rem; margin-bottom: 10px; text-align: center; border-bottom: 1px solid rgba(203,169,114,0.3); padding-bottom: 6px; }
+.match-left-item { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-sa); font-size: 1.1rem; padding: 8px 0; border-bottom: 1px dashed rgba(203,169,114,0.2); }
+.match-left-item .mnum { color: var(--gold-dark); font-weight: 700; min-width: 22px; }
+.match-left-item .mword { color: var(--primary); font-weight: 600; }
+.match-right-item { display: flex; align-items: center; font-family: var(--font-sa); font-size: 1.1rem; padding: 8px 0; border-bottom: 1px dashed rgba(203,169,114,0.2); gap: 8px; }
+.match-right-item .mnum { color: var(--gold-dark); font-weight: 700; min-width: 22px; }
+.match-right-item .mword { color: var(--primary); font-weight: 600; }
+.match-right-item .mblank { flex-grow: 1; border-bottom: 1.5px solid var(--text-muted); height: 22px; }
+
+/* Riktasthanam (6.26) */
+.fill-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 30px; margin-top: 10px; }
+.fill-item { display: flex; align-items: center; gap: 6px; font-family: var(--font-sa); font-size: 1.1rem; padding: 8px 0; border-bottom: 1px dashed rgba(203,169,114,0.25); flex-wrap: wrap; }
+.fill-item .fnum { color: var(--gold-dark); font-weight: 700; min-width: 22px; }
+.fill-item .fword { color: var(--primary); font-weight: 600; }
+.fill-item .fblank { display: inline-block; width: 90px; border-bottom: 1.5px solid var(--text-muted); height: 20px; vertical-align: bottom; }
+.fill-item .feq { color: var(--text-muted); }
+.fill-item .fres { color: var(--correct); font-weight: 700; }
+
+/* Drag & Drop Game */
+.game-container { background: #fdfaf5; border: 2px dashed var(--gold); border-radius: 12px; padding: 25px; text-align: center; }
+.game-status { font-size: 1.1rem; font-weight: 600; color: var(--gold-dark); margin-bottom: 15px; }
+.game-equation { font-family: var(--font-sa); font-size: 2rem; font-weight: 700; color: var(--primary); margin-bottom: 25px; }
+.game-drop-area { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; }
+.drop-slot-wrap { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.drop-slot { width: 70px; height: 70px; border: 2px dashed var(--gold-dark); border-radius: 8px; background: rgba(255,255,255,0.8); display: flex; justify-content: center; align-items: center; transition: 0.2s; cursor: pointer; }
+.drop-slot.filled { border-style: solid; border-color: var(--primary); }
+.drop-slot.error { border-color: var(--wrong); background: #fdf0f0; }
+.drop-slot.success { border-color: var(--correct); background: #f0fdf4; }
+.slot-label { font-size: 0.9rem; font-weight: 600; color: var(--text-muted); }
+.slot-plus { font-size: 1.8rem; font-weight: 700; color: var(--gold-dark); padding-top: 15px; }
+.game-options { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-bottom: 25px; min-height: 60px; }
+.drag-item { background: #fff; border: 2px solid var(--primary); color: var(--primary); width: 55px; height: 55px; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-family: var(--font-sa); font-size: 1.5rem; font-weight: 700; cursor: grab; box-shadow: 0 4px 10px rgba(105, 28, 34, 0.15); transition: 0.2s; user-select: none; }
+.drag-item:active { cursor: grabbing; transform: scale(0.95); }
+.drag-item.selected { background: var(--primary); color: #fff; transform: scale(1.1); box-shadow: 0 6px 15px rgba(105, 28, 34, 0.3); }
+.game-btn { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: #fff; border: none; padding: 12px 25px; font-size: 1.1rem; font-weight: 700; font-family: var(--font-kn); border-radius: 50px; cursor: pointer; box-shadow: 0 6px 15px rgba(105, 28, 34, 0.3); transition: 0.2s; }
+.game-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(105, 28, 34, 0.4); }
+.game-btn:disabled { background: #ccc; box-shadow: none; cursor: not-allowed; transform: none; }
+.game-feedback { margin-top: 15px; font-size: 1.2rem; font-weight: 700; height: 30px; }
+
+/* Master Chart Button */
+.chart-trigger-container { text-align: center; margin-top: 50px; }
+.chart-btn { background: linear-gradient(135deg, var(--gold-dark), var(--gold)); color: #fff; border: none; padding: 15px 30px; font-size: 1.3rem; font-weight: 700; font-family: var(--font-kn); border-radius: 50px; cursor: pointer; box-shadow: 0 8px 20px rgba(203, 169, 114, 0.4); transition: 0.3s; display: inline-flex; align-items: center; gap: 10px; }
+.chart-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 12px 25px rgba(203, 169, 114, 0.6); }
+
+/* Modal Styles */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); z-index: 1000; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: 0.3s; }
+.modal-overlay.active { opacity: 1; visibility: visible; }
+.modal-content { background: #fff; border-radius: 16px; padding: 30px; max-width: 95%; max-height: 95vh; overflow-y: auto; border: 3px solid var(--gold); transform: scale(0.9); transition: 0.3s; }
+.modal-overlay.active .modal-content { transform: scale(1); }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid rgba(203,169,114,0.3); padding-bottom: 15px; }
+.modal-title { font-size: 1.8rem; font-weight: 700; color: var(--primary); font-family: var(--font-sa); }
+.close-btn { background: #fdfaf5; border: 1px solid var(--gold); color: var(--primary); font-size: 1.5rem; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; transition: 0.2s; }
+.close-btn:hover { background: var(--primary); color: #fff; }
+
+/* ===================== PARARUPA FOCUS MASTER CHART ===================== */
+.master-table { width: 100%; border-collapse: collapse; font-family: var(--font-sa); text-align: center; font-size: 1.4rem; }
+.master-table th { background: rgba(203, 169, 114, 0.15); color: var(--primary); font-weight: 700; padding: 12px; border: 1px solid var(--gold); }
+.master-table td { padding: 12px; border: 1px solid rgba(203,169,114,0.4); font-weight: 600; }
+.master-table thead th { border-bottom: 3px double var(--gold-dark); }
+.master-table tbody th { border-right: 3px double var(--gold-dark); background: rgba(203, 169, 114, 0.08); }
+
+/* Color Classes */
+.c-yan { background-color: var(--c-yan); color: var(--c-yan-txt); }
+.c-dirgha { background-color: var(--c-dirgha); color: var(--c-dirgha-txt); }
+.c-guna { background-color: var(--c-guna); color: var(--c-guna-txt); }
+.c-vriddhi { background-color: var(--c-vriddhi); color: var(--c-vriddhi-txt); }
+.c-ayadi { background-color: var(--c-ayadi); color: var(--c-ayadi-txt); }
+.c-purvarupa { background-color: var(--c-purvarupa); color: var(--c-purvarupa-txt); }
+.c-pararupa { background-color: var(--c-pararupa); color: var(--c-pararupa-txt); }
+
+/* Focus Pararupa */
+.focus-pararupa td:not(.c-pararupa):not(.c-yan):not(.c-guna):not(.c-vriddhi):not(.c-dirgha):not(.c-ayadi):not(.c-purvarupa) { filter: blur(4px) grayscale(50%); opacity: 0.4; user-select: none; }
+.focus-pararupa td.c-pararupa {
+    box-shadow: inset 0 0 10px rgba(30, 64, 175, 0.2);
+    transform: scale(1.02);
+    border: 2px solid var(--c-pararupa-txt);
+    position: relative; z-index: 2;
+}
+
+/* Legend Active State for Pararupa */
+.leg-active-pararupa {
+    box-shadow: inset 0 0 10px rgba(30, 64, 175, 0.2);
+    border: 2px solid var(--c-pararupa-txt) !important;
+    transform: scale(1.02);
+    position: relative; z-index: 2;
+    opacity: 1 !important; font-weight: 800;
+    color: var(--c-pararupa-txt) !important;
+}
+.legend-box { display: flex; gap: 15px; justify-content: center; margin-top: 20px; font-weight: 600; flex-wrap: wrap; }
+.leg-item { display: flex; align-items: center; gap: 5px; padding: 5px 10px; border-radius: 6px; border: 1px solid #ddd; }
+
+@media (max-width: 768px) {
+  .sandhi-grid, .match-cols, .fill-grid { grid-template-columns: 1fr; }
+  .slot-plus { display: none; }
+  .sutra-text { font-size: 2.2rem; }
+  .lesson-title { font-size: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  
+  <!-- Navigation -->
+  <div class="top-bar">
+    <a href="index.html" class="back-btn">⮜ <span data-i18n="btn-back">ಹಿಂದಕ್ಕೆ (Index)</span></a>
+    <div class="lang-switch">
+      <button class="lang-btn active" onclick="setLanguage('kn', this)">ಕನ್ನಡ</button>
+      <button class="lang-btn" onclick="setLanguage('en', this)">English</button>
+      <button class="lang-btn" onclick="setLanguage('sa', this)">संस्कृतम्</button>
+    </div>
+  </div>
+
+  <div class="lesson-header anim-slide">
+    <div class="lesson-title" data-i18n="lesson-title">೭. ಪರರೂಪ ಸಂಧಿಃ</div>
+  </div>
+
+  <!-- Sutra Box -->
+  <div class="sutra-box anim-slide delay-1">
+    <div class="sutra-label" data-i18n="sutra-label">ಪಾಣಿನೀಯ ಸೂತ್ರಮ್</div>
+    <div class="sutra-text">
+        <span>एङि पररूपम् <span style="font-size: 1.2rem; opacity: 0.8;">(६.१.९४)</span></span>
+    </div>
+  </div>
+
+  <!-- Rule & Diagram Map -->
+  <div class="content-section anim-slide delay-2">
+    <div class="sec-heading" data-i18n="map-title">ನಿಯಮ ವಿವರಣೆ (Rule Explanation)</div>
+    
+    <div class="golden-rule-box" data-i18n="pararupa-map-note">
+      <strong>ಸೂತ್ರ (एङः पररूपम्):</strong> ಸಾಮಾನ್ಯವಾಗಿ 'ಅ+ಇ = ಏ' (ಗುಣ ಸಂಧಿ) ಆಗಬೇಕು. ಆದರೆ, ಕೆಲವು ನಿರ್ದಿಷ್ಟ ಪದಗಳಲ್ಲಿ 'ಅ' ಕಾರದ ಮುಂದೆ 'ಏ' ಅಥವಾ 'ಓ' ಕಾರಗಳು ಬಂದರೆ, ಗುಣ/ವೃದ್ಧಿ ಸಂಧಿಗಳಾಗುವ ಬದಲು, ಪರಪದದ (ಮುಂದಿನ) ರೂಪವೇ ಉಳಿಯುತ್ತದೆ. ಅದನ್ನೇ <strong>ಪರರೂಪ</strong> ಎನ್ನುತ್ತಾರೆ.
+    </div>
+
+    <div class="note-yellow" data-i18n="pararupa-note">
+        <strong>ನಿಯಮ (Rule):</strong> ಅಕಾರಾಂತ (ಅ ನಲ್ಲಿ ಕೊನೆಗೊಳ್ಳುವ) <strong>ಉಪಸರ್ಗ</strong>ಗಳ (ಪ್ರ, ಉಪ, ಅಪ, ಅವ, ಇತ್ಯಾದಿ) ಮುಂದೆ 'ಏ' ಅಥವಾ 'ಓ' ಕಾರದಿಂದ ಆರಂಭವಾಗುವ ಧಾತುಗಳು ಬಂದರೆ, ಅಲ್ಲಿ ವೃದ್ಧಿ ಸಂಧಿಯ (ಐ ಅಥವಾ ಔ) ಬದಲಾಗಿ <strong>ಪರರೂಪ</strong> ಆದೇಶವಾಗುತ್ತದೆ. (ಅ + ಏ = ಏ, ಅ + ಓ = ಓ).
+    </div>
+
+    <!-- ===================== REPLACED AYADI SECTION ===================== -->
+    <div class="ayadi-box" style="background: #fff8e1; border-left: 5px solid #ef6c00; padding: 20px; border-radius: 6px; margin: 20px 0; line-height: 1.8; box-shadow: 0 2px 5px rgba(0,0,0,0.03);">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; flex-wrap: wrap;">
+        <span style="font-size: 1.8rem; font-weight: 700; font-family: var(--font-sa); color: var(--primary);">अयादि सन्धिः</span>
+        <span style="background: #ef6c00; color: #fff; padding: 2px 12px; border-radius: 50px; font-size: 1rem; font-family: var(--font-sa);">एचोऽयवायावः (६.१.७८)</span>
+      </div>
+      <p><strong>ನಿಯಮ (Rule):</strong> ಪೂರ್ವಪದದ ಅಂತ್ಯದಲ್ಲಿ <strong>'ए', 'ओ', 'ऐ', 'ಔ'</strong> (एच्) ಎಂಬ ಸ್ವರಗಳು ಇದ್ದು, ಪರಪದದ ಆದಿಯಲ್ಲಿ ಯಾವುದೇ <strong>ಸ್ವರ</strong> (अच्) ಬಂದರೆ, ಅವು ಕ್ರಮವಾಗಿ <strong>'अय्', 'अव्', 'आय्', 'आव्'</strong> ಎಂಬ ಅರ್ಧಾಕ್ಷರಗಳಾಗಿ ಪರಿವರ್ತನೆ ಹೊಂದುತ್ತವೆ.</p>
+      
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 15px; background: #fff; padding: 15px; border-radius: 8px; border: 1px solid rgba(203,169,114,0.2);">
+        <div style="display: flex; align-items: center; gap: 10px; font-size: 1.2rem; font-family: var(--font-sa); border: 1px solid rgba(203,169,114,0.3); padding: 8px 15px; border-radius: 8px; background: #fdfaf5;">
+          <span style="background: #fff; border: 2px solid var(--gold); color: var(--primary); padding: 2px 12px; border-radius: 50px; font-weight: 600;">ए</span>
+          <span class="arrow" style="color: var(--gold-dark); font-weight: 700;">+ स्वर ➔</span>
+          <span style="background: var(--c-ayadi); color: var(--c-ayadi-txt); padding: 2px 12px; border-radius: 4px; font-weight: 700;">अय्</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; font-size: 1.2rem; font-family: var(--font-sa); border: 1px solid rgba(203,169,114,0.3); padding: 8px 15px; border-radius: 8px; background: #fdfaf5;">
+          <span style="background: #fff; border: 2px solid var(--gold); color: var(--primary); padding: 2px 12px; border-radius: 50px; font-weight: 600;">ओ</span>
+          <span class="arrow" style="color: var(--gold-dark); font-weight: 700;">+ स्वर ➔</span>
+          <span style="background: var(--c-ayadi); color: var(--c-ayadi-txt); padding: 2px 12px; border-radius: 4px; font-weight: 700;">अव्</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; font-size: 1.2rem; font-family: var(--font-sa); border: 1px solid rgba(203,169,114,0.3); padding: 8px 15px; border-radius: 8px; background: #fdfaf5;">
+          <span style="background: #fff; border: 2px solid var(--gold); color: var(--primary); padding: 2px 12px; border-radius: 50px; font-weight: 600;">ऐ</span>
+          <span class="arrow" style="color: var(--gold-dark); font-weight: 700;">+ स्वर ➔</span>
+          <span style="background: var(--c-ayadi); color: var(--c-ayadi-txt); padding: 2px 12px; border-radius: 4px; font-weight: 700;">आय्</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; font-size: 1.2rem; font-family: var(--font-sa); border: 1px solid rgba(203,169,114,0.3); padding: 8px 15px; border-radius: 8px; background: #fdfaf5;">
+          <span style="background: #fff; border: 2px solid var(--gold); color: var(--primary); padding: 2px 12px; border-radius: 50px; font-weight: 600;">औ</span>
+          <span class="arrow" style="color: var(--gold-dark); font-weight: 700;">+ स्वर ➔</span>
+          <span style="background: var(--c-ayadi); color: var(--c-ayadi-txt); padding: 2px 12px; border-radius: 4px; font-weight: 700;">आव्</span>
+        </div>
+      </div>
+    </div>
+    <!-- ===================== END AYADI SECTION ===================== -->
+
+    <div class="sec-heading" style="font-size: 1.2rem; border-bottom: none; margin-top: 0; color: var(--gold-dark);" data-i18n="diagram-title">पररूप-सन्धि-दृश्य-निरूपणम् (Visual Diagram)</div>
+    
+    <div class="pararupa-diagram-container">
+        <div class="pararupa-diagram-item">
+            <span class="chip">अ</span> <span class="chip">ए</span>
+            <span class="arrow">➔</span> <span class="result">ए</span>
+        </div>
+        <div class="pararupa-diagram-item">
+            <span class="chip">अ</span> <span class="chip">ओ</span>
+            <span class="arrow">➔</span> <span class="result">ओ</span>
+        </div>
+        <div class="pararupa-diagram-item" style="background: #fdfaf5; border: 1px dashed var(--gold-dark);">
+            <span style="font-size: 1rem; color: var(--text-muted);">ಉದಾ:</span>
+            <span class="chip">प्र</span> <span class="chip">एजते</span>
+            <span class="arrow">➔</span> <span class="result">प्रजते</span>
+        </div>
+        <div class="pararupa-diagram-item" style="background: #fdfaf5; border: 1px dashed var(--gold-dark);">
+            <span style="font-size: 1rem; color: var(--text-muted);">ಉದಾ:</span>
+            <span class="chip">उप</span> <span class="chip">ओषति</span>
+            <span class="arrow">➔</span> <span class="result">उपोषति</span>
+        </div>
+    </div>
+  </div>
+
+  <!-- ===== ABHYASA 6.24 — SANDHI KURATA ===== -->
+  <div class="content-section anim-slide delay-3">
+    <div class="abhyasa-badge"><span class="ab-num">अभ्यासः ६.२४</span> सन्धिं कुरुत</div>
+    <p style="font-size: 1rem; color: var(--text-muted); margin-bottom: 16px;" data-i18n="ab624-inst">ಕೆಳಗಿನ ಪದಗಳ ಸಂಧಿಯನ್ನು ಮಾಡಿ ಬರೆಯಿರಿ:</p>
+    <div class="sandhi-grid">
+      <div class="sandhi-item"><span class="snum">१.</span><span class="sword">प्र+एजते</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">९.</span><span class="sword">अप+एजते</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">२.</span><span class="sword">उप+ओषति</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">१०.</span><span class="sword">उप+एषते</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">३.</span><span class="sword">परा+एधते</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">११.</span><span class="sword">अव+ओषति</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">४.</span><span class="sword">अप+ओहति</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">१२.</span><span class="sword">अव+एजते</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">५.</span><span class="sword">अव+एधते</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">१३.</span><span class="sword">प्र+ओषति</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">६.</span><span class="sword">प्र+एधते</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">१४.</span><span class="sword">अप+एषते</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">७.</span><span class="sword">उप+एधते</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">१५.</span><span class="sword">परा+ओषति</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">८.</span><span class="sword">परा+एजते</span><div class="sblank"></div></div>
+      <div class="sandhi-item" style="border-bottom: none;"></div>
+    </div>
+  </div>
+
+  <!-- ===== ABHYASA 6.25 — SANDHI VIBHAJATA ===== -->
+  <div class="content-section anim-slide delay-4">
+    <div class="abhyasa-badge"><span class="ab-num">अभ्यासः ६.२५</span> सन्धिं विभजत</div>
+    <p style="font-size: 1rem; color: var(--text-muted); margin-bottom: 16px;" data-i18n="ab625-inst">ಕೆಳಗಿನ ಪರರೂಪ ಸಂಧಿ ಪದಗಳನ್ನು ವಿಭಜಿಸಿ (ಪೂರ್ವಪದ + ಪರಪದ) ಬರೆಯಿರಿ:</p>
+    <div class="match-cols">
+      <div>
+        <div class="match-col-title" data-i18n="ab625-col1">ಸನ್ಧಿಪದ</div>
+        <div class="match-left-item"><span class="mnum">१.</span><span class="mword">प्रजते</span></div>
+        <div class="match-left-item"><span class="mnum">२.</span><span class="mword">उपोषति</span></div>
+        <div class="match-left-item"><span class="mnum">३.</span><span class="mword">अपोहति</span></div>
+        <div class="match-left-item"><span class="mnum">४.</span><span class="mword">अवेधते</span></div>
+        <div class="match-left-item"><span class="mnum">५.</span><span class="mword">प्रोषति</span></div>
+      </div>
+      <div>
+        <div class="match-col-title" data-i18n="ab625-col2">ವಿಭಜಿಸಿ ಬರೆಯಿರಿ</div>
+        <div class="match-right-item"><span class="mnum">१.</span><div class="mblank"></div></div>
+        <div class="match-right-item"><span class="mnum">२.</span><div class="mblank"></div></div>
+        <div class="match-right-item"><span class="mnum">३.</span><div class="mblank"></div></div>
+        <div class="match-right-item"><span class="mnum">४.</span><div class="mblank"></div></div>
+        <div class="match-right-item"><span class="mnum">५.</span><div class="mblank"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ABHYASA 6.26 — RIKTASSTHANAM ===== -->
+  <div class="content-section anim-slide delay-5">
+    <div class="abhyasa-badge"><span class="ab-num">अभ्यासः ६.२६</span> रिक्तस्थानं पूरयत</div>
+    <p style="font-size: 1rem; color: var(--text-muted); margin-bottom: 16px;" data-i18n="ab626-inst">ಖಾಲಿ ಜಾಗದಲ್ಲಿ ಸರಿಯಾದ ಪದ ತುಂಬಿ ಸಂಧಿ ಪೂರ್ಣ ಮಾಡಿ:</p>
+    <div class="fill-grid">
+      <div class="fill-item"><span class="fnum">१.</span><span class="fword">प्र+</span><div class="fblank"></div><span class="feq"> = </span><span class="fres">प्रजते</span></div>
+      <div class="fill-item"><span class="fnum">६.</span><span class="fword">अव+</span><div class="fblank"></div><span class="feq"> = </span><span class="fres">अवोषति</span></div>
+
+      <div class="fill-item"><span class="fnum">२.</span><span class="fword">उप+</span><div class="fblank"></div><span class="feq"> = </span><span class="fres">उपोषति</span></div>
+      <div class="fill-item"><span class="fnum">७.</span><div class="fblank"></div><span class="fword">+ओहति</span><span class="feq"> = </span><span class="fres">अपोहति</span></div>
+
+      <div class="fill-item"><span class="fnum">३.</span><span class="fword">अप+</span><div class="fblank"></div><span class="feq"> = </span><span class="fres">अपेजते</span></div>
+      <div class="fill-item"><span class="fnum">८.</span><div class="fblank"></div><span class="fword">+एधते</span><span class="feq"> = </span><span class="fres">पराधते</span></div>
+
+      <div class="fill-item"><span class="fnum">४.</span><span class="fword">अव+</span><div class="fblank"></div><span class="feq"> = </span><span class="fres">अवेधते</span></div>
+      <div class="fill-item"><span class="fnum">९.</span><div class="fblank"></div><span class="fword">+एधते</span><span class="feq"> = </span><span class="fres">प्रेधते</span></div>
+
+      <div class="fill-item"><span class="fnum">५.</span><span class="fword">प्र+</span><div class="fblank"></div><span class="feq"> = </span><span class="fres">प्रोषति</span></div>
+      <div class="fill-item"><span class="fnum">१०.</span><div class="fblank"></div><span class="fword">+ओषति</span><span class="feq"> = </span><span class="fres">उपोषति</span></div>
+    </div>
+  </div>
+
+  <!-- Drag & Drop Game -->
+  <div class="content-section anim-slide delay-7">
+    <div class="sec-heading" style="justify-content: center;" data-i18n="game-title">✦ ಸಂವಾದಾತ್ಮಕ ಕ್ರೀಡೆ (Drag & Drop Game) ✦</div>
+    <p style="text-align: center; color: var(--text-muted); font-weight: 600; margin-bottom: 20px;" data-i18n="game-inst">
+      ಕೆಳಗಿನ ಅಕ್ಷರಗಳನ್ನು ಸರಿಯಾದ ಜಾಗಕ್ಕೆ ಡ್ರ್ಯಾಗ್ ಮಾಡಿ (ಅಥವಾ ಕ್ಲಿಕ್ ಮಾಡಿ ಸೇರಿಸಿ):
+    </p>
+
+    <div class="game-container">
+      <div class="game-status" id="game-status">ಪ್ರಶ್ನೆ ೧ / ೫</div>
+      <div class="game-equation" id="game-equation">प्र + एजते = प्रजते</div>
+      
+      <div class="game-drop-area">
+        <div class="drop-slot-wrap">
+          <div class="drop-slot" id="slot-p" data-type="p" onclick="handleSlotClick(this)" ondragover="allowDrop(event)" ondrop="handleDrop(event, this)"></div>
+          <div class="slot-label" data-i18n="slot-purva">ಪೂರ್ವ-ವರ್ಣ</div>
+        </div>
+        <div class="slot-plus">+</div>
+        <div class="drop-slot-wrap">
+          <div class="drop-slot" id="slot-pa" data-type="pa" onclick="handleSlotClick(this)" ondragover="allowDrop(event)" ondrop="handleDrop(event, this)"></div>
+          <div class="slot-label" data-i18n="slot-para">ಪರ-ವರ್ಣ</div>
+        </div>
+        <div class="slot-plus">➔</div>
+        <div class="drop-slot-wrap">
+          <div class="drop-slot" id="slot-a" data-type="a" onclick="handleSlotClick(this)" ondragover="allowDrop(event)" ondrop="handleDrop(event, this)"></div>
+          <div class="slot-label" data-i18n="slot-adesha">ಆದೇಶ</div>
+        </div>
+      </div>
+
+      <div class="game-options" id="game-options"></div>
+
+      <button class="game-btn" id="check-btn" onclick="checkGameAnswer()" data-i18n="btn-check">ಪರಿಶೀಲಿಸಿ</button>
+      <button class="game-btn" id="next-btn" style="display:none;" onclick="loadNextGame()" data-i18n="btn-next">ಮುಂದಿನ ಪ್ರಶ್ನೆ ➔</button>
+      <div class="game-feedback" id="game-feedback"></div>
+    </div>
+  </div>
+
+  <!-- Chart Trigger -->
+  <div class="chart-trigger-container">
+    <button class="chart-btn" onclick="openChart()">📊 ಸಂಧಿ ಮಾಸ್ಟರ್ ಚಾರ್ಟ್</button>
+  </div>
+
+</div>
+
+<!-- ===================== PARARUPA FOCUS MASTER CHART MODAL ===================== -->
+<div class="modal-overlay" id="chartModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-title" data-i18n="modal-title">ಅಚ್-ಸಂಧಿ ಮಾಸ್ಟರ್ ಚಾರ್ಟ್</div>
+      <button class="close-btn" onclick="closeChart()">✕</button>
+    </div>
+    <p style="text-align: center; color: var(--gold-dark); font-weight: 600; margin-bottom: 20px;" data-i18n="modal-desc">
+      (ಪರರೂಪ ಸಂಧಿ ಮಾತ್ರ ಹೈಲೈಟ್ ಮಾಡಲಾಗಿದೆ. ಇತರ ಸಂಧಿಗಳೂ ಸಹ ಇಲ್ಲಿ ಗೋಚರಿಸುತ್ತವೆ.)
+    </p>
+    
+    <div style="overflow-x: auto;">
+      <table class="master-table focus-pararupa">
+        <thead>
+          <tr> <th>+</th> <th>अ</th> <th>इ</th> <th>उ</th> <th>ऋ</th> <th>ऌ</th> <th>ए</th> <th>ओ</th> <th>ऐ</th> <th>औ</th> </tr>
+        </thead>
+        <tbody>
+          <tr> <th>अ</th> <td class="c-dirgha">आ</td> <td class="c-guna">ए</td> <td class="c-guna">ओ</td> <td class="c-guna">अर्</td> <td class="c-guna">अल्</td> <td class="c-pararupa">ऐ</td> <td class="c-pararupa">औ</td> <td class="c-vriddhi">ऐ</td> <td class="c-vriddhi">औ</td> </tr>
+          <tr> <th>इ</th> <td class="c-yan">य्</td> <td class="c-dirgha">ई</td> <td class="c-yan">य्</td> <td class="c-yan">य्</td> <td class="c-yan">य्</td> <td class="c-yan">य्</td> <td class="c-yan">य्</td> <td class="c-yan">य्</td> <td class="c-yan">य्</td> </tr>
+          <tr> <th>उ</th> <td class="c-yan">व्</td> <td class="c-yan">व्</td> <td class="c-dirgha">ऊ</td> <td class="c-yan">व्</td> <td class="c-yan">व्</td> <td class="c-yan">व्</td> <td class="c-yan">व्</td> <td class="c-yan">व्</td> <td class="c-yan">व्</td> </tr>
+          <tr> <th>ऋ</th> <td class="c-yan">र्</td> <td class="c-yan">र्</td> <td class="c-yan">र्</td> <td class="c-dirgha">ॠ</td> <td class="c-dirgha">ॠ</td> <td class="c-yan">र्</td> <td class="c-yan">र्</td> <td class="c-yan">र्</td> <td class="c-yan">र्</td> </tr>
+          <tr> <th>ऌ</th> <td class="c-yan">ल्</td> <td class="c-yan">ल्</td> <td class="c-yan">ल्</td> <td class="c-dirgha">ॡ</td> <td class="c-dirgha">ॡ</td> <td class="c-yan">ल्</td> <td class="c-yan">ल्</td> <td class="c-yan">ल्</td> <td class="c-yan">ल्</td> </tr>
+          <tr> <th>ए</th> <td class="c-purvarupa">एऽ</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> </tr>
+          <tr> <th>ओ</th> <td class="c-purvarupa">ओऽ</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> </tr>
+          <tr> <th>ऐ</th> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> </tr>
+          <tr> <th>औ</th> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="legend-box">
+      <div class="leg-item" style="background: var(--c-yan); color: var(--c-yan-txt); opacity: 0.8;">ಯಣ್</div>
+      <div class="leg-item" style="background: var(--c-dirgha); color: var(--c-dirgha-txt); opacity: 0.8;">ದೀರ್ಘ</div>
+      <div class="leg-item" style="background: var(--c-guna); color: var(--c-guna-txt); opacity: 0.8;">ಗುಣ</div>
+      <div class="leg-item" style="background: var(--c-vriddhi); color: var(--c-vriddhi-txt); opacity: 0.8;">ವೃದ್ಧಿ</div>
+      <div class="leg-item" style="background: var(--c-ayadi); color: var(--c-ayadi-txt); opacity: 0.8;">ಅಯಾದಿ</div>
+      <div class="leg-item" style="background: var(--c-purvarupa); color: var(--c-purvarupa-txt); opacity: 0.8;">ಪೂರ್ವರೂಪ</div>
+      <div class="leg-item leg-active-pararupa" style="background: var(--c-pararupa); color: var(--c-pararupa-txt);">ಪರರೂಪ</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// --- GAME LOGIC ---
+const gameData = [
+  { q: "प्र + एजते = प्रजते", p: "अ", pa: "ए", a: "ए", opts: ["अ", "ए", "ए", "इ", "उ", "ऐ"] },
+  { q: "उप + ओषति = उपोषति", p: "अ", pa: "ओ", a: "ओ", opts: ["अ", "ओ", "ओ", "इ", "ए", "औ"] },
+  { q: "अप + ओहति = अपोहति", p: "अ", pa: "ओ", a: "ओ", opts: ["अ", "ओ", "ओ", "आ", "उ", "ई"] },
+  { q: "अव + एधते = अवेधते", p: "अ", pa: "ए", a: "ए", opts: ["अ", "ए", "ए", "इ", "ओ", "आ"] },
+  { q: "प्र + ओषति = प्रोषति", p: "अ", pa: "ओ", a: "ओ", opts: ["अ", "ओ", "ओ", "आ", "उ", "ऐ"] }
+];
+
+let currentQ = 0;
+let selectedDragItem = null;
+
+function shuffle(array) { return array.sort(() => Math.random() - 0.5); }
+
+function loadGameQuestion() {
+  const d = gameData[currentQ];
+  document.getElementById('game-status').innerText = `ಪ್ರಶ್ನೆ ${currentQ + 1} / ${gameData.length}`;
+  document.getElementById('game-equation').innerText = d.q;
+  
+  const slots = ['slot-p', 'slot-pa', 'slot-a'];
+  slots.forEach(id => {
+    const el = document.getElementById(id);
+    el.innerHTML = '';
+    el.className = 'drop-slot';
+  });
+  document.getElementById('slot-p').dataset.expected = d.p;
+  document.getElementById('slot-pa').dataset.expected = d.pa;
+  document.getElementById('slot-a').dataset.expected = d.a;
+
+  const optContainer = document.getElementById('game-options');
+  optContainer.innerHTML = '';
+  shuffle([...d.opts]).forEach((opt, idx) => {
+    const div = document.createElement('div');
+    div.className = 'drag-item';
+    div.draggable = true;
+    div.id = 'drag-' + currentQ + '-' + idx;
+    div.dataset.val = opt;
+    div.innerText = opt;
+    div.ondragstart = handleDragStart;
+    div.onclick = () => handleOptionClick(div);
+    optContainer.appendChild(div);
+  });
+
+  document.getElementById('check-btn').style.display = 'inline-block';
+  document.getElementById('next-btn').style.display = 'none';
+  document.getElementById('game-feedback').innerText = '';
+  selectedDragItem = null;
+}
+
+function handleDragStart(e) {
+  e.dataTransfer.setData("text/plain", e.target.id);
+  handleOptionClick(e.target);
+}
+function allowDrop(e) { e.preventDefault(); }
+function handleDrop(e, slot) {
+  e.preventDefault();
+  const id = e.dataTransfer.getData("text/plain");
+  const el = document.getElementById(id);
+  if(el && slot.children.length === 0) {
+    slot.appendChild(el);
+    slot.classList.add('filled');
+    if(selectedDragItem === el) { el.classList.remove('selected'); selectedDragItem = null; }
+  }
+}
+function handleOptionClick(el) {
+  if(selectedDragItem) selectedDragItem.classList.remove('selected');
+  selectedDragItem = el;
+  el.classList.add('selected');
+}
+function handleSlotClick(slot) {
+  if(selectedDragItem && slot.children.length === 0) {
+    slot.appendChild(selectedDragItem);
+    slot.classList.add('filled');
+    selectedDragItem.classList.remove('selected');
+    selectedDragItem = null;
+  } else if (slot.children.length > 0) {
+    document.getElementById('game-options').appendChild(slot.children[0]);
+    slot.classList.remove('filled');
+  }
+}
+
+function checkGameAnswer() {
+  const p = document.getElementById('slot-p');
+  const pa = document.getElementById('slot-pa');
+  const a = document.getElementById('slot-a');
+  let isCorrect = true;
+
+  [p, pa, a].forEach(slot => {
+    if(slot.children.length === 0 || slot.children[0].dataset.val !== slot.dataset.expected) {
+      slot.classList.add('error');
+      isCorrect = false;
+    } else {
+      slot.classList.remove('error');
+      slot.classList.add('success');
+    }
+  });
+
+  const fb = document.getElementById('game-feedback');
+  if(isCorrect) {
+    fb.innerText = "✓ ಸರಿಯಾದ ಉತ್ತರ! (Correct!)";
+    fb.style.color = "var(--correct)";
+    document.getElementById('check-btn').style.display = 'none';
+    if(currentQ < gameData.length - 1) document.getElementById('next-btn').style.display = 'inline-block';
+    else fb.innerText = "🎉 ಆಟ ಮುಕ್ತಾಯ! (Game Complete!)";
+  } else {
+    fb.innerText = "✗ ತಪ್ಪು! ಮತ್ತೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಿ. (Wrong, try again!)";
+    fb.style.color = "var(--wrong)";
+  }
+}
+
+function loadNextGame() {
+  if(currentQ < gameData.length - 1) { currentQ++; loadGameQuestion(); }
+}
+
+window.onload = loadGameQuestion;
+
+function openChart() { document.getElementById('chartModal').classList.add('active'); }
+function closeChart() { document.getElementById('chartModal').classList.remove('active'); }
+window.onclick = function(event) { if (event.target == document.getElementById('chartModal')) closeChart(); }
+
+// i18n Dictionary
+const i18n = {
+  "btn-back": { kn: "ಹಿಂದಕ್ಕೆ (Index)", en: "Back to Index", sa: "प्रतिगच्छतु (सूची)" },
+  "lesson-title": { kn: "೭. ಪರರೂಪ ಸಂಧಿಃ", en: "7. Pararupa Sandhi", sa: "७. पररूपसन्धिः" },
+  "sutra-label": { kn: "ಪಾಣಿನೀಯ ಸೂತ್ರಮ್", en: "Paninian Sutra", sa: "पाणिनीय-सूत्रम्" },
+  "map-title": { kn: "ನಿಯಮ ವಿವರಣೆ (Rule Explanation)", en: "Rule Explanation", sa: "नियम-विवरणम्" },
+  "pararupa-map-note": { kn: "<strong>ಸೂತ್ರ (एङः पररूपम्):</strong> ಸಾಮಾನ್ಯವಾಗಿ 'ಅ+ಇ = ಏ' (ಗುಣ ಸಂಧಿ) ಆಗಬೇಕು. ಆದರೆ, ಕೆಲವು ನಿರ್ದಿಷ್ಟ ಪದಗಳಲ್ಲಿ 'ಅ' ಕಾರದ ಮುಂದೆ 'ಏ' ಅಥವಾ 'ಓ' ಕಾರಗಳು ಬಂದರೆ, ಗುಣ/ವೃದ್ಧಿ ಸಂಧಿಗಳಾಗುವ ಬದಲು, ಪರಪದದ (ಮುಂದಿನ) ರೂಪವೇ ಉಳಿಯುತ್ತದೆ. ಅದನ್ನೇ <strong>ಪರರೂಪ</strong> ಎನ್ನುತ್ತಾರೆ.", en: "<strong>Sutra (एङः पररूपम्):</strong> Normally, 'अ+इ = ए' (Guna sandhi). However, when specific words with an ending 'अ' are followed by roots starting with 'ए' or 'ओ', instead of Guna/Vriddhi sandhi, the form of the following (Para) vowel remains. That is called <strong>Pararupa</strong>.", sa: "<strong>सूत्रम् (एङः पररूपम्):</strong> सामान्यतः 'अ+इ = ए' (गुणसन्धिः) भवति। परन्तु कतिपय विशिष्टपदेषु 'अ' इत्यनेन अन्त्यस्य पदस्य समक्षम् 'ए' अथवा 'ओ' इत्यादिभ्याम् आरभ्यमाणम् धातवः आगच्छन्ति चेत्, गुण-वृद्धिसन्ध्योः स्थाने परपदस्य एव रूपं तिष्ठति। तत् <strong>पररूपम्</strong> इति उच्यते।" },
+  "pararupa-note": { kn: "<strong>ನಿಯಮ (Rule):</strong> ಅಕಾರಾಂತ (ಅ ನಲ್ಲಿ ಕೊನೆಗೊಳ್ಳುವ) <strong>ಉಪಸರ್ಗ</strong>ಗಳ (ಪ್ರ, ಉಪ, ಅಪ, ಅವ, ಇತ್ಯಾದಿ) ಮುಂದೆ 'ಏ' ಅಥವಾ 'ಓ' ಕಾರದಿಂದ ಆರಂಭವಾಗುವ ಧಾತುಗಳು ಬಂದರೆ, ಅಲ್ಲಿ ವೃದ್ಧಿ ಸಂಧಿಯ (ಐ ಅಥವಾ ಔ) ಬದಲಾಗಿ <strong>ಪರರೂಪ</strong> ಆದೇಶವಾಗುತ್ತದೆ. (ಅ + ಏ = ಏ, ಅ + ಓ = ಓ).", en: "<strong>Rule:</strong> When <strong>Upasargas</strong> ending in 'अ' (like प्र, उप, अप, अव, etc.) are followed by roots beginning with 'ए' or 'ओ', instead of Vriddhi sandhi (which would be ऐ or औ), <strong>Pararupa</strong> substitution occurs (अ + ए = ए, अ + ओ = ओ).", sa: "<strong>नियमः:</strong> अकारान्त-<strong>उपसर्गाणाम्</strong> (प्र, उप, अप, अव इत्यादीनाम्) अनन्तरं 'ए' अथवा 'ओ' इत्यादिभ्याम् आरभ्यमाणाः धातवः यदि आगच्छन्ति, तर्हि वृद्धिसन्धेः (ऐ अथवा औ) परिवर्ते <strong>पररूप</strong> आदेशः भवति (अ + ए = ए, अ + ओ = ओ)।" },
+  "diagram-title": { kn: "ಪರರೂಪ ಸಂಧಿ ದೃಶ್ಯ ನಿರೂಪಣೆ", en: "Visual Representation of Pararupa Sandhi", sa: "पररूप-सन्धि-दृश्य-निरूपणम्" },
+  "ab624-inst": { kn: "ಕೆಳಗಿನ ಪದಗಳ ಸಂಧಿಯನ್ನು ಮಾಡಿ ಬರೆಯಿರಿ:", en: "Perform sandhi on the following words:", sa: "अधस्थपदानां सन्धिं कुरुत:" },
+  "ab625-inst": { kn: "ಕೆಳಗಿನ ಪರರೂಪ ಸಂಧಿ ಪದಗಳನ್ನು ವಿಭಜಿಸಿ (ಪೂರ್ವಪದ + ಪರಪದ) ಬರೆಯಿರಿ:", en: "Split the following Pararupa Sandhi words into their components:", sa: "अधः दत्तानां पररूपसन्धिपदानां विभाजनं (पूर्वपदम् + परपदम्) कुरुत:" },
+  "ab625-col1": { kn: "ಸನ್ಧಿಪದ", en: "Sandhi Word", sa: "सन्धिपदम्" },
+  "ab625-col2": { kn: "ವಿಭಜಿಸಿ ಬರೆಯಿರಿ", en: "Write the split", sa: "विभज्य लिखत" },
+  "ab626-inst": { kn: "ಖಾಲಿ ಜಾಗದಲ್ಲಿ ಸರಿಯಾದ ಪದ ತುಂಬಿ ಸಂಧಿ ಪೂರ್ಣ ಮಾಡಿ:", en: "Fill in the blank to complete the sandhi:", sa: "रिक्तस्थाने उचितपदं पूरयत:" },
+  "game-title": { kn: "✦ ಸಂವಾದಾತ್ಮಕ ಕ್ರೀಡೆ (Drag & Drop) ✦", en: "✦ Interactive Game ✦", sa: "✦ संवादात्मक-क्रीडा ✦" },
+  "game-inst": { kn: "ಕೆಳಗಿನ ಅಕ್ಷರಗಳನ್ನು ಸರಿಯಾದ ಜಾಗಕ್ಕೆ ಡ್ರ್ಯಾಗ್ ಮಾಡಿ (ಅಥವಾ ಕ್ಲಿಕ್ ಮಾಡಿ ಸೇರಿಸಿ):", en: "Drag the letters to the correct slots (or click to place):", sa: "अक्षराणि सम्यक् स्थाने कर्षन्तु (वा नुदन्तु):" },
+  "slot-purva": { kn: "ಪೂರ್ವ-ವರ್ಣ", en: "Purva Varna", sa: "पूर्व-वर्णः" },
+  "slot-para": { kn: "ಪರ-ವರ್ಣ", en: "Para Varna", sa: "पर-वर्णः" },
+  "slot-adesha": { kn: "ಆದೇಶ", en: "Adesha", sa: "आदेशः" },
+  "btn-check": { kn: "ಪರಿಶೀಲಿಸಿ", en: "Check", sa: "परिशीलयन्तु" },
+  "btn-next": { kn: "ಮುಂದಿನ ಪ್ರಶ್ನೆ ➔", en: "Next Question ➔", sa: "अग्रिम-प्रश्नः ➔" },
+  "modal-title": { kn: "ಅಚ್-ಸಂಧಿ ಮಾಸ್ಟರ್ ಚಾರ್ಟ್", en: "Ac-Sandhi Master Chart", sa: "अच्-सन्धिः महाकोष्टकम्" },
+  "modal-desc": { kn: "(ಪರರೂಪ ಸಂಧಿ ಮಾತ್ರ ಹೈಲೈಟ್ ಮಾಡಲಾಗಿದೆ. ಇತರ ಸಂಧಿಗಳೂ ಸಹ ಇಲ್ಲಿ ಗೋಚರಿಸುತ್ತವೆ.)", en: "(Only Pararupa Sandhi is highlighted. Other sandhis are also visible here.)", sa: "(केवलं पररूपसन्धिः प्रकाशितः। अन्ये सन्धयः अपि अत्र दृश्यन्ते।)" }
+};
+
+function setLanguage(lang, btnEl) {
+  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+  btnEl.classList.add('active');
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (i18n[key] && i18n[key][lang]) el.innerHTML = i18n[key][lang];
+  });
+}
+</script>
+
+</body>
+</html>
