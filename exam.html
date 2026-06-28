@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>ಅಚ್-ಸಂಧಿ ಪರೀಕ್ಷೆ | Team Trayee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Laila:wght@400;500;600;700&family=Inknut+Antiqua:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg-color: #fcf9f2;
+  --primary: #691c22;
+  --primary-light: #8a2730;
+  --gold: #cba972;
+  --gold-dark: #a8895a;
+  --text-main: #2d2d2d;
+  --text-muted: #5a5a5a;
+  --card-bg: #ffffff;
+  --font-kn: 'Laila', sans-serif;
+  --font-sa: 'Inknut Antiqua', serif;
+  
+  /* Sandhi Specific Colors */
+  --c-yan: #e3f2fd; --c-yan-txt: #1565c0;      
+  --c-dirgha: #ffebee; --c-dirgha-txt: #c62828; 
+  --c-guna: #e8f5e9; --c-guna-txt: #2e7d32;    
+  --c-vriddhi: #f3e5f5; --c-vriddhi-txt: #6a1b9a; 
+  --c-ayadi: #fff3e0; --c-ayadi-txt: #ef6c00;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-kn); background-color: var(--bg-color); color: var(--text-main);
+  line-height: 1.6; padding: 20px 20px 60px;
+}
+.container { max-width: 1000px; margin: 0 auto; overflow: hidden; }
+
+/* Animations */
+@keyframes slideUpFade { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+.anim-slide { opacity: 0; animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; } .delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; } .delay-6 { animation-delay: 0.6s; }
+.delay-7 { animation-delay: 0.7s; } .delay-8 { animation-delay: 0.8s; }
+
+/* Top Navigation */
+.top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.back-btn { font-size: 1rem; font-weight: 600; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 5px; background: rgba(203,169,114,0.15); padding: 8px 16px; border-radius: 50px; transition: 0.2s; }
+.back-btn:hover { background: rgba(203,169,114,0.3); transform: translateX(-3px); }
+.lang-switch { background: var(--card-bg); border: 1px solid var(--gold); border-radius: 50px; display: flex; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.lang-btn { background: transparent; border: none; padding: 8px 16px; font-family: var(--font-kn); font-size: 0.95rem; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: 0.2s; }
+.lang-btn.active { background: var(--primary); color: #fff; }
+
+/* Header & Sutra */
+.lesson-header { text-align: center; margin-bottom: 30px; }
+.lesson-title { font-family: var(--font-sa); font-size: 3rem; color: var(--primary); font-weight: 700; text-shadow: 1px 2px 5px rgba(105, 28, 34, 0.1); display: inline-block; position: relative; }
+.lesson-title::after { content: ''; position: absolute; bottom: 0; left: 10%; right: 10%; height: 3px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+.sutra-box { background: linear-gradient(135deg, #691c22, #4a1318); color: #fff; padding: 30px; border-radius: 12px; text-align: center; box-shadow: 0 8px 20px rgba(105, 28, 34, 0.2); margin-bottom: 30px; position: relative; overflow: hidden; }
+.sutra-label { font-size: 1rem; font-weight: 600; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+.sutra-text { font-family: var(--font-sa); font-size: 2.6rem; font-weight: 700; line-height: 1.4; }
+
+/* Sections */
+.content-section { background: #fff; border: 1px solid rgba(203,169,114,0.4); border-radius: 12px; padding: 30px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); transition: 0.3s; }
+.content-section:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
+.sec-heading { font-size: 1.5rem; color: var(--primary); font-weight: 700; margin-bottom: 20px; border-bottom: 1px solid rgba(203,169,114,0.3); padding-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+.sec-heading::before { content: '❖'; color: var(--gold); font-size: 1.2rem; }
+
+/* ===== EXAM STYLES ===== */
+.abhyasa-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: #fff; padding: 5px 16px; border-radius: 50px;
+  font-size: 1rem; font-weight: 700; margin-bottom: 18px;
+  box-shadow: 0 4px 12px rgba(105,28,34,0.2);
+}
+.abhyasa-badge .ab-num { background: rgba(255,255,255,0.25); border-radius: 50px; padding: 1px 10px; font-family: var(--font-sa); }
+
+/* Exercise 6.24 Grid */
+.exam-grid-6-24 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px 30px;
+  margin-top: 20px;
+}
+.exam-item-24 {
+  display: flex;
+  align-items: center; gap: 10px;
+  font-family: var(--font-sa); font-size: 1.1rem;
+  padding: 8px 0; border-bottom: 1px dashed rgba(203,169,114,0.2); flex-wrap: wrap;
+}
+.exam-item-24 .snum { color: var(--gold-dark); font-weight: 700; min-width: 24px; }
+.exam-item-24 .sword { color: var(--primary); font-weight: 600; white-space: nowrap; }
+.exam-item-24 .sblank-result { flex-grow: 1; border-bottom: 1.5px solid var(--text-muted); height: 22px; min-width: 100px; margin-bottom: 3px; }
+.exam-item-24 .sblank-name { flex-grow: 0.5; border-bottom: 1.5px solid var(--text-muted); height: 22px; min-width: 80px; margin-bottom: 3px; }
+.exam-item-24 .sarrow { color: var(--gold-dark); font-weight: 700; }
+
+/* Sloka Box for 6.25 */
+.shloka-box {
+  background: linear-gradient(135deg, #fef9f0, #f6ead4);
+  border-left: 5px solid var(--gold-dark);
+  padding: 20px; border-radius: 0 8px 8px 0;
+  margin: 15px 0; text-align: center;
+}
+.shloka-text { font-family: var(--font-sa); font-size: 1.2rem; color: var(--primary); font-weight: 500; line-height: 2; }
+.shloka-text strong { color: var(--primary-light); background: #fff; padding: 2px 6px; border-radius: 4px; }
+
+/* Exercise 6.25 Grid */
+.exam-grid-6-25 {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 20px; margin-top: 15px;
+}
+.exam-item-25 {
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--font-sa); font-size: 1.1rem;
+  padding: 6px 0; border-bottom: 1px dashed rgba(203,169,114,0.2); flex-wrap: wrap;
+}
+.exam-item-25 .snum { color: var(--gold-dark); font-weight: 700; min-width: 20px; }
+.exam-item-25 .sblank-pre { display: inline-block; width: 50px; border-bottom: 1.5px solid var(--text-muted); height: 20px; }
+.exam-item-25 .sblank-plus { display: inline-block; width: 15px; text-align: center; color: var(--text-muted); }
+.exam-item-25 .sblank-post { display: inline-block; width: 50px; border-bottom: 1.5px solid var(--text-muted); height: 20px; }
+
+/* Master Chart Button */
+.chart-trigger-container { text-align: center; margin-top: 50px; }
+.chart-btn { background: linear-gradient(135deg, var(--gold-dark), var(--gold)); color: #fff; border: none; padding: 15px 30px; font-size: 1.3rem; font-weight: 700; font-family: var(--font-kn); border-radius: 50px; cursor: pointer; box-shadow: 0 8px 20px rgba(203, 169, 114, 0.4); transition: 0.3s; display: inline-flex; align-items: center; gap: 10px; }
+.chart-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 12px 25px rgba(203, 169, 114, 0.6); }
+
+/* Modal Styles */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); z-index: 1000; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: 0.3s; }
+.modal-overlay.active { opacity: 1; visibility: visible; }
+.modal-content { background: #fff; border-radius: 16px; padding: 30px; max-width: 95%; max-height: 95vh; overflow-y: auto; border: 3px solid var(--gold); transform: scale(0.9); transition: 0.3s; }
+.modal-overlay.active .modal-content { transform: scale(1); }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid rgba(203,169,114,0.3); padding-bottom: 15px; }
+.modal-title { font-size: 1.8rem; font-weight: 700; color: var(--primary); font-family: var(--font-sa); }
+.close-btn { background: #fdfaf5; border: 1px solid var(--gold); color: var(--primary); font-size: 1.5rem; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; transition: 0.2s; }
+.close-btn:hover { background: var(--primary); color: #fff; }
+
+/* ===================== MASTER CHART ===================== */
+.master-table { width: 100%; border-collapse: collapse; font-family: var(--font-sa); text-align: center; font-size: 1.4rem; }
+.master-table th { background: rgba(203, 169, 114, 0.15); color: var(--primary); font-weight: 700; padding: 12px; border: 1px solid var(--gold); }
+.master-table td { padding: 12px; border: 1px solid rgba(203,169,114,0.4); font-weight: 600; }
+.master-table thead th { border-bottom: 3px double var(--gold-dark); }
+.master-table tbody th { border-right: 3px double var(--gold-dark); background: rgba(203, 169, 114, 0.08); }
+.c-yan { background-color: var(--c-yan); color: var(--c-yan-txt); }
+.c-dirgha { background-color: var(--c-dirgha); color: var(--c-dirgha-txt); }
+.c-guna { background-color: var(--c-guna); color: var(--c-guna-txt); }
+.c-vriddhi { background-color: var(--c-vriddhi); color: var(--c-vriddhi-txt); }
+.c-ayadi { background-color: var(--c-ayadi); color: var(--c-ayadi-txt); }
+.legend-box { display: flex; gap: 15px; justify-content: center; margin-top: 20px; font-weight: 600; flex-wrap: wrap; }
+.leg-item { display: flex; align-items: center; gap: 5px; padding: 5px 10px; border-radius: 6px; border: 1px solid #ddd; }
+
+@media (max-width: 768px) {
+  .exam-grid-6-24, .exam-grid-6-25 { grid-template-columns: 1fr; }
+  .sutra-text { font-size: 2.2rem; }
+  .lesson-title { font-size: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  
+  <!-- Navigation -->
+  <div class="top-bar">
+    <a href="index.html" class="back-btn">⮜ <span data-i18n="btn-back">ಹಿಂದಕ್ಕೆ (Index)</span></a>
+    <div class="lang-switch">
+      <button class="lang-btn active" onclick="setLanguage('kn', this)">ಕನ್ನಡ</button>
+      <button class="lang-btn" onclick="setLanguage('en', this)">English</button>
+      <button class="lang-btn" onclick="setLanguage('sa', this)">संस्कृतम्</button>
+    </div>
+  </div>
+
+  <div class="lesson-header anim-slide">
+    <div class="lesson-title" data-i18n="exam-title">ಸಂಧಿ ಪರೀಕ್ಷೆ</div>
+  </div>
+
+  <!-- Sutra Box -->
+  <div class="sutra-box anim-slide delay-1">
+    <div class="sutra-label" data-i18n="sutra-label">ಅಚ್-ಸಂಧಿ ಪರೀಕ್ಷೆ</div>
+    <div class="sutra-text">
+        <span>सर्वसन्धिविचारः</span>
+    </div>
+  </div>
+
+  <!-- ===== ABHYASA 6.24 (80 Questions) ===== -->
+  <div class="content-section anim-slide delay-2">
+    <div class="abhyasa-badge"><span class="ab-num">अभ्यासः ६.२४</span> <span data-i18n="ex624-title">सन्धिं कुरुत, सन्धेः नाम अपि लिखत</span></div>
+    <p style="font-size: 1rem; color: var(--text-muted); margin-bottom: 16px;" data-i18n="ex624-inst">
+      ಅತ್ರ ಸರ್ವೇಷಾಂ ಸನ್ಧೀನಾಮ್ ಉದಾಹರಣಾನಿ ವರ್ತನ್ತೇ। ಸನ್ಧಿಂ ಕೃತ್ವಾ ಲಿಖತ। ಸನ್ಧೇಃ ನಾಮ ಅಪಿ ಲಿಖತ.<br>
+      (ಎಲ್ಲಾ ಸಂಧಿಗಳ ಉದಾಹರಣೆಗಳು ಇಲ್ಲಿವೆ. ಸಂಧಿ ಮಾಡಿ ಬರೆಯಿರಿ ಮತ್ತು ಸಂಧಿಯ ಹೆಸರನ್ನೂ ಬರೆಯಿರಿ.)
+    </p>
+    <div class="exam-grid-6-24">
+      <!-- Generated via list from the image -->
+      <div class="exam-item-24"><span class="snum">१.</span><span class="sword">हि+अपदाम्</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">२.</span><span class="sword">वै+इह</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">३.</span><span class="sword">कटे+उपवेशनम्</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">४.</span><span class="sword">कस्य+एकान्तम्</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">५.</span><span class="sword">न+अधः</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">६.</span><span class="sword">ते+अत्र</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">७.</span><span class="sword">अपि+अनर्थाय</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">८.</span><span class="sword">तस्यै+इदम्</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">९.</span><span class="sword">को+अपि</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">१०.</span><span class="sword">मार्ग+आरब्धः</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">११.</span><span class="sword">न+एकम्</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">१२.</span><span class="sword">सुलभ+उपायः</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">१३.</span><span class="sword">अपि+अवज्ञया</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">१४.</span><span class="sword">प्रश्न+उत्तरम्</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">१५.</span><span class="sword">तस्मै+एतत्</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">१६.</span><span class="sword">तुल्या+एव</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">१७.</span><span class="sword">अयम्+अपि</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">१८.</span><span class="sword">सो+अपि</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">१९.</span><span class="sword">अपि+आसीत्</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">२०.</span><span class="sword">गृहे+आसीत्</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">२१.</span><span class="sword">हि+इच्छन्ति</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">२२.</span><span class="sword">पुरुष+उत्तमः</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">२३.</span><span class="sword">धीर+उदात्तः</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">२४.</span><span class="sword">मे+अन्तिके</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">२५.</span><span class="sword">समा+एव</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">२६.</span><span class="sword">अपि+आगमः</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">२७.</span><span class="sword">प्राचीना+उक्तिः</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">२८.</span><span class="sword">न+इच्छति</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">२९.</span><span class="sword">करी+एतौ</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">३०.</span><span class="sword">एव+एषः</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">३१.</span><span class="sword">दोषाय+एतत्</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">३२.</span><span class="sword">यदि+एवम्</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">३३.</span><span class="sword">न+अपृष्टः</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">३४.</span><span class="sword">च+अन्येन</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">३५.</span><span class="sword">गृहे+अस्ति</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">३६.</span><span class="sword">अस्ति+अन्धः</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">३७.</span><span class="sword">तृष्णा+एका</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">३८.</span><span class="sword">यत्र+एताः</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">३९.</span><span class="sword">न+अर्जिता</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">४०.</span><span class="sword">तौ+एकस्मिन्</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">४१.</span><span class="sword">यथा+अस्ति</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">४२.</span><span class="sword">सो+अवदत्</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">४३.</span><span class="sword">अपि+अर्थः</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">४४.</span><span class="sword">महा+उद्देशः</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">४५.</span><span class="sword">गुरो+इह</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">४६.</span><span class="sword">पिता+इव</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">४७.</span><span class="sword">जिज्ञासु+अग्रे</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">४८.</span><span class="sword">न+आत्मनः</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">४९.</span><span class="sword">हि+अधर्मम्</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">५०.</span><span class="sword">एव+अन्नम्</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">५१.</span><span class="sword">तौ+एकदा</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">५२.</span><span class="sword">एक+एकम्</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">५३.</span><span class="sword">न+एव</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">५४.</span><span class="sword">च+आह्वये</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">५५.</span><span class="sword">अपि+अनुगतव्यम्</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">५६.</span><span class="sword">तथा+एव</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">५७.</span><span class="sword">यथा+औषधम्</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">५८.</span><span class="sword">ज्ञान+अवलोपः</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">५९.</span><span class="sword">च+अभिरमयति</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">६०.</span><span class="sword">चलति+एव</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">६१.</span><span class="sword">कल्पलता+इव</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">६२.</span><span class="sword">वने+आशु</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">६३.</span><span class="sword">हित+उपदेशः</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">६४.</span><span class="sword">वारि+अधिगच्छति</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">६५.</span><span class="sword">को+अपृच्छत्</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">६६.</span><span class="sword">रामो+अहसत्</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">६७.</span><span class="sword">अन्यथा+एव</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">६८.</span><span class="sword">अजा+इति</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">६९.</span><span class="sword">कस्मै+एषः</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">७०.</span><span class="sword">कृष्णो+अत्र</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">७१.</span><span class="sword">यस्य+अस्ति</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">७२.</span><span class="sword">दृष्ट्वा+एतत्</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">७३.</span><span class="sword">न+अन्नाति</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">७४.</span><span class="sword">उत्तमो+असि</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">७५.</span><span class="sword">एतस्यै+आह</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">७६.</span><span class="sword">अत्र+इति</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">७७.</span><span class="sword">तृतीय+एकवचनम्</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">७८.</span><span class="sword">हृदयेषु+एवम्</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">७९.</span><span class="sword">अति+आदरः</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+      <div class="exam-item-24"><span class="snum">८०.</span><span class="sword">अपि+आह</span><div class="sblank-result"></div><span class="sarrow">⟹</span><div class="sblank-name"></div></div>
+    </div>
+  </div>
+
+  <!-- ===== ABHYASA 6.25 (Slokas) ===== -->
+  <div class="content-section anim-slide delay-3">
+    <div class="abhyasa-badge"><span class="ab-num">अभ्यासः ६.२५</span> <span data-i18n="ex625-title">श्लोकेषु अच्-सन्धिः</span></div>
+    <p style="font-size: 1rem; color: var(--text-muted); margin-bottom: 16px;" data-i18n="ex625-inst">
+      एतेषु श्लोकेषु स्थूलाक्षरैः उल्लिखितेषु शब्देषु अच्सन्धिः वर्तते। विभज्य रिक्तस्थानं पूरयत<br>
+      (ಈ ಶ್ಲೋಕಗಳಲ್ಲಿ ದಪ್ಪ ಅಕ್ಷರಗಳಲ್ಲಿರುವ ಪದಗಳಲ್ಲಿ ಅಚ್-ಸಂಧಿಯಿದೆ. ವಿಭಜಿಸಿ ಖಾಲಿ ಜಾಗಗಳನ್ನು ಪೂರೈಸಿ)
+    </p>
+    
+    <!-- Sloka 1 -->
+    <div class="shloka-box">
+      <div class="shloka-text">
+        <strong>मातेव</strong> रक्षति <strong>पितेव</strong> हिते नियुङ्क्ते <strong>कान्तेव</strong> <strong>चाभिरमयति</strong> अपनीय खेदम्।<br>
+        कीर्तिं च दिक्षु वितनोति तनोति लक्ष्मीं किं किं न साधयति <strong>कल्पलतेव</strong> विद्या ॥
+      </div>
+      <div class="exam-grid-6-25">
+        <div class="exam-item-25"><span class="snum">१.</span><div class="sblank-pre"></div><span class="sblank-plus">+</span><div class="sblank-post"></div></div>
+        <div class="exam-item-25"><span class="snum">२.</span><div class="sblank-pre"></div><span class="sblank-plus">+</span><div class="sblank-post"></div></div>
+        <div class="exam-item-25"><span class="snum">३.</span><div class="sblank-pre"></div><span class="sblank-plus">+</span><div class="sblank-post"></div></div>
+        <div class="exam-item-25"><span class="snum">४.</span><div class="sblank-pre"></div><span class="sblank-plus">+</span><div class="sblank-post"></div></div>
+        <div class="exam-item-25"><span class="snum">५.</span><div class="sblank-pre"></div><span class="sblank-plus">+</span><div class="sblank-post"></div></div>
+      </div>
+    </div>
+
+    <!-- Sloka 2 -->
+    <div class="shloka-box">
+      <div class="shloka-text">
+        सम्पन्नतरम् <strong>एवान्नम्</strong> दरिद्रा भुञ्जते सदा।<br>
+        क्षुत् स्वादुतां जनयति सा <strong>चाद्येषु</strong> सुदुर्लभा ॥
+      </div>
+      <div class="exam-grid-6-25">
+        <div class="exam-item-25"><span class="snum">६.</span><div class="sblank-pre"></div><span class="sblank-plus">+</span><div class="sblank-post"></div></div>
+        <div class="exam-item-25"><span class="snum">७.</span><div class="sblank-pre"></div><span class="sblank-plus">+</span><div class="sblank-post"></div></div>
+      </div>
+    </div>
+
+    <!-- Sloka 3 -->
+    <div class="shloka-box">
+      <div class="shloka-text">
+        प्रायो दुन्तपर्यन्ताः <strong>सम्पदोऽपि</strong> दुरात्मनाम्।<br>
+        भवन्ति हि शुभोदर्का <strong>विपदोऽपि</strong> महात्मनाम् ॥
+      </div>
+      <div class="exam-grid-6-25">
+        <div class="exam-item-25"><span class="snum">८.</span><div class="sblank-pre"></div><span class="sblank-plus">+</span><div class="sblank-post"></div></div>
+        <div class="exam-item-25"><span class="snum">९.</span><div class="sblank-pre"></div><span class="sblank-plus">+</span><div class="sblank-post"></div></div>
+      </div>
+    </div>
+
+    <!-- Sloka 4 -->
+    <div class="shloka-box">
+      <div class="shloka-text">
+        पुण्यस्य फलमिच्छन्ति पुण्यं <strong>नेच्छन्ति</strong> मानवाः।<br>
+        पापस्य तु न <strong>हीच्छन्ति</strong> पापं कुर्वन्ति यत्नतः ॥
+      </div>
+      <div class="exam-grid-6-25">
+        <div class="exam-item-25"><span class="snum">१०.</span><div class="sblank-pre"></div><span class="sblank-plus">+</span><div class="sblank-post"></div></div>
+        <div class="exam-item-25"><span class="snum">११.</span><div class="sblank-pre"></div><span class="sblank-plus">+</span><div class="sblank-post"></div></div>
+      </div>
+    </div>
+
+    <!-- Sloka 5 -->
+    <div class="shloka-box">
+      <div class="shloka-text">
+        आकारः <strong>छादमानोऽपि</strong> न शक्यो विनिगूहितुम्।<br>
+        बलाद्धि <strong>विवृणोत्येव</strong> भावमन्तर्गतं नृणाम् ॥
+      </div>
+      <div class="exam-grid-6-25">
+        <div class="exam-item-25"><span class="snum">१२.</span><div class="sblank-pre"></div><span class="sblank-plus">+</span><div class="sblank-post"></div></div>
+        <div class="exam-item-25"><span class="snum">१३.</span><div class="sblank-pre"></div><span class="sblank-plus">+</span><div class="sblank-post"></div></div>
+      </div>
+    </div>
+
+    <!-- Sloka 6 -->
+    <div class="shloka-box">
+      <div class="shloka-text">
+        अधोऽधः पश्यतः कस्य महिमा <strong>नोपचीयते</strong>।<br>
+        उपर्युपरि पश्यन्तः सर्व एव दरिद्रति ॥
+      </div>
+      <div class="exam-grid-6-25">
+        <div class="exam-item-25"><span class="snum">१४.</span><div class="sblank-pre"></div><span class="sblank-plus">+</span><div class="sblank-post"></div></div>
+      </div>
+    </div>
+
+    <!-- Sloka 7, 8, 9, 10, 11 consolidated -->
+    <div class="shloka-box">
+      <div class="shloka-text">
+        गुरवो बहवः सन्ति शिष्यवित्तापहारकाः।<br>
+        दुर्लभः स गुरुर्लोके शिष्यचित्तापहारकः ॥<br><br>
+        अनुगन्तुं सतां वर्त्म यदि कुत्स्नं न शक्यते।<br>
+        स्वल्पम् <strong>अप्यनुगन्तव्यम्</strong> मार्गस्य नावसीदति ॥<br><br>
+        यत्नेनानुमितोऽप्यर्थः कुशलैरनुमातृभिः।<br>
+        अभियुक्ततरैः अन्यैः <strong>अन्यथैवोपपाद्यते</strong> ॥<br><br>
+        द्वेष्योऽपि सम्मतः शिष्टः तस्यार्थस्य <strong>यथौषधम्</strong>।<br>
+        त्याज्यो दुष्टः <strong>प्रियोऽप्यासीत्</strong> अङ्गुलीवोरगक्षता ॥<br><br>
+        लोभाविष्टो नरो वित्तं वीक्षते <strong>नैव</strong> चापदम्।<br>
+        दुग्धं पश्यति माजारो यथा न <strong>लगुडाहतिम्</strong> ॥
+      </div>
+      <div class="exam-grid-6-25">
+        <div class="exam-item-25"><span class="snum">१५.</span><div class="sblank-pre"></div><span class="sblank-plus">+</span><div class="sblank-post"></div></div>
+        <div class="exam-item-25"><span class="snum">१६.</span><div class="sblank-pre"></div><span class="sblank-plus">+</span><div class="sblank-post"></div></div>
+        <div class="exam-item-25"><span class="snum">१७.</span><div class="sblank-pre"></div><span class="sblank-plus">+</span><div class="sblank-post"></div></div>
+        <div class="exam-item-25"><span class="snum">१८.</span><div class="sblank-pre"></div><span class="sblank-plus">+</span><div class="sblank-post"></div></div>
+        <div class="exam-item-25"><span class="snum">१९.</span><div class="sblank-pre"></div><span class="sblank-plus">+</span><div class="sblank-post"></div></div>
+        <div class="exam-item-25"><span class="snum">२०.</span><div class="sblank-pre"></div><span class="sblank-plus">+</span><div class="sblank-post"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chart Trigger -->
+  <div class="chart-trigger-container">
+    <button class="chart-btn" onclick="openChart()">📊 ಸಂಧಿ ಮಾಸ್ಟರ್ ಚಾರ್ಟ್</button>
+  </div>
+
+</div>
+
+<!-- ===================== MASTER CHART MODAL ===================== -->
+<div class="modal-overlay" id="chartModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-title" data-i18n="modal-title">ಅಚ್-ಸಂಧಿ ಮಾಸ್ಟರ್ ಚಾರ್ಟ್</div>
+      <button class="close-btn" onclick="closeChart()">✕</button>
+    </div>
+    <p style="text-align: center; color: var(--gold-dark); font-weight: 600; margin-bottom: 20px;" data-i18n="modal-desc">
+      (ಸಂಸ್ಕೃತದ ಮೂಲ ಅಚ್-ಸಂಧಿಗಳ ಸಂಪೂರ್ಣ ಪಟ್ಟಿ)
+    </p>
+    <div style="overflow-x: auto;">
+      <table class="master-table">
+        <thead>
+          <tr> <th>+</th> <th>अ</th> <th>इ</th> <th>उ</th> <th>ऋ</th> <th>ऌ</th> <th>ए</th> <th>ओ</th> <th>ऐ</th> <th>औ</th> </tr>
+        </thead>
+        <tbody>
+          <tr> <th>अ</th> <td class="c-dirgha">आ</td> <td class="c-guna">ए</td> <td class="c-guna">ओ</td> <td class="c-guna">अर्</td> <td class="c-guna">अल्</td> <td class="c-vriddhi">ऐ</td> <td class="c-vriddhi">औ</td> <td class="c-vriddhi">ऐ</td> <td class="c-vriddhi">औ</td> </tr>
+          <tr> <th>इ</th> <td class="c-yan">य्</td> <td class="c-dirgha">ई</td> <td class="c-yan">य्</td> <td class="c-yan">य्</td> <td class="c-yan">य्</td> <td class="c-yan">य्</td> <td class="c-yan">य्</td> <td class="c-yan">य्</td> <td class="c-yan">य्</td> </tr>
+          <tr> <th>उ</th> <td class="c-yan">व्</td> <td class="c-yan">व्</td> <td class="c-dirgha">ऊ</td> <td class="c-yan">व्</td> <td class="c-yan">व्</td> <td class="c-yan">व्</td> <td class="c-yan">व्</td> <td class="c-yan">व्</td> <td class="c-yan">व्</td> </tr>
+          <tr> <th>ऋ</th> <td class="c-yan">र्</td> <td class="c-yan">र्</td> <td class="c-yan">र्</td> <td class="c-dirgha">ॠ</td> <td class="c-dirgha">ॠ</td> <td class="c-yan">र्</td> <td class="c-yan">र्</td> <td class="c-yan">र्</td> <td class="c-yan">र्</td> </tr>
+          <tr> <th>ऌ</th> <td class="c-yan">ल्</td> <td class="c-yan">ल्</td> <td class="c-yan">ल्</td> <td class="c-dirgha">ॡ</td> <td class="c-dirgha">ॡ</td> <td class="c-yan">ल्</td> <td class="c-yan">ल्</td> <td class="c-yan">ल्</td> <td class="c-yan">ल्</td> </tr>
+          <tr> <th>ए</th> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> </tr>
+          <tr> <th>ओ</th> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> </tr>
+          <tr> <th>ऐ</th> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> </tr>
+          <tr> <th>औ</th> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="legend-box">
+      <div class="leg-item" style="background: var(--c-yan); color: var(--c-yan-txt); border-color: var(--c-yan-txt);">यण्</div>
+      <div class="leg-item" style="background: var(--c-dirgha); color: var(--c-dirgha-txt); border-color: var(--c-dirgha-txt);">दीर्घ</div>
+      <div class="leg-item" style="background: var(--c-guna); color: var(--c-guna-txt); border-color: var(--c-guna-txt);">गुण</div>
+      <div class="leg-item" style="background: var(--c-vriddhi); color: var(--c-vriddhi-txt); border-color: var(--c-vriddhi-txt);">वृद्धि</div>
+      <div class="leg-item" style="background: var(--c-ayadi); color: var(--c-ayadi-txt); border-color: var(--c-ayadi-txt);">अयादि</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function openChart() { document.getElementById('chartModal').classList.add('active'); }
+function closeChart() { document.getElementById('chartModal').classList.remove('active'); }
+window.onclick = function(event) { if (event.target == document.getElementById('chartModal')) closeChart(); }
+
+// i18n Dictionary
+const i18n = {
+  "btn-back": { kn: "ಹಿಂದಕ್ಕೆ (Index)", en: "Back to Index", sa: "प्रतिगच्छतु (सूची)" },
+  "exam-title": { kn: "ಸಂಧಿ ಪರೀಕ್ಷೆ", en: "Sandhi Exam", sa: "अच्-सन्धि परीक्षा" },
+  "sutra-label": { kn: "ಅಚ್-ಸಂಧಿ ಪರೀಕ್ಷೆ", en: "Ac-Sandhi Exam", sa: "अच्-सन्धि परीक्षा" },
+  "ex624-title": { kn: "ಸನ್ಧಿಂ ಕುರುತ, ಸನ್ಧೇಃ ನಾಮ ಅಪಿ ಲಿಖತ", en: "Perform Sandhi and write its name", sa: "सन्धिं कुरुत, सन्धेः नाम अपि लिखत" },
+  "ex624-inst": { kn: "ಅತ್ರ ಸರ್ವೇಷಾಂ ಸನ್ಧೀನಾಮ್ ಉದಾಹರಣಾನಿ ವರ್ತನ್ತೇ। ಸನ್ಧಿಂ ಕೃತ್ವಾ ಲಿಖತ। ಸನ್ಧೇಃ ನಾಮ ಅಪಿ ಲಿಖತ.<br>(ಎಲ್ಲಾ ಸಂಧಿಗಳ ಉದಾಹರಣೆಗಳು ಇಲ್ಲಿವೆ. ಸಂಧಿ ಮಾಡಿ ಬರೆಯಿರಿ ಮತ್ತು ಸಂಧಿಯ ಹೆಸರನ್ನೂ ಬರೆಯಿರಿ.)", en: "Examples of all sandhis are here. Perform sandhi and write the result. Also write the name of the sandhi.", sa: "अत्र सर्वेषां सन्धीनाम् उदाहरणानि वर्तन्ते। सन्धिं कृत्वा लिखत। सन्धेः नाम अपि लिखत." },
+  "ex625-title": { kn: "ಶ್ಲೋಕೇಷು ಅಚ್-ಸನ್ಧಿಃ", en: "Ac-Sandhi in Verses", sa: "श्लोकेषु अच्-सन्धिः" },
+  "ex625-inst": { kn: "ಏತೇಷು ಶ್ಲೋಕೇಷು ಸ್ಥೂಲಾಕ್ಷರೈಃ ಉಲ್ಲಿಖಿತೇಷು ಶಬ್ದೇಷು ಅಚ್ಸನ್ಧಿಃ ವರ್ತತೇ। ವಿಭಜ್ಯ ರಿಕ್ತಸ್ಥಾನಂ ಪೂರಯತ<br>(ಈ ಶ್ಲೋಕಗಳಲ್ಲಿ ದಪ್ಪ ಅಕ್ಷರಗಳಲ್ಲಿರುವ ಪದಗಳಲ್ಲಿ ಅಚ್-ಸಂಧಿಯಿದೆ. ವಿಭಜಿಸಿ ಖಾಲಿ ಜಾಗಗಳನ್ನು ಪೂರೈಸಿ)", en: "In these verses, the bolded words contain Ac-Sandhi. Split them and fill in the blanks.", sa: "एतेषु श्लोकेषु स्थूलाक्षरैः उल्लिखितेषु शब्देषु अच्सन्धिः वर्तते। विभज्य रिक्तस्थानं पूरयत" },
+  "modal-title": { kn: "ಅಚ್-ಸಂಧಿ ಮಾಸ्टರ್ ಚಾರ್ಟ್", en: "Ac-Sandhi Master Chart", sa: "अच्-सन्धिः महाकोष्टकम्" },
+  "modal-desc": { kn: "(ಸಂಸ್ಕೃತದ ಮೂಲ ಅಚ್-ಸಂಧಿಗಳ ಸಂಪೂರ್ಣ ಪಟ್ಟಿ)", en: "(Complete list of basic Sanskrit Ac-Sandhis)", sa: "(संस्कृत-मूल-अच्-सन्धीनां संपूर्ण सूची)" }
+};
+
+function setLanguage(lang, btnEl) {
+  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+  btnEl.classList.add('active');
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (i18n[key] && i18n[key][lang]) el.innerHTML = i18n[key][lang];
+  });
+}
+</script>
+
+</body>
+</html>
