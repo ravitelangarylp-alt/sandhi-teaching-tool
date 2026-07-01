@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>ಜಶ್ತ್ವ ಸಂಧಿ | Team Trayee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Laila:wght@400;500;600;700&family=Inknut+Antiqua:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg-color: #fcf9f2;
+  --primary: #691c22;
+  --primary-light: #8a2730;
+  --gold: #cba972;
+  --gold-dark: #a8895a;
+  --text-main: #2d2d2d;
+  --text-muted: #5a5a5a;
+  --card-bg: #ffffff;
+  --correct: #2a6040;
+  --wrong: #8b2020;
+  --font-kn: 'Laila', sans-serif;
+  --font-sa: 'Inknut Antiqua', serif;
+  
+  /* Sandhi Specific Colors */
+  --c-yan: #e3f2fd; --c-yan-txt: #1565c0;      
+  --c-dirgha: #ffebee; --c-dirgha-txt: #c62828; 
+  --c-guna: #e8f5e9; --c-guna-txt: #2e7d32;    
+  --c-vriddhi: #f3e5f5; --c-vriddhi-txt: #6a1b9a; 
+  --c-ayadi: #fff3e0; --c-ayadi-txt: #ef6c00;
+  --c-jashatva: #f9ebe9; --c-jashatva-txt: #8b3a3a; 
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-kn); background-color: var(--bg-color); color: var(--text-main);
+  line-height: 1.6; padding: 20px 20px 60px;
+}
+.container { max-width: 1000px; margin: 0 auto; overflow: hidden; }
+
+/* Animations */
+@keyframes slideUpFade { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+.anim-slide { opacity: 0; animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; } .delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; } .delay-6 { animation-delay: 0.6s; }
+.delay-7 { animation-delay: 0.7s; } .delay-8 { animation-delay: 0.8s; }
+
+/* Top Navigation */
+.top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.back-btn { font-size: 1rem; font-weight: 600; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 5px; background: rgba(203,169,114,0.15); padding: 8px 16px; border-radius: 50px; transition: 0.2s; }
+.back-btn:hover { background: rgba(203,169,114,0.3); transform: translateX(-3px); }
+.lang-switch { background: var(--card-bg); border: 1px solid var(--gold); border-radius: 50px; display: flex; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.lang-btn { background: transparent; border: none; padding: 8px 16px; font-family: var(--font-kn); font-size: 0.95rem; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: 0.2s; }
+.lang-btn.active { background: var(--primary); color: #fff; }
+
+/* Header & Sutra */
+.lesson-header { text-align: center; margin-bottom: 30px; }
+.lesson-title { font-family: var(--font-sa); font-size: 3rem; color: var(--primary); font-weight: 700; text-shadow: 1px 2px 5px rgba(105, 28, 34, 0.1); display: inline-block; position: relative; }
+.lesson-title::after { content: ''; position: absolute; bottom: 0; left: 10%; right: 10%; height: 3px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+.sutra-box { background: linear-gradient(135deg, #691c22, #4a1318); color: #fff; padding: 30px; border-radius: 12px; text-align: center; box-shadow: 0 8px 20px rgba(105, 28, 34, 0.2); margin-bottom: 30px; position: relative; overflow: hidden; }
+.sutra-label { font-size: 1rem; font-weight: 600; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+.sutra-text { font-family: var(--font-sa); font-size: 2.6rem; font-weight: 700; line-height: 1.4; }
+
+/* Sections */
+.content-section { background: #fff; border: 1px solid rgba(203,169,114,0.4); border-radius: 12px; padding: 30px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); transition: 0.3s; }
+.content-section:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
+.sec-heading { font-size: 1.5rem; color: var(--primary); font-weight: 700; margin-bottom: 20px; border-bottom: 1px solid rgba(203,169,114,0.3); padding-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+.sec-heading::before { content: '❖'; color: var(--gold); font-size: 1.2rem; }
+
+/* --- Transformation Map --- */
+.golden-rule-box {
+  background: #fcf4e3; border-left: 4px solid #ef6c00; padding: 15px 20px;
+  border-radius: 6px; margin-bottom: 25px; line-height: 1.6;
+}
+.golden-rule-box strong { color: #d84315; font-size: 1.1rem; }
+
+.jashatva-diagram-container {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;
+  margin: 30px 0; background: #fdfaf5; padding: 25px; border-radius: 12px;
+  border: 1px solid rgba(203,169,114,0.2);
+}
+.jashatva-diagram-item {
+  display: flex; align-items: center; gap: 15px;
+  font-family: var(--font-sa); font-size: 1.5rem; background: #fff;
+  padding: 8px 15px; border-radius: 8px; border: 1px solid rgba(203,169,114,0.3);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+.jashatva-diagram-item .arrow { color: var(--gold-dark); font-weight: 700; }
+.jashatva-diagram-item .result { background: var(--c-jashatva); color: var(--c-jashatva-txt); padding: 2px 10px; border-radius: 4px; font-weight: 700; }
+.note-yellow { background: #fff8e1; padding: 15px; border-left: 4px solid #ffb300; margin: 15px 0 25px 0; font-size: 1.1rem; line-height: 1.6;}
+.pedagogy-tip { background: #eef7ff; border-left: 5px solid #2c7b98; padding: 15px; margin: 20px 0; border-radius: 4px; font-size: 1.05rem; line-height: 1.7;}
+
+/* Mapping Table */
+.mapping-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-family: var(--font-sa); font-size: 1.1rem; text-align: center; }
+.mapping-table th { background: var(--primary); color: #fff; padding: 10px; border: 1px solid var(--primary); }
+.mapping-table td { padding: 10px; border: 1px solid rgba(203,169,114,0.4); }
+.mapping-table tr:nth-child(even) { background: #fcf9f2; }
+.mapping-table .jhal-bg { background: #fdf2f0; color: #b33; font-weight: 700; }
+.mapping-table .jash-bg { background: #f0f9f2; color: #2a7a4a; font-weight: 700; }
+
+.map-grid { display: flex; flex-direction: column; gap: 15px; }
+
+/* ===== ABHYASA SECTION STYLES ===== */
+.abhyasa-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: #fff; padding: 5px 16px; border-radius: 50px;
+  font-size: 1rem; font-weight: 700; margin-bottom: 18px;
+  box-shadow: 0 4px 12px rgba(105,28,34,0.2);
+}
+.abhyasa-badge .ab-num { background: rgba(255,255,255,0.25); border-radius: 50px; padding: 1px 10px; font-family: var(--font-sa); }
+
+.sandhi-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 30px; margin-top: 10px;
+}
+.sandhi-item {
+  display: flex; align-items: flex-end; gap: 8px;
+  font-family: var(--font-sa); font-size: 1.15rem; color: var(--text-main);
+  padding: 8px 0; border-bottom: 1px dashed rgba(203,169,114,0.3);
+}
+.sandhi-item .snum { font-size: 1rem; color: var(--gold-dark); font-weight: 700; min-width: 24px; }
+.sandhi-item .sword { color: var(--primary); font-weight: 600; white-space: nowrap; }
+.sandhi-item .sblank { flex-grow: 1; border-bottom: 1.5px solid var(--text-muted); height: 22px; margin-bottom: 3px; }
+
+/* ===== MATCHING GAME ===== */
+.game-container { background: #fdfaf5; border: 2px dashed var(--gold); border-radius: 12px; padding: 25px; text-align: center; }
+.game-status { font-size: 1.1rem; font-weight: 600; color: var(--gold-dark); margin-bottom: 15px; }
+.match-area {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
+  margin: 20px 0; align-items: start; justify-content: center;
+}
+.match-col-title { font-weight: 700; color: var(--primary); font-size: 1.2rem; margin-bottom: 15px; }
+.match-jhal-col, .match-jash-col {
+  display: flex; flex-direction: column; gap: 12px;
+  align-items: center; justify-content: center;
+}
+.match-item {
+  background: #fff; border: 2px solid var(--gold-dark); border-radius: 8px;
+  padding: 10px 20px; font-family: var(--font-sa); font-size: 1.5rem;
+  font-weight: 700; cursor: pointer; transition: 0.2s; width: 80px; text-align: center;
+}
+.match-item:hover { transform: scale(1.05); box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
+.match-item.selected { background: var(--primary); color: #fff; border-color: var(--primary); transform: scale(1.1); }
+.match-item.matched { background: var(--correct); color: #fff; border-color: var(--correct); cursor: default; opacity: 0.6; }
+.match-item.error { animation: shake 0.4s; border-color: var(--wrong); }
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+.game-btn { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: #fff; border: none; padding: 12px 25px; font-size: 1.1rem; font-weight: 700; font-family: var(--font-kn); border-radius: 50px; cursor: pointer; box-shadow: 0 6px 15px rgba(105, 28, 34, 0.3); transition: 0.2s; margin-top: 20px; }
+.game-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(105, 28, 34, 0.4); }
+.game-feedback { margin-top: 15px; font-size: 1.2rem; font-weight: 700; height: 30px; }
+
+/* Master Chart Button */
+.chart-trigger-container { text-align: center; margin-top: 50px; }
+.chart-btn { background: linear-gradient(135deg, var(--gold-dark), var(--gold)); color: #fff; border: none; padding: 15px 30px; font-size: 1.3rem; font-weight: 700; font-family: var(--font-kn); border-radius: 50px; cursor: pointer; box-shadow: 0 8px 20px rgba(203, 169, 114, 0.4); transition: 0.3s; display: inline-flex; align-items: center; gap: 10px; }
+.chart-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 12px 25px rgba(203, 169, 114, 0.6); }
+
+/* Modal Styles */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); z-index: 1000; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: 0.3s; }
+.modal-overlay.active { opacity: 1; visibility: visible; }
+.modal-content { background: #fff; border-radius: 16px; padding: 30px; max-width: 95%; max-height: 95vh; overflow-y: auto; border: 3px solid var(--gold); transform: scale(0.9); transition: 0.3s; }
+.modal-overlay.active .modal-content { transform: scale(1); }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid rgba(203,169,114,0.3); padding-bottom: 15px; }
+.modal-title { font-size: 1.8rem; font-weight: 700; color: var(--primary); font-family: var(--font-sa); }
+.close-btn { background: #fdfaf5; border: 1px solid var(--gold); color: var(--primary); font-size: 1.5rem; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; transition: 0.2s; }
+.close-btn:hover { background: var(--primary); color: #fff; }
+
+/* ===================== MASTER CHART ===================== */
+.master-table { width: 100%; border-collapse: collapse; font-family: var(--font-sa); text-align: center; font-size: 1.4rem; }
+.master-table th { background: rgba(203, 169, 114, 0.15); color: var(--primary); font-weight: 700; padding: 12px; border: 1px solid var(--gold); }
+.master-table td { padding: 12px; border: 1px solid rgba(203,169,114,0.4); font-weight: 600; }
+.master-table thead th { border-bottom: 3px double var(--gold-dark); }
+.master-table tbody th { border-right: 3px double var(--gold-dark); background: rgba(203, 169, 114, 0.08); }
+.c-yan { background-color: var(--c-yan); color: var(--c-yan-txt); }
+.c-dirgha { background-color: var(--c-dirgha); color: var(--c-dirgha-txt); }
+.c-guna { background-color: var(--c-guna); color: var(--c-guna-txt); }
+.c-vriddhi { background-color: var(--c-vriddhi); color: var(--c-vriddhi-txt); }
+.c-ayadi { background-color: var(--c-ayadi); color: var(--c-ayadi-txt); }
+.legend-box { display: flex; gap: 15px; justify-content: center; margin-top: 20px; font-weight: 600; flex-wrap: wrap; }
+.leg-item { display: flex; align-items: center; gap: 5px; padding: 5px 10px; border-radius: 6px; border: 1px solid #ddd; }
+
+@media (max-width: 768px) {
+  .sandhi-grid, .match-area { grid-template-columns: 1fr; gap: 15px; }
+  .sutra-text { font-size: 2.2rem; }
+  .lesson-title { font-size: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  
+  <!-- Navigation -->
+  <div class="top-bar">
+    <a href="index.html" class="back-btn">⮜ <span data-i18n="btn-back">ಹಿಂದಕ್ಕೆ (Index)</span></a>
+    <div class="lang-switch">
+      <button class="lang-btn active" onclick="setLanguage('kn', this)">ಕನ್ನಡ</button>
+      <button class="lang-btn" onclick="setLanguage('en', this)">English</button>
+      <button class="lang-btn" onclick="setLanguage('sa', this)">संस्कृतम्</button>
+    </div>
+  </div>
+
+  <div class="lesson-header anim-slide">
+    <div class="lesson-title" data-i18n="lesson-title">ಹಲ್-ಸಂಧಿ: ಜಶ್ತ್ವ ಸಂಧಿಃ</div>
+  </div>
+
+  <!-- Sutra Box -->
+  <div class="sutra-box anim-slide delay-1">
+    <div class="sutra-label" data-i18n="sutra-label">ಪಾಣಿನೀಯ ಸೂತ್ರಮ್</div>
+    <div class="sutra-text">
+        <span>झलां जशोऽन्ते <span style="font-size: 1.2rem; opacity: 0.8;">(८.२.३९)</span></span>
+    </div>
+  </div>
+
+  <!-- Rule & Diagram Map -->
+  <div class="content-section anim-slide delay-2">
+    <div class="sec-heading" data-i18n="map-title">ನಿಯಮ ವಿವರಣೆ (Rule Explanation)</div>
+    
+    <div class="golden-rule-box" data-i18n="jashatva-map-note">
+      <strong>ಸೂತ್ರ (झलां जशोऽन्ते):</strong> ಪದದ ಅಂತ್ಯದಲ್ಲಿರುವ <strong>'ಝಲ್'</strong> (ವರ್ಗದ ೧, ೨, ೪ ಅಕ್ಷರಗಳು - ಕ್, ಖ್, ಘ್ ಮುಂತಾದವು, ಮತ್ತು ಶ್, ಷ್, ಸ್, ಹ್) ವರ್ಣಗಳಿಗೆ, <strong>'ಜಶ್'</strong> (ವರ್ಗದ ೩ನೇ ಅಕ್ಷರಗಳು: ಗ್, ಜ್, ಡ್, ದ್, ಬ್) ಆದೇಶವಾಗುತ್ತದೆ.
+    </div>
+
+    <!-- Mapping Table -->
+    <div style="margin: 20px 0;">
+      <p style="font-weight: 700; color: var(--primary); margin-bottom: 10px;" data-i18n="jashatva-mapping">ಝಲ್ ಮತ್ತು ಜಶ್ ನಕ್ಷೆ (Mapping)</p>
+      <table class="mapping-table">
+        <thead>
+          <tr>
+            <th data-i18n="jashatva-varga">ವರ್ಗ</th>
+            <th data-i18n="jashatva-jhal" class="jhal-bg">ಝಲ್ (1, 2, 4)</th>
+            <th data-i18n="jashatva-jash" class="jash-bg">ಜಶ್ (3)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>ಕ-ವರ್ಗ</td><td class="jhal-bg">क्, ख्, घ्</td><td class="jash-bg">ग्</td></tr>
+          <tr><td>ಚ-ವರ್ಗ</td><td class="jhal-bg">च्, छ्, झ्</td><td class="jash-bg">ज्</td></tr>
+          <tr><td>ಟ-ವರ್ಗ</td><td class="jhal-bg">ट्, ठ्, ढ्</td><td class="jash-bg">ड्</td></tr>
+          <tr><td>ತ-ವರ್ಗ</td><td class="jhal-bg">त्, थ्, ध्</td><td class="jash-bg">द्</td></tr>
+          <tr><td>ಪ-ವರ್ಗ</td><td class="jhal-bg">प्, फ्, भ्</td><td class="jash-bg">ब्</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pedagogy-tip" data-i18n="jashatva-tip">
+        <strong>ವಿದ್ಯಾರ್ಥಿಗಳಿಗಾಗಿ ಒಂದು ಸಣ್ಣ ಟಿಪ್:</strong> "ಜಶ್ತ್ವ" ಎಂದರೆ '3'ನೇ ಅಕ್ಷರಕ್ಕೆ ಬದಲಾಗುವುದು. ವರ್ಗದ 1, 2, 4 ಅಕ್ಷರಗಳು ಬಂದರೆ, ಅವು ಬಲವಂತವಾಗಿ 3ನೇ ಅಕ್ಷರಕ್ಕೆ (ಜಶ್‌ಗೆ) ಮಾರ್ಪಡುತ್ತವೆ ಎಂಬುದು ಇದರ ತರ್ಕ.
+    </div>
+
+    <div class="sec-heading" style="font-size: 1.2rem; border-bottom: none; margin-top: 0; color: var(--gold-dark);" data-i18n="diagram-title">ಜಶ್ತ್ವ-ಸಂಧಿ ದೃಶ್ಯ ನಿರೂಪಣೆ (Visual Examples)</div>
+    
+    <div class="jashatva-diagram-container">
+        <div class="jashatva-diagram-item">
+            <span class="chip">वाक्</span> <span class="chip">ईशः</span>
+            <span class="arrow">➔</span> <span class="result">वागीशः</span>
+            <span style="font-size: 0.9rem; color: var(--text-muted); font-family: var(--font-kn);">(क् ➔ ग्)</span>
+        </div>
+        <div class="jashatva-diagram-item">
+            <span class="chip">तत्</span> <span class="chip">यथा</span>
+            <span class="arrow">➔</span> <span class="result">तद्यथा</span>
+            <span style="font-size: 0.9rem; color: var(--text-muted); font-family: var(--font-kn);">(त् ➔ द्)</span>
+        </div>
+        <div class="jashatva-diagram-item">
+            <span class="chip">षट्</span> <span class="chip">आननः</span>
+            <span class="arrow">➔</span> <span class="result">षडाननः</span>
+            <span style="font-size: 0.9rem; color: var(--text-muted); font-family: var(--font-kn);">(ट् ➔ ड्)</span>
+        </div>
+        <div class="jashatva-diagram-item">
+            <span class="chip">त्रिष्टुप्</span>
+            <span class="arrow">➔</span> <span class="result">त्रिष्टुब्</span>
+            <span style="font-size: 0.9rem; color: var(--text-muted); font-family: var(--font-kn);">(प् ➔ ब्)</span>
+        </div>
+    </div>
+  </div>
+
+  <!-- ===== ABHYASA 7.5 — SANDHI KURATA ===== -->
+  <div class="content-section anim-slide delay-3">
+    <div class="abhyasa-badge"><span class="ab-num">अभ्यासः ७.५</span> <span data-i18n="ab75-title">सन्धिं कुरुत</span></div>
+    <p style="font-size: 1rem; color: var(--text-muted); margin-bottom: 16px;" data-i18n="ab75-inst">ಕೆಳಗಿನ ಪದಗಳಿಗೆ ಜಶ್ತ್ವ ಸಂಧಿಯನ್ನು ಮಾಡಿ ಬರೆಯಿರಿ:</p>
+    <div class="sandhi-grid">
+      <div class="sandhi-item"><span class="snum">१.</span><span class="sword">उत्+गमः</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">१७.</span><span class="sword">बालात्+अपि</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">२.</span><span class="sword">सत्+गुणः</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">१८.</span><span class="sword">तत्+धनम्</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">३.</span><span class="sword">स्वर्गत्+अपि</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">१९.</span><span class="sword">सत्+आचारः</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">४.</span><span class="sword">षष्+दर्शनानि</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">२०.</span><span class="sword">यत्+यत्+आचरति</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">५.</span><span class="sword">जगत्+गुरुः</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">२१.</span><span class="sword">जगत्+ईशः</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">६.</span><span class="sword">प्राक्+एव</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">२२.</span><span class="sword">पर्वत्+एव</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">७.</span><span class="sword">सुप्+विभक्तिः</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">२३.</span><span class="sword">षष्+विधम्</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">८.</span><span class="sword">अच्+वर्णः</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">२४.</span><span class="sword">तत्+आचरति</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">९.</span><span class="sword">महत्+यशः</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">२५.</span><span class="sword">कियत्+भाषणम्</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">१०.</span><span class="sword">तत्+यथा</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">२६.</span><span class="sword">जगत्+रक्षकः</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">११.</span><span class="sword">कियत्+धनम्</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">२७.</span><span class="sword">मत्+गुणः</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">१२.</span><span class="sword">तत्+अत्र</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">२८.</span><span class="sword">महत्+धनम्</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">१३.</span><span class="sword">शुकवत्+भाषणम्</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">२९.</span><span class="sword">तत्+वत्</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">१४.</span><span class="sword">आपत्+गतः</span><div class="sblank"></div></div>
+      <div class="sandhi-item"><span class="snum">३०.</span><span class="sword">यावत्+वदति</span><div class="sblank"></div></div>
+
+      <div class="sandhi-item"><span class="snum">१५.</span><span class="sword">धनात्+धर्मः</span><div class="sblank"></div></div>
+      <div class="sandhi-item" style="border-bottom: none;"></div>
+
+      <div class="sandhi-item"><span class="snum">१६.</span><span class="sword">तत्+एव</span><div class="sblank"></div></div>
+      <div class="sandhi-item" style="border-bottom: none;"></div>
+    </div>
+  </div>
+
+  <!-- ===== MATCH GAME (Jhal to Jash) ===== -->
+  <div class="content-section anim-slide delay-4">
+    <div class="sec-heading" style="justify-content: center;" data-i18n="game-title">✦ 'ಝಲ್' → 'ಜಶ್' ಹೊಂದಿಸುವ ಆಟ (Match the Letters) ✦</div>
+    <p style="text-align: center; color: var(--text-muted); font-weight: 600; margin-bottom: 20px;" data-i18n="game-inst">
+      ಎಡಬದಿಯಲ್ಲಿರುವ 'ಝಲ್' ಅಕ್ಷರಕ್ಕೆ ಸರಿಯಾದ 'ಜಶ್' ಅಕ್ಷರವನ್ನು ಬಲಬದಿಯಿಂದ ಆರಿಸಿ ಕ್ಲಿಕ್ ಮಾಡಿ:
+    </p>
+
+    <div class="game-container">
+      <div class="game-status" id="game-status">ಪ್ರಶ್ನೆ ೧ / ೫</div>
+      
+      <div class="match-area">
+        <!-- Left Column: Jhal Letter to match -->
+        <div>
+          <div class="match-col-title" data-i18n="game-jhal-col">ಝಲ್ (Jhal)</div>
+          <div class="match-jhal-col" id="jhal-col">
+            <!-- Javascript will populate this -->
+            <div class="match-item" data-jhal="क्">क्</div>
+          </div>
+        </div>
+        
+        <!-- Right Column: Jash Options -->
+        <div>
+          <div class="match-col-title" data-i18n="game-jash-col">ಜಶ್ (Jash)</div>
+          <div class="match-jash-col" id="jash-col">
+            <!-- Javascript will populate this -->
+          </div>
+        </div>
+      </div>
+
+      <div class="game-feedback" id="game-feedback"></div>
+    </div>
+  </div>
+
+  <!-- Chart Trigger -->
+  <div class="chart-trigger-container">
+    <button class="chart-btn" onclick="openChart()">📊 ಸಂಧಿ ಮಾಸ್ಟರ್ ಚಾರ್ಟ್</button>
+  </div>
+
+</div>
+
+<!-- ===================== MASTER CHART MODAL ===================== -->
+<div class="modal-overlay" id="chartModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-title" data-i18n="modal-title">ಅಚ್-ಸಂಧಿ ಮಾಸ್ಟರ್ ಚಾರ್ಟ್</div>
+      <button class="close-btn" onclick="closeChart()">✕</button>
+    </div>
+    <p style="text-align: center; color: var(--gold-dark); font-weight: 600; margin-bottom: 20px;" data-i18n="modal-desc">
+      (ಅಚ್-ಸಂಧಿಗಳ ಸಂಪೂರ್ಣ ಪಟ್ಟಿ. ಜಶ್ತ್ವ ವ್ಯಂಜನ ಸಂಧಿಯಾಗಿದ್ದು, ಇದರಲ್ಲಿ ಸೇರಿಲ್ಲ.)
+    </p>
+    
+    <div style="overflow-x: auto;">
+      <table class="master-table">
+        <thead>
+          <tr> <th>+</th> <th>अ</th> <th>इ</th> <th>उ</th> <th>ऋ</th> <th>ऌ</th> <th>ए</th> <th>ओ</th> <th>ऐ</th> <th>औ</th> </tr>
+        </thead>
+        <tbody>
+          <tr> <th>अ</th> <td class="c-dirgha">आ</td> <td class="c-guna">ए</td> <td class="c-guna">ओ</td> <td class="c-guna">अर्</td> <td class="c-guna">अल्</td> <td class="c-vriddhi">ऐ</td> <td class="c-vriddhi">औ</td> <td class="c-vriddhi">ऐ</td> <td class="c-vriddhi">औ</td> </tr>
+          <tr> <th>इ</th> <td class="c-yan">य्</td> <td class="c-dirgha">ई</td> <td class="c-yan">य्</td> <td class="c-yan">य्</td> <td class="c-yan">य्</td> <td class="c-yan">य्</td> <td class="c-yan">य्</td> <td class="c-yan">य्</td> <td class="c-yan">य्</td> </tr>
+          <tr> <th>उ</th> <td class="c-yan">व्</td> <td class="c-yan">व्</td> <td class="c-dirgha">ऊ</td> <td class="c-yan">व्</td> <td class="c-yan">व्</td> <td class="c-yan">व्</td> <td class="c-yan">व्</td> <td class="c-yan">व्</td> <td class="c-yan">व्</td> </tr>
+          <tr> <th>ऋ</th> <td class="c-yan">र्</td> <td class="c-yan">र्</td> <td class="c-yan">र्</td> <td class="c-dirgha">ॠ</td> <td class="c-dirgha">ॠ</td> <td class="c-yan">र्</td> <td class="c-yan">र्</td> <td class="c-yan">र्</td> <td class="c-yan">र्</td> </tr>
+          <tr> <th>ऌ</th> <td class="c-yan">ल्</td> <td class="c-yan">ल्</td> <td class="c-yan">ल्</td> <td class="c-dirgha">ॡ</td> <td class="c-dirgha">ॡ</td> <td class="c-yan">ल्</td> <td class="c-yan">ल्</td> <td class="c-yan">ल्</td> <td class="c-yan">ल्</td> </tr>
+          <tr> <th>ए</th> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> <td class="c-ayadi">अय्</td> </tr>
+          <tr> <th>ओ</th> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> <td class="c-ayadi">अव्</td> </tr>
+          <tr> <th>ऐ</th> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> <td class="c-ayadi">आय्</td> </tr>
+          <tr> <th>औ</th> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> <td class="c-ayadi">आव्</td> </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="legend-box">
+      <div class="leg-item" style="background: var(--c-yan); color: var(--c-yan-txt); border-color: var(--c-yan-txt);">यण्</div>
+      <div class="leg-item" style="background: var(--c-dirgha); color: var(--c-dirgha-txt); border-color: var(--c-dirgha-txt);">दीर्घ</div>
+      <div class="leg-item" style="background: var(--c-guna); color: var(--c-guna-txt); border-color: var(--c-guna-txt);">गुण</div>
+      <div class="leg-item" style="background: var(--c-vriddhi); color: var(--c-vriddhi-txt); border-color: var(--c-vriddhi-txt);">वृद्धि</div>
+      <div class="leg-item" style="background: var(--c-ayadi); color: var(--c-ayadi-txt); border-color: var(--c-ayadi-txt);">अयादि</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// --- JASHA MATCHING GAME ---
+// Jhal letters mapped to their corresponding Jash letters
+const jhalToJashMap = {
+  'क्': 'ग्', 'ख्': 'ग्', 'घ्': 'ग्',
+  'च्': 'ज्', 'छ्': 'ज्', 'झ्': 'ज्',
+  'ट्': 'ड्', 'ठ्': 'ड्', 'ढ्': 'ड्',
+  'त्': 'द्', 'थ्': 'द्', 'ध्': 'द्',
+  'प्': 'ब्', 'फ्': 'ब्', 'भ्': 'ब्'
+};
+
+// Get unique keys and options
+const jhalKeys = Object.keys(jhalToJashMap);
+const jashOptions = [...new Set(Object.values(jhalToJashMap))];
+
+let currentQ = 0;
+let selectedJhal = null;
+let selectedJash = null;
+let totalQuestions = 5; // We will just ask 5 questions
+let usedIndices = [];
+let currentJhalKey = '';
+
+function shuffleJhalKeys() {
+  let shuffled = [...jhalKeys].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, totalQuestions);
+}
+
+function loadMatchQuestion() {
+  const shuffledKeys = shuffleJhalKeys();
+  currentJhalKey = shuffledKeys[currentQ];
+  const correctJash = jhalToJashMap[currentJhalKey];
+  const options = shuffleOptions([correctJash, ...jashOptions.filter(j => j !== correctJash)]);
+
+  document.getElementById('game-status').innerText = `ಪ್ರಶ್ನೆ ${currentQ + 1} / ${totalQuestions}`;
+  
+  // Reset selection
+  selectedJhal = null;
+  selectedJash = null;
+  document.getElementById('game-feedback').innerText = '';
+
+  // Populate Jhal column (Just show the current Jhal letter)
+  const jhalCol = document.getElementById('jhal-col');
+  jhalCol.innerHTML = '';
+  const jhalDiv = document.createElement('div');
+  jhalDiv.className = 'match-item';
+  jhalDiv.innerText = currentJhalKey;
+  jhalDiv.dataset.jhal = currentJhalKey;
+  jhalCol.appendChild(jhalDiv);
+
+  // Populate Jash column
+  const jashCol = document.getElementById('jash-col');
+  jashCol.innerHTML = '';
+  options.forEach(opt => {
+    const div = document.createElement('div');
+    div.className = 'match-item';
+    div.innerText = opt;
+    div.dataset.jash = opt;
+    div.onclick = () => handleJashClick(div);
+    jashCol.appendChild(div);
+  });
+}
+
+function shuffleOptions(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function handleJashClick(el) {
+  if (el.classList.contains('matched')) return;
+  
+  // Remove previous selection from right
+  document.querySelectorAll('#jash-col .match-item').forEach(item => item.classList.remove('selected'));
+  
+  el.classList.add('selected');
+  selectedJash = el.dataset.jash;
+
+  // Check if correct
+  const correctJash = jhalToJashMap[currentJhalKey];
+  const fb = document.getElementById('game-feedback');
+
+  if (selectedJash === correctJash) {
+    fb.innerText = "✓ ಸರಿಯಾದ ಉತ್ತರ! (Correct!)";
+    fb.style.color = "var(--correct)";
+    el.classList.remove('selected');
+    el.classList.add('matched');
+    
+    // Mark left as matched too
+    document.querySelector('#jhal-col .match-item').classList.add('matched');
+
+    if (currentQ < totalQuestions - 1) {
+      setTimeout(() => {
+        currentQ++;
+        loadMatchQuestion();
+      }, 1000);
+    } else {
+      fb.innerText = "🎉 ಆಟ ಮುಕ್ತಾಯ! ಎಲ್ಲಾ ಜಶ್ ಸಂಧಿಗಳನ್ನು ನೀವು ಗುರುತಿಸಿದ್ದೀರಿ! (Game Complete!)";
+    }
+  } else {
+    fb.innerText = "✗ ತಪ್ಪು! ಮತ್ತೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಿ. (Wrong, try again!)";
+    fb.style.color = "var(--wrong)";
+    el.classList.add('error');
+    setTimeout(() => el.classList.remove('error'), 500);
+  }
+}
+
+window.onload = function() {
+  loadMatchQuestion();
+};
+
+function openChart() { document.getElementById('chartModal').classList.add('active'); }
+function closeChart() { document.getElementById('chartModal').classList.remove('active'); }
+window.onclick = function(event) { if (event.target == document.getElementById('chartModal')) closeChart(); }
+
+// i18n Dictionary
+const i18n = {
+  "btn-back": { kn: "ಹಿಂದಕ್ಕೆ (Index)", en: "Back to Index", sa: "प्रतिगच्छतु (सूची)" },
+  "lesson-title": { kn: "ಹಲ್-ಸಂಧಿ: ಜಶ್ತ್ವ ಸಂಧಿಃ", en: "Hal Sandhi: Jashatva Sandhi", sa: "हल्-सन्धिः: जश्त्वसन्धिः" },
+  "sutra-label": { kn: "ಪಾಣಿನೀಯ ಸೂತ್ರಮ್", en: "Paninian Sutra", sa: "पाणिनीय-सूत्रम्" },
+  "map-title": { kn: "ನಿಯಮ ವಿವರಣೆ (Rule Explanation)", en: "Rule Explanation", sa: "नियम-विवरणम्" },
+  "jashatva-map-note": { kn: "<strong>ಸೂತ्र (झलां जशोऽन्ते):</strong> ಪದದ ಅಂತ್ಯದಲ್ಲಿರುವ <strong>'ಝಲ್'</strong> (ವರ್ಗದ ೧, ೨, ೪ ಅಕ್ಷರಗಳು - ಕ್, ಖ್, ಘ್ ಮುಂತಾದವು, ಮತ್ತು ಶ್, ಷ್, ಸ್, ಹ್) ವರ್ಣಗಳಿಗೆ, <strong>'ಜಶ್'</strong> (ವರ್ಗದ ೩ನೇ ಅಕ್ಷರಗಳು: ಗ್, ಜ್, ಡ್, ದ್, ಬ್) ಆದೇಶವಾಗುತ್ತದೆ.", en: "<strong>Sutra (झलां जशोऽन्ते):</strong> At the end of a word, <strong>'Jhal'</strong> letters (1st, 2nd, and 4th letters of the groups - k, kh, gh, etc., and ś, ṣ, s, h) are replaced by <strong>'Jash'</strong> letters (3rd letters of the groups: g, j, ḍ, d, b).", sa: "<strong>सूत्रम् (झलां जशोऽन्ते):</strong> पदस्य अन्ते स्थितानां <strong>'झल्'</strong> (वर्गस्य प्रथम-द्वितीय-चतुर्थ वर्णाः क्, ख्, घ् इत्यादयः, तथा श्, ष्, स्, ह्) वर्णानां स्थाने <strong>'जश्'</strong> (वर्गस्य तृतीय वर्णाः ग्, ज्, ड्, द्, ब्) आदेशः भवति।" },
+  "jashatva-mapping": { kn: "ಝಲ್ ಮತ್ತು ಜಶ್ ನಕ್ಷೆ (Mapping)", en: "Jhal to Jash Mapping", sa: "झल्-जश्-नक्शा" },
+  "jashatva-varga": { kn: "ವರ್ಗ", en: "Group", sa: "वर्गः" },
+  "jashatva-jhal": { kn: "ಝಲ್ (1, 2, 4)", en: "Jhal (1, 2, 4)", sa: "झल् (1, 2, 4)" },
+  "jashatva-jash": { kn: "ಜಶ್ (3)", en: "Jash (3)", sa: "जश् (3)" },
+  "jashatva-tip": { kn: "<strong>ವಿದ್ಯಾರ್ಥಿಗಳಿಗಾಗಿ ಒಂದು ಸಣ್ಣ ಟಿಪ್:</strong> \"ಜಶ್ತ್ವ\" ಎಂದರೆ '3'ನೇ ಅಕ್ಷರಕ್ಕೆ ಬದಲಾಗುವುದು. ವರ್ಗದ 1, 2, 4 ಅಕ್ಷರಗಳು ಬಂದರೆ, ಅವು ಬಲವಂತವಾಗಿ 3ನೇ ಅಕ್ಷರಕ್ಕೆ (ಜಶ್‌ಗೆ) ಮಾರ್ಪಡುತ್ತವೆ ಎಂಬುದು ಇದರ ತರ್ಕ.", en: "<strong>Small Tip for Students:</strong> \"Jashatva\" means changing to the '3rd' letter. If the 1st, 2nd, or 4th letters of a group appear, they forcefully change to the 3rd letter (Jash).", sa: "<strong>छात्राणां कृते लघु सूचना:</strong> \"जश्त्व\" इति तृतीय-वर्णे परिवर्तनम्। वर्गस्य प्रथम-द्वितीय-चतुर्थ वर्णाः आगच्छन्ति चेत्, ते बलात् तृतीय-वर्णे (जशि) परिणमन्ति इति अस्य तर्कः।" },
+  "diagram-title": { kn: "ಜಶ್ತ್ವ-ಸಂಧಿ ದೃಶ್ಯ ನಿರೂಪಣೆ (Visual Examples)", en: "Visual Representation of Jashatva Sandhi", sa: "जश्त्व-सन्धि-दृश्य-निरूपणम्" },
+  "ab75-title": { kn: "सन्धिं कुरुत", en: "Perform Sandhi", sa: "सन्धिं कुरुत" },
+  "ab75-inst": { kn: "ಕೆಳಗಿನ ಪದಗಳಿಗೆ ಜಶ್ತ್ವ ಸಂಧಿಯನ್ನು ಮಾಡಿ ಬರೆಯಿರಿ:", en: "Perform Jashatva Sandhi on the following words:", sa: "अधस्थपदानां जश्त्वसन्धिं कुरुत:" },
+  "game-title": { kn: "✦ 'ಝಲ್' → 'ಜಶ್' ಹೊಂದಿಸುವ ಆಟ (Match the Letters) ✦", en: "✦ Match Jhal to Jash ✦", sa: "✦ 'झल्' → 'जश्' मेलन-क्रीडा ✦" },
+  "game-inst": { kn: "ಎಡಬದಿಯಲ್ಲಿರುವ 'ಝಲ್' ಅಕ್ಷರಕ್ಕೆ ಸರಿಯಾದ 'ಜಶ್' ಅಕ್ಷರವನ್ನು ಬಲಬದಿಯಿಂದ ಆರಿಸಿ ಕ್ಲಿಕ್ ಮಾಡಿ:", en: "Click the correct 'Jash' letter for the 'Jhal' letter on the left:", sa: "वामभागे स्थितायाः 'झल्'-वर्णायाः सम्यक् 'जश्'-वर्णं दक्षिणभागात् चित्वा नुदन्तु:" },
+  "game-jhal-col": { kn: "ಝಲ್ (Jhal)", en: "Jhal", sa: "झल्" },
+  "game-jash-col": { kn: "ಜಶ್ (Jash)", en: "Jash", sa: "जश्" },
+  "modal-title": { kn: "ಅಚ್-ಸಂಧಿ ಮಾಸ्टರ್ ಚಾರ್ಟ್", en: "Ac-Sandhi Master Chart", sa: "अच्-सन्धिः महाकोष्टकम्" },
+  "modal-desc": { kn: "(ಅಚ್-ಸಂಧಿಗಳ ಸಂಪೂರ್ಣ ಪಟ್ಟಿ. ಜಶ್ತ್ವ ವ್ಯಂಜನ ಸಂಧಿಯಾಗಿದ್ದು, ಇದರಲ್ಲಿ ಸೇರಿಲ್ಲ.)", en: "(Complete list of Ac-Sandhis. Jashatva is a consonant sandhi and is not included here.)", sa: "(अच्-सन्धीनां संपूर्ण सूची। जश्त्वं व्यञ्जनसन्धिः अस्ति, अतः अत्र न अन्तर्भूतः।)" }
+};
+
+function setLanguage(lang, btnEl) {
+  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+  btnEl.classList.add('active');
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (i18n[key] && i18n[key][lang]) el.innerHTML = i18n[key][lang];
+  });
+}
+</script>
+
+</body>
+</html>
